@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+
+  <style>
+    body {background-color: #201920; font-family: verdana;;}
+    select {margin: 10px}
+    a {color: #FFF4DC}
+    .inc_div {display: inline-block;}
+    .inc_button, .rare_button {padding: 3px; width: 27px; margin: none; background: #332233; border:none; font-family: verdana; color:white}
+    .inc_button:hover, .rarebutton:hover {color:grey;}
+    .stat_field, .rare_field {width: 45px; background:none; text-align: right; border: none; color:white; margin-left: 3px; margin-right: 3px}
+    .name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
+    .name_div:hover {color:grey;}
+    .columnheader {width: 80px; color:white; font-size: small; display:inline-block}
+    .outputbutton {margin: 10px}
+    .rare_button {width: auto; margin: 5px;}
+    .rare_field {font-size: small; width: 85%}
+    #page_div {margin: 0px 10px 0px 10px}
+    #header_div {margin-left:240px}
+    #buttons_div{display: inline-block; float: left; margin-right: 30px; height: 100%}
+    #monsterlist_div {margin-left:10px}
+    #rarebuttons_div {margin-left:20px; padding: 0px}
+    #output_container {display: inline; height:100%; width: 50%;}
+    #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
+  </style> 
+
+</head>
+<body onload="setup_page()">
+  <div id="page_div">
+    <select id="venue_select" onchange="load_venue()"></select>
+    <select id="mode_select" onchange="load_venue()">
+      <option>General Data</option>
+      <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
+    </select>
+    <button id="button_help" class="outputbutton" onclick="show_help()">Show Help</button>
+    <button id="button_csv" class="outputbutton" onclick="build_csv()">Get Data</button>
+    <div id="header_div">
+    </div>
+    <div id="content_div">
+      <div id="buttons_div">
+        <div id="monsterlist_div"></div>
+        <div id="rarebuttons_div">
+          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="up_egg()">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="up_apparel()">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="up_vista()">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="up_ambush()">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="up_eliminate()">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="up_crate()">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
+        </div>
+      </div>
+      <div id="output_container"><div id="output_div"></div></div>
+    </div>
+  </div>
+
+  <script>
+    var venues = [{
+        name: "Training Fields",
+        monsters: [{n:"Amaranth Moth",c:"#6A3353",e:"Neutral"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Bluelight Chipskink",c:"#0DAECA",e:"Lightning"}, {n:"Chipskink",c:"#573319",e:"Fire"}, {n:"Bumble",c:"#A39D59",e:"Neutral"}, {n:"Coral Carpenter",c:"#6C6AAC",e:"Water"},  {n:"Crimson Emperor",c:"#879A9C",e:"Ice"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Yellow Sparrowmouse",c:"#CE8A0D",e:"Plague"}, {n:"Dark Sparrowmouse",c:"#8B4E8C",e:"Shadow"}, {n:"Ember Mouse",c:"#7E401B",e:"Fire"}, {n:"Glowing Pocket Mouse",c:"#72666B",e:"Light"}, {n:"Frosted Pocketmouse",c:"#7A8DA0",e:"Ice"}, {n:"Satin Pocketmouse",c:"#655F96",e:"Shadow"}, {n:"Mith Bruiser",c:"#9CBB3B",e:"Wind"}, {n:"Ceanothus Brawler",c:"#713C6E",e:"Neutral"}, {n:"Luna Mith",c:"#668951",e:"Wind"}, {n:"Brown-Spotted Mith",c:"#865C3B",e:"Earth"}, {n:"Primrose Mith",c:"#FB92A4",e:"Arcane"}, {n:"Emerald Webwing",c:"#197D6C",e:"Lightning"}, {n:"Ruby Webwing",c:"#891B38",e:"Arcane"}, {n:"Sweetpuff",c:"#AF9D95",e:"Light"}, {n:"Ragepuff",c:"#0F0B36",e:"Water"}, {n:"Silky Webwing",c:"#A4B53F",e:"Nature"}, {n:"Webwing Alpha",c:"#DE5D3D",e:"Plague"}]
+      },
+      {
+        name: "Woodland Path",
+        monsters: [{n:"Autumn Dryad",c:"#442244",e:"Earth"}, {n:"Bamboo Phytocat",c:"#442244",e:"Wind"}, {n:"Basilisk",c:"#442244",e:"Plague"}, {n:"Blooming Strangler",c:"#442244",e:"Fire"}, {n:"Bluefin Charger",c:"#442244",e:"Ice"}, {n:"Clown Charger",c:"#442244",e:"Plague"}, {n:"Cockatrice",c:"#442244",e:"Lightning"}, {n:"Coral Basilisk",c:"#442244",e:"Water"}, {n:"Crimson Emperor",c:"#442244",e:"Ice"}, {n:"Death's",c:"#442244",e:"Head Stag"}, {n:"Dryad",c:"#442244",e:"Nature"}, {n:"Greenroot Janustrap",c:"#442244",e:"Nature"}, {n:"Grouse Basilisk",c:"#442244",e:"Light"}, {n:"Leafy Moth",c:"#442244",e:"Nature"}, {n:"Janustrap",c:"#442244",e:"Shadow"}, {n:"Sakura Owl",c:"#442244",e:"Arcane"}, {n:"Strangler",c:"#442244",e:"Neutral"}, {n:"Wildwood Owl",c:"#442244",e:"Neutral"}]  
+      },
+      {
+        name: "Scorched Forest",
+        monsters: [{n:"Augite Protector",c:"#442244",e:"Neutral"}, {n:"Banded Owlcat",c:"#442244",e:"Wind"}, {n:"Centaur Archer",c:"#442244",e:"Plague"}, {n:"Clown Charger",c:"#442244",e:"Plague"}, {n:"Crowned Bonepriest",c:"#442244",e:"Light"}, {n:"Death's-Head Stag",c:"#442244",e:"Earth"}, {n:"Extinguished Jackalope",c:"#442244",e:"Neutral"}, {n:"Moss-Covered Golem",c:"#442244",e:"Nature"}, {n:"Painted Centaur",c:"#442244",e:"Fire"}, {n:"Rambra",c:"#442244",e:"Earth"}, {n:"Red-Winged Owlcat",c:"#442244",e:"Neutral"}, {n:"Searing Jackalope",c:"#442244",e:"Fire"}, {n:"Smoke Gyre",c:"#442244",e:"Fire"}, {n:"Steam Gyre",c:"#442244",e:"Water"}, {n:"Umberhorn Qiriq",c:"#442244",e:"Arcane"}, {n:"Wintermane Bowman",c:"#442244",e:"Ice"}, {n:"Wintermane Spearman",c:"#442244",e:"Lightning"}, {n:"Zeeba",c:"#442244",e:"Shadow"}]
+      },
+      {
+        name: "Sandswept Delta",
+        monsters: [{n:"Carmine Serthis",c:"#442244",e:"Arcane"}, {n:"Crowned Bonepriest",c:"#442244",e:"Light"}, {n:"Fan Scorpion",c:"#442244",e:"Fire"}, {n:"Fuiran",c:"#442244",e:"Nature"}, {n:"Greatshell",c:"#442244",e:"Light"}, {n:"Iridescent Scaleback",c:"#442244",e:"Water"}, {n:"Nightsky Fuiran",c:"#442244",e:"Shadow"}, {n:"Opheodrys Serthis",c:"#442244",e:"Wind"}, {n:"Peacock Scorpion",c:"#442244",e:"Neutral"}, {n:"Scaleback",c:"#442244",e:"Ice"}, {n:"Serthis Alchemist",c:"#442244",e:"Plague"}, {n:"Serthis Potionmaster",c:"#442244",e:"Light"}, {n:"Shadow Serpent",c:"#442244",e:"Shadow"}, {n:"Shattered Serpent",c:"#442244",e:"Earth"}, {n:"Storm Seeker",c:"#442244",e:"Lightning"}]
+      },
+      {
+        name: "Forgotten Cave",
+        monsters: [{n:"Ancient Fungus",c:"#442244",e:"Fire"}, {n:"Blue Dragon Snail",c:"#442244",e:"Water"}, {n:"Blueband Duelist",c:"#442244",e:"Water"}, {n:"Bramble Guardian",c:"#442244",e:"Shadow"}, {n:"Centaur Berserker",c:"#442244",e:"Earth"}, {n:"Citrine Jewel",c:"#442244",e:"Light"}, {n:"Corpse Cleaner",c:"#442244",e:"Earth"}, {n:"Crimson Reef Snail",c:"#442244",e:"Neutral"}, {n:"Cursed Bat",c:"#442244",e:"Nature"}, {n:"Deepmine Aardvark",c:"#442244",e:"Neutral"}, {n:"Dwarf Truffle",c:"#442244",e:"Ice"}, {n:"Emerald Jewel",c:"#442244",e:"Lightning"}, {n:"Peacevine Aardvark",c:"#442244",e:"Earth"}, {n:"Parasitic Fungus",c:"#442244",e:"Plague"}, {n:"Runic Bat",c:"#442244",e:"Arcane"}, {n:"Swiftfoot Slayer",c:"#442244",e:"Wind"}, {n:"Venomblade Assassin",c:"#442244",e:"Neutral"}]
+      },
+      {
+        name: "Bamboo Falls",
+        monsters: [{n:"Baku",c:"#442244",e:"Lightning"}, {n:"Blacktalon Striker",c:"#442244",e:"Wind"}, {n:"Carmine Serthis",c:"#442244",e:"Arcane"}, {n:"Dream Eater",c:"#442244",e:"Arcane"}, {n:"Ethereal Trickster",c:"#442244",e:"Ice"}, {n:"Fungalhoof Qiriq",c:"#442244",e:"Plague"}, {n:"Gale Wolf",c:"#442244",e:"Wind"}, {n:"Hainu",c:"#442244",e:"Earth"}, {n:"Mantled Foo",c:"#442244",e:"Nature"}, {n:"Opheodrys Serthis",c:"#442244",e:"Wind"}, {n:"Raptorik Warrior",c:"#442244",e:"Water"}, {n:"Red-Breasted Hainu",c:"#442244",e:"Fire"}, {n:"Tengu",c:"#442244",e:"Neutral"}, {n:"Tigerblood Foo",c:"#442244",e:"Neutral"}, {n:"Trick-of-the-Light",c:"#442244",e:"Light"}, {n:"Umbra Wolf",c:"#442244",e:"Shadow"}, {n:"Wandering Surge Priest",c:"#442244",e:"Water"}]
+      },
+      {
+        name: "Redrock Cove",
+        monsters: [{n:"Maren Defender",c:"#442244",e:"Ice"}, {n:"Maren Spearmaiden",c:"#442244",e:"Neutral"}, {n:"Oceansurf Magus",c:"#442244",e:"Water"}, {n:"Waveswell Sorcerer",c:"#442244",e:"Neutral"}, {n:"Noxious Coralclimber",c:"#442244",e:"Neutral"}, {n:"Leopard Coralclimber",c:"#442244",e:"Light"}, {n:"Murkbottom Gull",c:"#442244",e:"Plague"}, {n:"Tradewinds Gull",c:"#442244",e:"Wind"}, {n:"Riptide Clipper",c:"#442244",e:"Water"}, {n:"Sandshore Snipper",c:"#442244",e:"Fire"}, {n:"Mirage Puffer",c:"#442244",e:"Neutral"}, {n:"Daydream Puffer",c:"#442244",e:"Water"}, {n:"Mottled Sea Serpent",c:"#442244",e:"Earth"}, {n:"Highfin Sea Serpent",c:"#442244",e:"Water"}, {n:"Dainty Wavehopper",c:"#442244",e:"Arcane"}, {n:"Vivid Wavehopper",c:"#442244",e:"Nature"}, {n:"Deeprealm Hunter",c:"#442244",e:"Shadow"}, {n:"Spiney Whale",c:"#442244",e:"Lightning"}] 
+      },
+      {
+        name: "Waterway",
+        monsters: [{n:"Blueridge Greatshell",c:"#442244",e:"Wind"}, {n:"Brown River Flight",c:"#442244",e:"Plague"}, {n:"Cumulus Seal",c:"#442244",e:"Ice"}, {n:"Dappled Seal",c:"#442244",e:"Earth"}, {n:"Everglade Lasher",c:"#442244",e:"Nature"}, {n:"Granite Thresher",c:"#442244",e:"Fire"}, {n:"Greater Sandstrike",c:"#442244",e:"Earth"}, {n:"Grey River Flight",c:"#442244",e:"Water"}, {n:"Maren Currentfinder",c:"#442244",e:"Neutral"}, {n:"Maren Shark Hunter",c:"#442244",e:"Water"}, {n:"Noggle",c:"#442244",e:"Light"}, {n:"Radioactive Slime",c:"#442244",e:"Neutral"}, {n:"Rainbow Sprite",c:"#442244",e:"Ice"}, {n:"River Muck",c:"#442244",e:"Water"}, {n:"Scarlet Flycatcher",c:"#442244",e:"Arcane"}, {n:"Shale Thresher",c:"#442244",e:"Lightning"}, {n:"Sunset Lasher",c:"#442244",e:"Arcane"}]
+      },
+      {
+        name: "Arena",
+        monsters: [{n:"Boran Veteran",c:"#442244",e:"Lightning"}, {n:"Celestial Antelope",c:"#442244",e:"Light"}, {n:"Charcoal Sprangyroo",c:"#442244",e:"Neutral"}, {n:"Chimera",c:"#442244",e:"Neutral"}, {n:"Double-Tailed Warcat",c:"#442244",e:"Neutral"}, {n:"Featherback Boar",c:"#442244",e:"Light"}, {n:"Goldenplains Poodle Mith",c:"#442244",e:"Light"}, {n:"Longneck Interloper",c:"#442244",e:"Earth"}, {n:"Longneck Magi",c:"#442244",e:"Water"}, {n:"Longneck Mender",c:"#442244",e:"Light"}, {n:"Longneck Skirmisher",c:"#442244",e:"Wind"}, {n:"Marshland Poodle Mith",c:"#442244",e:"Shadow"}, {n:"Silver Springbok",c:"#442244",e:"Ice"}, {n:"Spellwall Boran",c:"#442244",e:"Arcane"}, {n:"Sprangyroo",c:"#442244",e:"Fire"}, {n:"Undying Featherback",c:"#442244",e:"Plague"}, {n:"Warcat Protector",c:"#442244",e:"Nature"}]
+      },
+      {
+        name: "Volcanic Vents",
+        monsters: [{n:"Spectral Duskflapper",c:"#2163A3",e:"Water"}, {n:"Armored Duskflapper",c:"#794D46",e:"Neutral"}, {n:"Chillwind Harpy",c:"#68729C",e:"Ice"}, {n:"Stormcloud Harpy",c:"#084158",e:"Lightning"},{n:"Flamescale Illusionist",c:"#41417B",e:"Neutral"}, {n:"Flamescale Venomcaster",c:"#3C5E35",e:"Plague"}, {n:"Fiendcat",c:"#528E1D",e:"Wind"}, {n:"Flamerest Fiendcat",c:"#ED7912",e:"Fire"}, {n:"Ashspine Widow",c:"#743F44",e:"Earth"}, {n:"Firebelly Weaver",c:"#8085A4",e:"Ice"}, {n:"Dreadram",c:"#900010",e:"Fire"}, {n:"Ultraram",c:"#7930D8",e:"Arcane"}, {n:"Flamescale Spearman",c:"#4D3242",e:"Plague"}, {n:"Flamescale Lancer",c:"#7C634E",e:"Light"}, {n:"Ghost Manticore",c:"#20263F",e:"Neutral"}, {n:"Firemane Manticore",c:"#50210B",e:"Fire"}, {n:"Basalt Vent Hop",c:"#56281E",e:"Neutral"}, {n:"Magma Runner",c:"#76223A",e:"Lightning"}, {n:"Nightfall Imp",c:"#282E4E",e:"Shadow"}, {n:"Ignited Imp",c:"#D02D00",e:"Fire"}, {n:"Serthis Loremaster",c:"#517F6C",e:"Nature"}, {n:"Serthis Archivist",c:"#99885F",e:"Light"}, {n:"Ophiotaurus",c:"#665A4F",e:"Nature"}, {n:"Ashscale Ophiotaurus",c:"#7A552A",e:"Fire"}, {n:"Tunnel Hydra",c:"#826543",e:"Earth"}, {n:"Hydra",c:"#64313B",e:"Arcane"}]
+      }, 
+      {
+        name: "Rainsong Jungle",
+        monsters: [{n:"Barkback Boar",c:"#442244",e:"Nature"}, {n:"Budwing Morpho",c:"#442244",e:"Nature"}, {n:"Clown Hippocampus",c:"#442244",e:"Fire"}, {n:"Deadwood Boar",c:"#442244",e:"Earth"}, {n:"Goldenbeast",c:"#442244",e:"Light"}, {n:"Hippocampus",c:"#442244",e:"Neutral"}, {n:"King Parda",c:"#442244",e:"Nature"}, {n:"Manticore Screamer",c:"#442244",e:"Shadow"}, {n:"Overcharged Silverbeast",c:"#442244",e:"Lightning"}, {n:"Paradise Zalis",c:"#442244",e:"Ice"}, {n:"Parda",c:"#442244",e:"Neutral"}, {n:"Petal Jumper",c:"#442244",e:"Arcane"}, {n:"Proto Manticore",c:"#442244",e:"Earth"}, {n:"Ringlet Amphithere",c:"#442244",e:"Wind"}, {n:"Ultramel Amphithere",c:"#442244",e:"Plague"}, {n:"Zalis",c:"#442244",e:"Water"}]
+      },
+      {
+        name: "Boreal Woods",
+        monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Woodland Turkey",c:"#442244",e:"Earth"}]
+      },
+      {
+        name: "Crystal Pools",
+        monsters: [{n:"Almandine Sturgeon",c:"#442244",e:"Neutral"}, {n:"Amber Gulper",c:"#442244",e:"Fire"}, {n:"Apatite Fisher",c:"#442244",e:"Lightning"}, {n:"Arctic Hippalectryon",c:"#442244",e:"Ice"}, {n:"Chalcedony Snipper",c:"#442244",e:"Arcane"}, {n:"Clearwater Oracle",c:"#442244",e:"Neutral"}, {n:"Crystalhide Jester",c:"#442244",e:"Water"}, {n:"Crystalplate Stinger",c:"#442244",e:"Light"}, {n:"Hawksbill Goliath",c:"#442244",e:"Shadow"}, {n:"Hippalectryon",c:"#442244",e:"Arcane"}, {n:"Maren Warlock",c:"#442244",e:"Plague"}, {n:"Moonbeam Crayfish",c:"#442244",e:"Neutral"}, {n:"Rhodochrosite Crane",c:"#442244",e:"Arcane"}, {n:"Sparkling Stinger",c:"#442244",e:"Nature"}, {n:"Stonewatch Prince",c:"#442244",e:"Earth"}, {n:"Windcarve Fugitive",c:"#442244",e:"Wind"}]
+      },
+      {
+        name: "Harpy's Roost",
+        monsters: [{n:"Blue Tang Hippogriff",c:"#442244",e:"Lightning"}, {n:"Blue Moon Aviar",c:"#442244",e:"Wind"}, {n:"Brush Dodo",c:"#442244",e:"Water"}, {n:"Cardinal Hippogriff",c:"#442244",e:"Neutral"}, {n:"Cloud Dancer",c:"#442244",e:"Nature"}, {n:"Crowned Roc",c:"#442244",e:"Wind"}, {n:"Death Seeker",c:"#442244",e:"Shadow"}, {n:"Dodo",c:"#442244",e:"Neutral"}, {n:"Fallen Streak",c:"#442244",e:"Arcane"}, {n:"Hooded Dodo",c:"#442244",e:"Plague"}, {n:"Masked Harpy",c:"#442244",e:"Wind"}, {n:"Mesacliff Harpy",c:"#442244",e:"Neutral"}, {n:"Renegade Aviar",c:"#442244",e:"Earth"}, {n:"Roc",c:"#442244",e:"Arcane"}, {n:"Snow Streak",c:"#442244",e:"Ice"}, {n:"Stonewatch Harpy",c:"#442244",e:"Light"}, {n:"Storm Seeker",c:"#442244",e:"Lightning"}, {n:"Sunspot Clouddancer",c:"#442244",e:"Fire"}, {n:"Windcarve Harpy",c:"#442244",e:"Wind"}]
+      },
+      {
+        name: "Ghostlight Ruins",
+        monsters: [{n:"Aer Phantom",c:"#442244",e:"Wind"}, {n:"Carrioncorn",c:"#442244",e:"Neutral"}, {n:"Disoriented Spirit",c:"#442244",e:"Neutral"}, {n:"Greybeak Reaper",c:"#442244",e:"Neutral"}, {n:"Infestation Hound",c:"#442244",e:"Plague"}, {n:"Longneck Medium",c:"#442244",e:"Neutral"}, {n:"Longneck Scholar",c:"#442244",e:"Nature"}, {n:"Lux Spectre",c:"#442244",e:"Light"}, {n:"Malevolent Spirit",c:"#442244",e:"Nature"}, {n:"Nightmare",c:"#442244",e:"Fire"}, {n:"Otherworldly Aura",c:"#442244",e:"Arcane"}, {n:"Pronghorn Stomper",c:"#442244",e:"Water"}, {n:"Shatterbone Vulture",c:"#442244",e:"Ice"}, {n:"Somber Spirit",c:"#442244",e:"Shadow"}, {n:"Tatterwing Carcass",c:"#442244",e:"Shadow"}, {n:"Tengu Caller",c:"#442244",e:"Shadow"}, {n:"Wendigo",c:"#442244",e:"Earth"}, {n:"Wraith Hound",c:"#442244",e:"Lightning"}]
+      },
+      {
+        name: "Mire",
+        monsters: [{n:"Blackwing Croaker",c:"#442244",e:"Shadow"}, {n:"Brilliant Psywurm",c:"#442244",e:"Light"}, {n:"Common Podid",c:"#442244",e:"Lightning"}, {n:"Heartred Croaker",c:"#442244",e:"Plague"}, {n:"Mistwatch Shellion",c:"#442244",e:"Ice"}, {n:"Molten Wartoad",c:"#442244",e:"Fire"}, {n:"Mossy Cerdae",c:"#442244",e:"Plague"}, {n:"Poisonous Toridae",c:"#442244",e:"Nature"}, {n:"Psywurm",c:"#442244",e:"Arcane"}, {n:"Salve Kamaitachi",c:"#442244",e:"Wind"}, {n:"Scythe Kamaitachi",c:"#442244",e:"Plague"}, {n:"Shellion",c:"#442244",e:"Neutral"}, {n:"Sickle Kamaitachi",c:"#442244",e:"Fire"}, {n:"Southmarsh Podid",c:"#442244",e:"Neutral"}, {n:"Venomous Toridae",c:"#442244",e:"Earth"}, {n:"Wartoad",c:"#442244",e:"Water"}, {n:"Wetland Unicorn",c:"#442244",e:"Neutral"}]
+      },
+      {
+        name: "Kelp Beds",
+        monsters: [{n:"Abyss Striker",c:"#442244",e:"Shadow"}, {n:"Cloud Chaser",c:"#442244",e:"Wind"}, {n:"Corrosive Depin",c:"#442244",e:"Shadow"}, {n:"Depin",c:"#442244",e:"Neutral"}, {n:"Golden Porpoise",c:"#442244",e:"Light"}, {n:"Jeweled Octoflyer",c:"#442244",e:"Arcane"}, {n:"Kelp Tender",c:"#442244",e:"Water"}, {n:"Mammertee",c:"#442244",e:"Neutral"}, {n:"Mantarune",c:"#442244",e:"Ice"}, {n:"Maren Ambusher",c:"#442244",e:"Nature"}, {n:"Maren Scout",c:"#442244",e:"Fire"}, {n:"Maren Warrior",c:"#442244",e:"Lightning"}, {n:"Maren Wavesinger",c:"#442244",e:"Water"}, {n:"Octoflyer",c:"#442244",e:"Water"}, {n:"Relic Eel",c:"#442244",e:"Earth"}, {n:"Wave Sweeper",c:"#442244",e:"Plague"}]
+      },
+      {
+        name: "Golem Workshop",
+        monsters: [{n:"Black Iron Creeper",c:"#442244",e:"Fire"}, {n:"Chromefeather Lookout",c:"#442244",e:"Lightning"}, {n:"Clattercog Engineer",c:"#442244",e:"Water"}, {n:"Construction Mith",c:"#442244",e:"Nature"}, {n:"Coppercoil Creeper",c:"#442244",e:"Lightning"}, {n:"Frost Delver",c:"#442244",e:"Ice"}, {n:"Mistral Minion",c:"#442244",e:"Wind"}, {n:"Monkey Wrench",c:"#442244",e:"Neutral"}, {n:"Scrapmetal Tracker",c:"#442244",e:"Shadow"}, {n:"Sentinel Mith",c:"#442244",e:"Plague"}, {n:"Sentry Squawker",c:"#442244",e:"Neutral"}, {n:"Spellbound Golem",c:"#442244",e:"Arcane"}, {n:"Steelhound",c:"#442244",e:"Neutral"}, {n:"Stone Borer",c:"#442244",e:"Earth"}, {n:"Swift Lumen",c:"#442244",e:"Light"}, {n:"Swift Volt",c:"#442244",e:"Lightning"}]
+      }
+    ];
+
+    var trait_ref = [];
+    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
+
+    //The most hideous function by far. If you can figure out what this is doing, I salute you.
+    function build_csv(){
+      var sep = "</br>-------------------------------------------</br>";
+      var out = (sep+"YOUR STATS"+sep).substring(5); //haha yuck
+      var mode = document.getElementById("mode_select").selectedIndex;
+      var monsters = [];
+      var traits = ["Name"];
+      var totals = [];
+      var raw = "";
+      var csv = "";
+      var rares = "";
+      if(mode == 0){traits.push.apply(traits, mode_stats[0]);} else {traits.push.apply(traits, mode_stats[1]);}
+      for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0);}
+      csv += traits;
+
+      //This bit is complicated--we're reading through the name and data fields, using our mode to figure out how many fields
+      for (var i = 0, out_len = trait_ref.length, in_len = traits.length; i < out_len; i+=in_len){
+        csv += "</br>"+trait_ref[i].innerHTML;
+        for (var j = 1; j < in_len; j++){
+          csv += (","+trait_ref[i+j].value)
+          raw += (","+trait_ref[i+j].value)
+          totals[j]+= +trait_ref[i+j].value;
+        }
+      }
+
+      rares += (totals[1]+","+document.getElementById("egg_count").innerHTML+","+document.getElementById("apparel_count").innerHTML+","
+      +document.getElementById("vista_count").innerHTML+","+document.getElementById("ambush_count").innerHTML+","
+      +document.getElementById("eliminate_count").innerHTML+","+document.getElementById("crate_count").innerHTML);
+
+      raw = rares.concat(raw);
+      raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
+
+      out += "</br>Numerical Breakdown"+sep;
+      for(var i = 1, len = totals.length; i < len; i ++){
+        out+=("Total "+traits[i]+": "+totals[i]+"</br>");
+      }
+      for(var i = 2, len = totals.length; i < len; i ++){
+        out+=(traits[i]+" Drop Rate: "+totals[i]/totals[1]*100+"%</br>");
+      }
+      out += "</br>Achievements"+sep;
+      if(totals[1]>199){out+="BIG DATA</br>";}
+      if(totals[1]>499){out+="HUGE DATA</br>";}
+      if(mode == 0 && totals[2]>99){out+="CORNUCOPIA</br>";}
+      if(mode == 0 && totals[3]>99){out+="MATERIAL MANIAC</br>";}
+      if(mode == 0 && totals[2]>199){out+="GODLY CHEF</br>";}
+      if(mode == 0 && totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
+      if(mode == 0 && totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
+      if(mode == 0 && totals[4]>9){out+="NATIONAL DEX</br>";}
+      if(mode > 0 && totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
+      if(mode > 0 && totals[2]>59){out+="FEST FANATIC</br>";}
+      if(mode > 0 && totals[2]>99){out+="LITERALLY JOXAR</br>";}
+      if(mode > 0 && totals[3]>0){out+="CHEST COLLECTOR</br>";}
+      if(mode > 0 && totals[3]>2){out+="CHEST CHAMPION</br>";}
+      if(mode > 0 && (trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
+      out += "</br>"+sep+"RAW DATA"+sep+"If this is real data, please consider copy-pasting the bit below into the form "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
+      out += raw;
+      out += "</br>"+sep+"DATA CSV"+sep;
+      out += csv;
+      out += "</br>"+sep+"RARES CSV"+sep+"Fought,Eggs,Apparel,Vista,Ambush,Eliminate,Crate</br>"
+      out += rares;
+      document.getElementById("output_div").innerHTML = out;
+    }
+
+    //surely there's a better way?
+    function up_egg(){e = document.getElementById("egg_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+    function up_apparel(){e = document.getElementById("apparel_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+    function up_vista(){e = document.getElementById("vista_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+    function up_eliminate(){e = document.getElementById("eliminate_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+    function up_ambush(){e = document.getElementById("ambush_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+    function up_crate(){e = document.getElementById("crate_count");  val = e.innerHTML; val++; e.innerHTML = val;}
+
+    function add_clickable(creature_name, creature_color, stat_list) {
+
+      var container = document.createElement("div");
+      var text = document.createElement("div");
+      text.innerHTML = creature_name;
+      trait_ref.push(text);
+      text.className += " name_div"
+      text.style.display = "inline-block";
+      text.style.background = creature_color;
+      container.style.border = "thin solid "+creature_color;
+      container.appendChild(text);
+
+      for (var i = 0, len = stat_list.length; i < len; i++){
+         var temp_label = document.createElement("input");
+         var temp_button = document.createElement("input");
+         gen_basic_textfield(temp_label, stat_list[i]);
+         gen_basic_button(temp_button, temp_label);
+         trait_ref.push(temp_label);
+         container.appendChild(temp_label);
+         container.appendChild(temp_button);
+         if(i==0){
+             var mem = temp_label; //Because scoping.
+             text.onclick = function() {
+             val = mem.value;
+             val++;
+             mem.value = val;
+             }
+         }
+      }
+
+      var parent_div = document.getElementById("monsterlist_div");
+      parent_div.appendChild(container);
+    }
+
+    function gen_basic_textfield(element, name){
+      element.type = "text";
+      element.value = "0";
+      element.name = name;
+      element.className += " stat_field"
+    }
+
+    function gen_basic_button(button, linked_element) {
+      button.type = "button";
+      button.value = "+";
+      button.className += " inc_button";
+      button.onclick = function() {
+        val = linked_element.value;
+        val++;
+        linked_element.value = val;
+      }
+    }
+
+    function show_help() {
+      var selected_mode = document.getElementById("mode_select").selectedIndex;
+      if(selected_mode==0){
+        document.getElementById("output_div").innerHTML = "Pick a venue and data type from the dropdown menus in the top-left. The page will be populated with enemies and counter-boxes based on your choices.<br><br> The simplest way to use this is to click a + button to +1 the counter to its left.<br><br> For faster use, you can also click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Instead of + buttons, vault all food/items/familiars from venue enemies! When you finish fighting, visit your hoard and see how much you have collected and enter that into the counter directly.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br>When you have finished collecting data, hit the &quot;Get Data&quot; button to replace this dialogue with some stats, as well as a valuable datafile that you can donate to the data repository, which will help the entire community.<br><br>Thanks for your help!";
+      } else {
+        document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
+      }
+    }
+    function setup_page() {
+      var select_list = document.getElementById("venue_select");
+      for (var i = 0, len = venues.length; i < len; i++) {
+        var option = document.createElement("option");
+        option.value = venues[i].name;
+        option.text = venues[i].name;
+        select_list.appendChild(option);
+      }
+      option.selectedIndex = 0;
+      load_venue();
+      show_help();
+    }
+
+    function load_venue() {
+      var selected_venue = document.getElementById("venue_select").selectedIndex;
+      var selected_mode = document.getElementById("mode_select").selectedIndex;
+      var venue_monsters = venues[selected_venue].monsters;
+      var monsterlist_div = document.getElementById("monsterlist_div");
+      var columnheader_div = document.getElementById("header_div");
+      var stats;
+      var header = document.createElement("div");
+
+      while (monsterlist_div.firstChild) {monsterlist_div.removeChild(monsterlist_div.firstChild);}
+      while (columnheader_div.firstChild) {columnheader_div.removeChild(columnheader_div.firstChild);}
+      trait_ref = [];
+
+      if (selected_mode == 0){
+        stats=mode_stats[0];
+        for (var i = 0, len = venue_monsters.length; i < len; i++){
+          add_clickable(venue_monsters[i].n,venue_monsters[i].c,stats);
+        }
+      }
+
+      if (selected_mode > 0){
+        stats=mode_stats[1];
+        var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
+        for (var i = 0, len = venue_monsters.length; i < len; i++){
+          if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
+            add_clickable(venue_monsters[i].n,venue_monsters[i].c,stats);
+          }  
+        }
+      }
+      for (var i = 0, len = stats.length; i < len; i++){
+        var colhead = document.createElement("div");
+        colhead.className += "columnheader";
+        colhead.innerHTML = stats[i];
+        columnheader_div.appendChild(colhead);
+      }
+      show_help()
+
+    }
+  </script>
+</body>
+</html>
