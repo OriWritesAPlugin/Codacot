@@ -349,6 +349,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       while (monsterlist_div.firstChild) {monsterlist_div.removeChild(monsterlist_div.firstChild);}
       while (columnheader_div.firstChild) {columnheader_div.removeChild(columnheader_div.firstChild);}
       trait_ref = [];
+      document.getElementById("egg_count").innerHTML = 0;
+      document.getElementById("apparel_count").innerHTML = 0;
+      document.getElementById("vista_count").innerHTML = 0;
+      document.getElementById("eliminate_count").innerHTML = 0;
+      document.getElementById("ambush_count").innerHTML = 0;
+      document.getElementById("crate_count").innerHTML = 0;
 
       if (selected_mode == 0){
         stats=mode_stats[0];
