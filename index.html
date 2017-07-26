@@ -153,54 +153,93 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var monsters = [];
       var traits = ["Name"];
       var totals = [];
+      var full_stack = [];
+      var all_kinds = [];
       var raw = "";
       var csv = "";
-      var rares = "";
+      var rares = [];
+      var raresum = 0;
       if(mode == 0){traits.push.apply(traits, mode_stats[0]);} else {traits.push.apply(traits, mode_stats[1]);}
-      for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0);}
+      for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0); full_stack.push(false); all_kinds.push(true);}
       csv += traits;
 
       //This bit is complicated--we're reading through the name and data fields, using our mode to figure out how many fields
       for (var i = 0, out_len = trait_ref.length, in_len = traits.length; i < out_len; i+=in_len){
         csv += "</br>"+trait_ref[i].innerHTML;
         for (var j = 1; j < in_len; j++){
-          csv += (","+trait_ref[i+j].value)
-          raw += (","+trait_ref[i+j].value)
-          totals[j]+= +trait_ref[i+j].value;
+          var val = +trait_ref[i+j].value;
+          csv += (","+val);
+          raw += (","+val);
+          totals[j]+= +val;
+          if(val>98){full_stack[j-1]=true;}
+          all_kinds[j-1] = all_kinds[j-1] && val;
         }
       }
 
-      rares += (totals[1]+","+document.getElementById("egg_count").innerHTML+","+document.getElementById("apparel_count").innerHTML+","
-      +document.getElementById("vista_count").innerHTML+","+document.getElementById("ambush_count").innerHTML+","
-      +document.getElementById("eliminate_count").innerHTML+","+document.getElementById("crate_count").innerHTML);
+      rares.push(totals[1],+document.getElementById("egg_count").innerHTML,+document.getElementById("apparel_count").innerHTML,
+      +document.getElementById("vista_count").innerHTML,+document.getElementById("ambush_count").innerHTML,
+      +document.getElementById("eliminate_count").innerHTML,+document.getElementById("crate_count").innerHTML);
 
-      raw = rares.concat(raw);
+      raresum = rares.slice(1).reduce((a, b) => a + b, 0);
+      raw = rares + raw;
       raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
 
       out += "</br>Numerical Breakdown"+sep;
       for(var i = 1, len = totals.length; i < len; i ++){
         out+=("Total "+traits[i]+": "+totals[i]+"</br>");
       }
+      out +=("Total Rares: "+raresum+"</br>");
+
       for(var i = 2, len = totals.length; i < len; i ++){
         out+=(traits[i]+" Drop Rate: "+totals[i]/totals[1]*100+"%</br>");
       }
+      out +=("Rares Drop Rate: "+raresum/totals[1]*100+"%</br>"); 
+
       out += "</br>Achievements"+sep;
-      if(mode == 0){out+="GENERALIST</br>";}
-      if(mode > 0){out+="FESTIVE FINDER</br>";}
-      if(mode > 0 && (trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
-      if(totals[1]>199){out+="BIG DATA</br>";}
+      //Mode independent
+      if(totals[1]>99){out+="DATA SAMPLER</br>";}
+      if(totals[1]>249){out+="BIG DATA</br>";}
       if(totals[1]>499){out+="HUGE DATA</br>";}
-      if(mode == 0 && totals[2]>99){out+="CORNUCOPIA</br>";}
-      if(mode == 0 && totals[3]>99){out+="MATERIAL MANIAC</br>";}
-      if(mode == 0 && totals[2]>199){out+="GODLY CHEF</br>";}
-      if(mode == 0 && totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
-      if(mode == 0 && totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
-      if(mode == 0 && totals[4]>9){out+="NATIONAL DEX</br>";}
-      if(mode > 0 && totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
-      if(mode > 0 && totals[2]>59){out+="FEST FANATIC</br>";}
-      if(mode > 0 && totals[2]>99){out+="LITERALLY JOXAR</br>";}
-      if(mode > 0 && totals[3]>0){out+="CHEST COLLECTOR</br>";}
-      if(mode > 0 && totals[3]>2){out+="CHEST CHAMPION</br>";}
+      if(rares[1]){out+="DR. EGGMAN</br>";}
+      if(rares[2]){out+="BATTLFIELD FASHION</br>";}
+      if(rares[3]){out+="WIDE-OPEN VISTAS</br>";}
+      if(rares[4]){out+="IT'S AN AMBUSH!</br>";}
+      if(rares[5]){out+="ELIMINATING THE COMPETITION</br>";}
+      if(rares[6]){out+="CRATE EXPECTATIONS</br>";}
+      if(all_kinds[0]){out+="GALLERY OF ROGUES</br>";}
+      if(full_stack[0]){out+="LOCALIZED EXTINCTION</br>";}
+      if(raresum>0){out+="LUCKY BREAK</br>";}
+      if(raresum>2){out+="RNG WARRIOR</br>";}
+      //if(you_read_this){out+="MASTER OF MYSTERIES"}...congratulations, reader!
+
+      //General Data only
+      if(mode == 0){
+        out+="GENERALIST</br>";
+        if(totals[2]>99){out+="CORNUCOPIA</br>";}
+        if(totals[3]>99){out+="MATERIAL MOGUL</br>";}
+        if(totals[2]>199){out+="GODLY CHEF</br>";}
+        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
+        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
+        if(totals[4]>9){out+="NATIONAL DEX</br>";}
+        if(all_kinds[1]){out+="CULINARY SAMPLER</br>";}
+        if(all_kinds[2]){out+="MISCELLANIA MASTER</br>";}
+        if(all_kinds[3]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
+        if(full_stack[1]){out+="THE WHOLE ENCHILADA</br>";}
+        if(full_stack[2]){out+="MATERIAL WEALTH</br>";}
+      }
+      //Fest only
+      if(mode > 0){
+        out+="FESTIVE FINDER</br>";
+        if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
+        if(totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
+        if(totals[2]>59){out+="FEST FANATIC</br>";}
+        if(totals[2]>99){out+="LITERALLY JOXAR</br>";}
+        if(totals[3]>0){out+="CHEST COLLECTOR</br>";}
+        if(totals[3]>2){out+="CHEST CHAMPION</br>";}
+        if(all_kinds[1]){out+="CURRENCY SHAKEDOWN</br>";}
+        if(all_kinds[2]){out+="CHEST COMMANDER</br>";}
+        if(full_stack[1]){out+="BOURGEOISE WILDLIFE</br>";}
+      }
       out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
       +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
       out += raw;
