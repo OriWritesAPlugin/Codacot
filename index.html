@@ -16,20 +16,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     select {margin: 10px}
     a {color: #FFF4DC}
     .inc_div {display: inline-block;}
-    .inc_button, .rare_button {padding: 3px; width: 27px; margin: none; background: #332233; border:none; font-family: verdana; color:white}
+    .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; background: #392839; border:none; font-family: verdana; color:white}
     .inc_button:hover, .rarebutton:hover {color:grey;}
+    .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; border:none; font-family: verdana; color:white; background: #403040}
+    .light_inc_button:hover {color: #555555}
     .stat_field, .rare_field {width: 45px; background:none; text-align: right; border: none; color:white; margin-left: 3px; margin-right: 3px}
+    .light_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B}
     .name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
     .name_div:hover {color:grey;}
-    .columnheader {width: 80px; color:white; font-size: small; display:inline-block}
+    .columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
     .outputbutton {margin: 10px}
-    .rare_button {width: auto; margin: 5px;}
+    .rare_button {width: auto; margin: 6px 3px 3px 3px;}
     .rare_field {font-size: small; width: 85%}
     #page_div {margin: 0px 10px 0px 10px}
-    #header_div {margin-left:240px}
+    #header_div {margin-left:220px}
     #buttons_div{display: inline-block; float: left; margin-right: 30px; height: 100%}
     #monsterlist_div {margin-left:10px}
-    #rarebuttons_div {margin-left:20px; padding: 0px}
+    #rarebuttons_div {margin-left:5px; padding: 0px}
     #output_container {display: inline; height:100%; width: 50%;}
     #title {text-align: center; color: #DFC48C; font-family: monospace}
     #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
@@ -231,13 +234,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       for (var i = 0, len = stat_list.length; i < len; i++){
          var temp_label = document.createElement("input");
          var temp_button = document.createElement("input");
-         gen_basic_textfield(temp_label, stat_list[i]);
-         gen_basic_button(temp_button, temp_label);
+         gen_basic_textfield(temp_label, stat_list, i);
+         gen_basic_button(temp_button, temp_label, i);
          trait_ref.push(temp_label);
          container.appendChild(temp_label);
          container.appendChild(temp_button);
          if(i==0){
              var mem = temp_label; //Because scoping.
+             var mem_b = temp_button;
+             temp_button.background = "#ffffff";
+             mem_b.background = "#000000";
              text.onclick = function() {
              val = mem.value;
              val++;
@@ -250,17 +256,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       parent_div.appendChild(container);
     }
 
-    function gen_basic_textfield(element, name){
+    function gen_basic_textfield(element, stat_list, offset){
       element.type = "text";
       element.value = "0";
-      element.name = name;
-      element.className += " stat_field"
+      element.name = stat_list[offset];
+      if(offset%2==0){element.className += " stat_field";}
+      else{element.className += "light_stat_field";}
     }
 
-    function gen_basic_button(button, linked_element) {
+    function gen_basic_button(button, linked_element, offset) {
       button.type = "button";
       button.value = "+";
-      button.className += " inc_button";
+      if(offset%2==0){button.className += " inc_button";}
+      else{button.className += "light_inc_button";}
       button.onclick = function() {
         val = linked_element.value;
         val++;
@@ -276,6 +284,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
       }
     }
+
     function setup_page() {
       var select_list = document.getElementById("venue_select");
       for (var i = 0, len = venues.length; i < len; i++) {
@@ -318,6 +327,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           }  
         }
       }
+
       for (var i = 0, len = stats.length; i < len; i++){
         var colhead = document.createElement("div");
         colhead.className += "columnheader";
