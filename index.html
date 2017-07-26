@@ -31,12 +31,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     #monsterlist_div {margin-left:10px}
     #rarebuttons_div {margin-left:20px; padding: 0px}
     #output_container {display: inline; height:100%; width: 50%;}
+    #title {text-align: center; color: #DFC48C; font-family: monospace}
     #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
   </style> 
 
 </head>
 <body onload="setup_page()">
   <div id="page_div">
+    <h1 id="title">Coliseum Data Collection Tool (CODECOT)</h1>
     <select id="venue_select" onchange="load_venue()"></select>
     <select id="mode_select" onchange="load_venue()">
       <option>General Data</option>
@@ -44,8 +46,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     </select>
     <button id="button_help" class="outputbutton" onclick="show_help()">Show Help</button>
     <button id="button_csv" class="outputbutton" onclick="build_csv()">Get Data</button>
-    <div id="header_div">
-    </div>
+    <div id="header_div"></div>
     <div id="content_div">
       <div id="buttons_div">
         <div id="monsterlist_div"></div>
@@ -269,7 +270,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
-        document.getElementById("output_div").innerHTML = "Pick a venue and data type from the dropdown menus in the top-left. The page will be populated with enemies and counter-boxes based on your choices.<br><br> The simplest way to use this is to click a + button to +1 the counter to its left.<br><br> For faster use, you can also click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Instead of + buttons, vault all food/items/familiars from venue enemies! When you finish fighting, visit your hoard and see how much you have collected and enter that into the counter directly.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br>When you have finished collecting data, hit the &quot;Get Data&quot; button to replace this dialogue with some stats, as well as a valuable datafile that you can donate to the data repository, which will help the entire community.<br><br>Thanks for your help!";
+        document.getElementById("output_div").innerHTML = "This tool can be used to track coliseum data: the number of enemies encountered, food drops, rare items, and the like. You can then turn that raw data into a variety of useful forms with a single click, as well as getting some nifty stats (and even achievements!)</br></br>To begin, pick a venue and data type from the dropdown menus in the top-left. The page will be populated with enemies and counter-boxes based on your choices. You'll also see some text along the top of the list of enemies. Those words correspond to the type of data tracked in the column. For example, if you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then buttons for #Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br> The simplest way to use this is to click a + button to +1 the counter to its left.<br><br> For faster use, you can also click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Instead of + buttons, vault all food/items/familiars from venue enemies! When you finish fighting, visit your hoard and see how much you have collected and enter that into the counter directly.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br>When you have finished collecting data, hit the &quot;Get Data&quot; button to replace this dialogue with some stats calculated from the data you've entered, as well as raw data that you can donate to the data repository, which will help the entire community.<br><br>Thanks for your help!";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
       }
