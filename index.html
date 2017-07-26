@@ -17,6 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     a {color: #FFF4DC}
     .inc_div {display: inline-block;}
     .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; background: #392839; border:none; font-family: verdana; color:white}
+    .encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; background: #392839; border:none; border-right: solid white; font-family: verdana; color:white}
     .inc_button:hover, .rarebutton:hover {color:grey;}
     .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; border:none; font-family: verdana; color:white; background: #403040}
     .light_inc_button:hover {color: #555555}
@@ -41,7 +42,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 </head>
 <body onload="setup_page()">
   <div id="page_div">
-    <h1 id="title">Coliseum Data Collection Tool (CODECOT)</h1>
+    <h1 id="title">Coliseum Data Collection Tool (CODACOT)</h1>
     <select id="venue_select" onchange="load_venue()"></select>
     <select id="mode_select" onchange="load_venue()">
       <option>General Data</option>
@@ -113,6 +114,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       },
       {
         name: "Boreal Woods",
+        monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
+      },
+      {
+        name: "Boreal Woods (Thanksgiving)",
         monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Woodland Turkey",c:"#442244",e:"Earth"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
       },
       {
@@ -143,7 +148,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     ];
 
     var trait_ref = [];
-    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
+    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests","Food","Materials","Familiars"]];
 
     //The most hideous function by far. If you can figure out what this is doing, I salute you.
     function build_csv(){
@@ -281,8 +286,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
          if(i==0){
              var mem = temp_label; //Because scoping.
              var mem_b = temp_button;
-             temp_button.background = "#ffffff";
-             mem_b.background = "#000000";
              text.onclick = function() {
              val = mem.value;
              val++;
@@ -306,7 +309,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function gen_basic_button(button, linked_element, offset) {
       button.type = "button";
       button.value = "+";
-      if(offset%2==0){button.className += " inc_button";}
+      if(!offset){button.className += "encounter_inc_button";}
+      else if(offset%2==0){button.className += " inc_button";}
       else{button.className += "light_inc_button";}
       button.onclick = function() {
         val = linked_element.value;
@@ -318,7 +322,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
-        document.getElementById("output_div").innerHTML = "This tool can be used to track coliseum data: the number of enemies encountered, food drops, rare items, and the like. You can then turn that raw data into a variety of useful forms with a single click, as well as getting some nifty stats (and even achievements!)</br></br>To begin, pick a venue and data type from the dropdown menus in the top-left. The page will be populated with enemies and counter-boxes based on your choices. You'll also see some text along the top of the list of enemies. Those words correspond to the type of data tracked in the column. For example, if you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then buttons for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br> The simplest way to use this is to click a + button to +1 the counter to its left.<br><br> For faster use, you can also click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Instead of + buttons, vault all food/items/familiars from venue enemies! When you finish fighting, visit your hoard and see how much you have collected and enter that into the counter directly.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br>When you have finished collecting data, hit the &quot;Get Data&quot; button to replace this dialogue with some stats calculated from the data you've entered, as well as raw data that you can donate to the data repository, which will help the entire community.<br><br>Thanks for your help!";
+        document.getElementById("output_div").innerHTML = "WHAT THIS IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it. For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Get Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
       }
