@@ -151,7 +151,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     ];
 
     var trait_ref = [];
-    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests","Food","Materials","Familiars"]];
+    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
 
     //The most hideous function by far. If you can figure out what this is doing, I salute you.
     function build_data(){
@@ -341,9 +341,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
-        document.getElementById("output_div").innerHTML = "WHAT THIS IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
+        document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
       } else {
-        document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
+        document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or Neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.<br><br>Thanks for your help!";
       }
     }
 
@@ -402,7 +402,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         colhead.innerHTML = stats[i];
         columnheader_div.appendChild(colhead);
       }
-      show_help()
+      if(document.getElementById("dialogue_toggle").innerHTML=="Show Data"){show_help();}
+      else{toggle_info();}
     }
   </script>
 </body>
