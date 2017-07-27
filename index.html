@@ -199,9 +199,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       out +=("Total Rares: "+raresum+"</br>");
 
       for(var i = 2, len = totals.length; i < len; i ++){
-        out+=(traits[i]+" Drop Rate: "+totals[i]/totals[1]*100+"%</br>");
+        out+=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
       }
-      out +=("Rares Drop Rate: "+raresum/totals[1]*100+"%</br>"); 
+      out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>"); 
 
       out += "</br>Achievements"+sep;
       //Mode independent
