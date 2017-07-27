@@ -321,6 +321,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       //else
       if(offset%2==0){element.className += "light_stat_field";}
       else{element.className += " stat_field";}
+      element.onchange = function() {
+        if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
+      }
     }
 
     function gen_basic_button(button, linked_element, offset) {
