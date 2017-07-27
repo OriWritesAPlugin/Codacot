@@ -15,14 +15,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     body {background-color: #201920; font-family: verdana;;}
     select {margin: 10px}
     a {color: #FFF4DC}
+
     .inc_div {display: inline-block;}
-    .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; background: #392839; border:none; font-family: verdana; color:white}
-    .encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; background: #392839; border:none; border-right: solid white; font-family: verdana; color:white}
-    .inc_button:hover, .rarebutton:hover {color:grey;}
-    .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: none; border:none; font-family: verdana; color:white; background: #403040}
+    .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
+    .inc_button:hover, .rarebutton:hover {color:grey;}    
+    .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #392839}
     .light_inc_button:hover {color: #555555}
-    .stat_field, .rare_field {width: 45px; background:none; text-align: right; border: none; color:white; margin-left: 3px; margin-right: 3px}
-    .light_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B}
+    .encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #291829}
+
+    .stat_field, .rare_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
+    .light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B;}
+    .encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%;}
+
     .name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
     .name_div:hover {color:grey;}
     .columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
@@ -48,8 +52,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <option>General Data</option>
       <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
     </select>
-    <button id="button_help" class="outputbutton" onclick="show_help()">Show Help</button>
-    <button id="button_csv" class="outputbutton" onclick="build_csv()">Get Data</button>
+    <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
     <div id="header_div"></div>
     <div id="content_div">
       <div id="buttons_div">
@@ -151,7 +154,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests","Food","Materials","Familiars"]];
 
     //The most hideous function by far. If you can figure out what this is doing, I salute you.
-    function build_csv(){
+    function build_data(){
       var sep = "</br>-------------------------------------------</br>";
       var out = (sep+"YOUR STATS"+sep).substring(5); //haha yuck
       var mode = document.getElementById("mode_select").selectedIndex;
@@ -263,6 +266,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function up_ambush(){e = document.getElementById("ambush_count");  val = e.innerHTML; val++; e.innerHTML = val;}
     function up_crate(){e = document.getElementById("crate_count");  val = e.innerHTML; val++; e.innerHTML = val;}
 
+    function toggle_info() {
+      toggle_button = document.getElementById("dialogue_toggle");
+      if(toggle_button.innerHTML=="Show Help"){
+        show_help();
+        toggle_button.innerHTML = "Show Data";
+      } else {
+        toggle_button.innerHTML = "Show Help";
+        build_data();
+      }
+    }
+
     function add_clickable(creature_name, creature_color, stat_list) {
 
       var container = document.createElement("div");
@@ -287,9 +301,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
              var mem = temp_label; //Because scoping.
              var mem_b = temp_button;
              text.onclick = function() {
-             val = mem.value;
-             val++;
-             mem.value = val;
+              val = mem.value;
+              val++;
+              mem.value = val;
+              if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
              }
          }
       }
@@ -302,27 +317,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       element.type = "text";
       element.value = "0";
       element.name = stat_list[offset];
-      if(offset%2==0){element.className += " stat_field";}
-      else{element.className += "light_stat_field";}
+      //if(!offset){element.className += "encounter_stat_field";}
+      //else
+      if(offset%2==0){element.className += "light_stat_field";}
+      else{element.className += " stat_field";}
     }
 
     function gen_basic_button(button, linked_element, offset) {
       button.type = "button";
       button.value = "+";
-      if(!offset){button.className += "encounter_inc_button";}
-      else if(offset%2==0){button.className += " inc_button";}
-      else{button.className += "light_inc_button";}
+      //if(!offset){button.className += "encounter_inc_button";}
+      //else
+      if(offset%2==0){button.className += "light_inc_button";}
+      else{button.className += " inc_button";}
       button.onclick = function() {
         val = linked_element.value;
         val++;
         linked_element.value = val;
+        if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
       }
     }
 
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
-        document.getElementById("output_div").innerHTML = "WHAT THIS IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it. For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Get Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
+        document.getElementById("output_div").innerHTML = "WHAT THIS IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item from a fight that has zero relevant species, or 2+, do NOT count it using the buttons on the bottom!<br><br>Thanks for your help!";
       }
