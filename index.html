@@ -293,7 +293,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
          var temp_label = document.createElement("input");
          var temp_button = document.createElement("input");
          gen_basic_textfield(temp_label, stat_list, i);
-         gen_basic_button(temp_button, temp_label, i);
+         gen_basic_button(temp_button, temp_label, i, creature_color);
          trait_ref.push(temp_label);
          container.appendChild(temp_label);
          container.appendChild(temp_button);
@@ -326,13 +326,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
 
-    function gen_basic_button(button, linked_element, offset) {
+    function gen_basic_button(button, linked_element, offset, creature_color) {
       button.type = "button";
       button.value = "+";
-      //if(!offset){button.className += "encounter_inc_button";}
-      //else
+      if(!offset){button.style.borderRight = "thin solid "+creature_color;}
       if(offset%2==0){button.className += "light_inc_button";}
       else{button.className += " inc_button";}
+
       button.onclick = function() {
         val = linked_element.value;
         val++;
