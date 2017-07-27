@@ -58,12 +58,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <div id="buttons_div">
         <div id="monsterlist_div"></div>
         <div id="rarebuttons_div">
-          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="inc_text('egg_count')">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="inc_text('apparel_count')">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="inc_text('vista_count')">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="inc_text('ambush_count')">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="inc_text('eliminate_count')">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="inc_text('crate_count')">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="inc_div('egg_count')">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="inc_div('apparel_count')">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="inc_div('vista_count')">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="inc_div('ambush_count')">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="inc_div('eliminate_count')">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="inc_div('crate_count')">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
         </div>
       </div>
       <div id="output_container"><div id="output_div"></div></div>
@@ -71,7 +71,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   </div>
 
   <script>
-    var venues = [{
+    venues = [{
         name: "Training Fields",
         monsters: [{n:"Amaranth Moth",c:"#6A3353",e:"Neutral"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Bluelight Chipskink",c:"#0DAECA",e:"Lightning"}, {n:"Chipskink",c:"#573319",e:"Fire"}, {n:"Bumble",c:"#A39D59",e:"Neutral"}, {n:"Coral Carpenter",c:"#6C6AAC",e:"Water"},  {n:"Crimson Emperor",c:"#879A9C",e:"Ice"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Yellow Sparrowmouse",c:"#CE8A0D",e:"Plague"}, {n:"Dark Sparrowmouse",c:"#8B4E8C",e:"Shadow"}, {n:"Ember Mouse",c:"#7E401B",e:"Fire"}, {n:"Glowing Pocket Mouse",c:"#72666B",e:"Light"}, {n:"Frosted Pocketmouse",c:"#7A8DA0",e:"Ice"}, {n:"Satin Pocketmouse",c:"#655F96",e:"Shadow"}, {n:"Mith Bruiser",c:"#9CBB3B",e:"Wind"}, {n:"Ceanothus Brawler",c:"#713C6E",e:"Neutral"}, {n:"Luna Mith",c:"#668951",e:"Wind"}, {n:"Brown-Spotted Mith",c:"#865C3B",e:"Earth"}, {n:"Primrose Mith",c:"#FB92A4",e:"Arcane"}, {n:"Emerald Webwing",c:"#197D6C",e:"Lightning"}, {n:"Ruby Webwing",c:"#891B38",e:"Arcane"}, {n:"Sweetpuff",c:"#AF9D95",e:"Light"}, {n:"Ragepuff",c:"#0F0B36",e:"Water"}, {n:"Silky Webwing",c:"#A4B53F",e:"Nature"}, {n:"Webwing Alpha",c:"#DE5D3D",e:"Plague"}]
       },
@@ -150,122 +150,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     ];
 
-    var trait_ref = [];
-    var mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
+    mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
+    trait_ref = []; //Global variable used to share a list of data-containing objects
 
-    //The most hideous function by far. If you can figure out what this is doing, I salute you.
-    function build_data(){
-      var sep = "</br>-------------------------------------------</br>";
-      var out = (sep+"YOUR STATS"+sep).substring(5); //haha yuck
-      var mode = document.getElementById("mode_select").selectedIndex;
-      var monsters = [];
-      var traits = ["Name"];
-      var totals = [];
-      var full_stack = [];
-      var all_kinds = [];
-      var raw = "";
-      var csv = "";
-      var rares = [];
-      var raresum = 0;
-      if(mode == 0){traits.push.apply(traits, mode_stats[0]);} else {traits.push.apply(traits, mode_stats[1]);}
-      for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0); full_stack.push(false); all_kinds.push(true);}
-      csv += traits;
-
-      //This bit is complicated--we're reading through the name and data fields, using our mode to figure out how many fields
-      for (var i = 0, out_len = trait_ref.length, in_len = traits.length; i < out_len; i+=in_len){
-        csv += "</br>"+trait_ref[i].innerHTML;
-        for (var j = 1; j < in_len; j++){
-          var val = +trait_ref[i+j].value;
-          csv += (","+val);
-          raw += (","+val);
-          totals[j]+= +val;
-          if(val>98){full_stack[j-1]=true;}
-          all_kinds[j-1] = all_kinds[j-1] && val;
-        }
-      }
-
-      rares.push(totals[1],+document.getElementById("egg_count").innerHTML,+document.getElementById("apparel_count").innerHTML,
-      +document.getElementById("vista_count").innerHTML,+document.getElementById("ambush_count").innerHTML,
-      +document.getElementById("eliminate_count").innerHTML,+document.getElementById("crate_count").innerHTML);
-
-      raresum = rares.slice(1).reduce((a, b) => a + b, 0);
-      raw = rares + raw;
-      raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
-
-      out += "</br>Numerical Breakdown"+sep;
-      for(var i = 1, len = totals.length; i < len; i ++){
-        out+=("Total "+traits[i]+": "+totals[i]+"</br>");
-      }
-      out +=("Total Rares: "+raresum+"</br>");
-
-      for(var i = 2, len = totals.length; i < len; i ++){
-        out+=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
-      }
-      out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>"); 
-
-      out += "</br>Achievements"+sep;
-      //Mode independent
-      if(totals[1]>99){out+="DATA SAMPLER</br>";}
-      if(totals[1]>249){out+="BIG DATA</br>";}
-      if(totals[1]>499){out+="HUGE DATA</br>";}
-      if(rares[1]){out+="DR. EGGMAN</br>";}
-      if(rares[2]){out+="BATTLFIELD FASHION</br>";}
-      if(rares[3]){out+="WIDE-OPEN VISTAS</br>";}
-      if(rares[4]){out+="IT'S AN AMBUSH!</br>";}
-      if(rares[5]){out+="ELIMINATING THE COMPETITION</br>";}
-      if(rares[6]){out+="CRATE EXPECTATIONS</br>";}
-      if(all_kinds[0]){out+="GALLERY OF ROGUES</br>";}
-      if(full_stack[0]){out+="LOCALIZED EXTINCTION</br>";}
-      if(raresum>0){out+="LUCKY BREAK</br>";}
-      if(raresum>2){out+="RNG WARRIOR</br>";}
-      //if(you_read_this){out+="MASTER OF MYSTERIES"}...congratulations, reader!
-
-      //General Data only
-      if(mode == 0){
-        out+="GENERALIST</br>";
-        if(totals[2]>99){out+="CORNUCOPIA</br>";}
-        if(totals[3]>99){out+="MATERIAL MOGUL</br>";}
-        if(totals[2]>199){out+="GODLY CHEF</br>";}
-        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
-        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
-        if(totals[4]>9){out+="NATIONAL DEX</br>";}
-        if(all_kinds[1]){out+="CULINARY SAMPLER</br>";}
-        if(all_kinds[2]){out+="MISCELLANIA MASTER</br>";}
-        if(all_kinds[3]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
-        if(full_stack[1]){out+="THE WHOLE ENCHILADA</br>";}
-        if(full_stack[2]){out+="MATERIAL WEALTH</br>";}
-      }
-      //Fest only
-      if(mode > 0){
-        out+="FESTIVE FINDER</br>";
-        if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
-        if(totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
-        if(totals[2]>59){out+="FEST FANATIC</br>";}
-        if(totals[2]>99){out+="LITERALLY JOXAR</br>";}
-        if(totals[3]>0){out+="CHEST COLLECTOR</br>";}
-        if(totals[3]>2){out+="CHEST CHAMPION</br>";}
-        if(all_kinds[1]){out+="CURRENCY SHAKEDOWN</br>";}
-        if(all_kinds[2]){out+="CHEST COMMANDER</br>";}
-        if(full_stack[1]){out+="BOURGEOISE WILDLIFE</br>";}
-      }
-      out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
-      +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
-      out += raw;
-      out += "</br>"+sep+"DATA CSV (for advanced users)"+sep;
-      out += csv;
-      out += "</br>"+sep+"RARES CSV (for advanced users)"+sep+"Fought,Eggs,Apparel,Vista,Ambush,Eliminate,Crate</br>"
-      out += rares;
-      document.getElementById("output_div").innerHTML = out;
-    }
-
-    //surely there's a better way?
-    function inc_text(element){
-      e = document.getElementById(element);
-      val = e.innerHTML;
-      val++;
-      e.innerHTML = val;
-      if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
-    }
+    //Switch between displaying help and data, updating button to match.
     function toggle_info() {
       toggle_button = document.getElementById("dialogue_toggle");
       if(toggle_button.innerHTML=="Show Help"){
@@ -277,48 +165,53 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
 
-    function add_clickable(creature_name, creature_color, stat_list) {
+    //Increment a div text counter. May be phased out and replaced by text inputs.
+    function inc_div(element){
+      div = document.getElementById(element);
+      div.innerHTML = +div.innerHTML+1;
+      if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
+    }
 
+    //Increment a normal counter
+    function inc_counter(element){
+      element.value = +element.value + 1;
+      if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
+    }
+
+    //Create a single line in the enemy list (creature name, buttons, data fields)
+    function add_clickable(creature_name, creature_color, stat_list) {
       var container = document.createElement("div");
-      var text = document.createElement("div");
-      text.innerHTML = creature_name;
-      trait_ref.push(text);
-      text.className += " name_div"
-      text.style.display = "inline-block";
-      text.style.background = creature_color;
+      var name = document.createElement("div");
+      name.innerHTML = creature_name;
+      trait_ref.push(name);
+      name.className += " name_div"
+      name.style.display = "inline-block";
+      name.style.background = creature_color;
       container.style.border = "thin solid "+creature_color;
-      container.appendChild(text);
+      container.appendChild(name);
 
       for (var i = 0, len = stat_list.length; i < len; i++){
-         var temp_label = document.createElement("input");
-         var temp_button = document.createElement("input");
-         gen_basic_textfield(temp_label, stat_list, i);
-         gen_basic_button(temp_button, temp_label, i, creature_color);
-         trait_ref.push(temp_label);
-         container.appendChild(temp_label);
-         container.appendChild(temp_button);
+         var data_field = document.createElement("input");
+         var button = document.createElement("input");
+         configure_data_field(data_field, stat_list, i);
+         configure_button(button, data_field, i, creature_color);
+         trait_ref.push(data_field); //Add this data to the list of data we're tracking
+         container.appendChild(data_field);
+         container.appendChild(button);
          if(i==0){
-             var mem = temp_label; //Because scoping.
-             var mem_b = temp_button;
-             text.onclick = function() {
-              val = mem.value;
-              val++;
-              mem.value = val;
-              if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
-             }
+             var mem = data_field; //Scoping trick, don't worry about it
+             name.onclick = function(){inc_counter(mem)};
          }
       }
-
       var parent_div = document.getElementById("monsterlist_div");
       parent_div.appendChild(container);
     }
 
-    function gen_basic_textfield(element, stat_list, offset){
+    //Utility function for making data fields (ex: #Fought)
+    function configure_data_field(element, stat_list, offset){
       element.type = "text";
       element.value = "0";
       element.name = stat_list[offset];
-      //if(!offset){element.className += "encounter_stat_field";}
-      //else
       if(offset%2==0){element.className += "light_stat_field";}
       else{element.className += " stat_field";}
       element.onchange = function() {
@@ -326,21 +219,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
 
-    function gen_basic_button(button, linked_element, offset, creature_color) {
+    //Utility function for making the buttons that increment data fields
+    function configure_button(button, linked_data, offset, creature_color) {
       button.type = "button";
       button.value = "+";
       if(!offset){button.style.borderRight = "thin solid "+creature_color;}
       if(offset%2==0){button.className += "light_inc_button";}
       else{button.className += " inc_button";}
-
-      button.onclick = function() {
-        val = linked_element.value;
-        val++;
-        linked_element.value = val;
-        if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
-      }
+      button.onclick = function(){inc_counter(linked_data)};
     }
 
+    //Display the appropriate help text for the current data mode (ex: General Data)
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
@@ -350,11 +239,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
 
+    //Populate our page elements using Javascript data. Called first, called once.
     function setup_page() {
       var select_list = document.getElementById("venue_select");
       for (var i = 0, len = venues.length; i < len; i++) {
         var option = document.createElement("option");
-        option.value = venues[i].name;
+        option.value = venues[i].name+"_opt";
         option.text = venues[i].name;
         select_list.appendChild(option);
       }
@@ -363,14 +253,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       show_help();
     }
 
+    //Load information on a venue from the huge 'venues' list at the top, configuring based on data mode.
     function load_venue() {
       var selected_venue = document.getElementById("venue_select").selectedIndex;
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       var venue_monsters = venues[selected_venue].monsters;
       var monsterlist_div = document.getElementById("monsterlist_div");
       var columnheader_div = document.getElementById("header_div");
-      var stats;
       var header = document.createElement("div");
+      var stats;
 
       while (monsterlist_div.firstChild) {monsterlist_div.removeChild(monsterlist_div.firstChild);}
       while (columnheader_div.firstChild) {columnheader_div.removeChild(columnheader_div.firstChild);}
@@ -407,6 +298,117 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       if(document.getElementById("dialogue_toggle").innerHTML=="Show Data"){show_help();}
       else{toggle_info();}
+    }
+
+    //Collect data from fields, run calculations, format, print.
+    function build_data(){
+      var sep = "</br>-------------------------------------------</br>";
+      var out = (sep+"YOUR STATS"+sep).substring(5); //Skip first linebreak
+      var mode = document.getElementById("mode_select").selectedIndex;
+      var monsters = []; //Array of monster names used for printing csv
+      var traits = ["Name"]; //Array of traits tracked (ex #Fought). Note that "name" is only used in printing csvs.
+      var totals = []; //Totals per trait
+      var full_stack = []; //Boolean array for whether someone got a full stack of "something" (food, etc)
+      var all_kinds = []; //Boolean array for whether someone got at least one of all "somethings"
+      var raw = ""; //Raw data string for printing
+      var csv = ""; //CSV string for printing (pretty much is just formatted raw data)
+      var rares = []; //Totals per rare item category
+      var raresum = 0; //Total rare items
+
+      //Further populate traits array based on data mode
+      if(mode == 0){traits.push.apply(traits, mode_stats[0]);} else {traits.push.apply(traits, mode_stats[1]);}
+      for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0); full_stack.push(false); all_kinds.push(true);}
+      
+      //Add our csv header
+      csv += traits;
+
+      //Read through the name and data fields
+      for (var i = 0, out_len = trait_ref.length, in_len = traits.length; i < out_len; i+=in_len){
+        csv += "</br>"+trait_ref[i].innerHTML; //name
+        var numbers = ""; //get ready to collect data
+        for (var j = 1, numbers = ""; j < in_len; j++){
+          var val = +trait_ref[i+j].value; //(i+j+_1_) because of the "Name" field
+          totals[j] += val;
+          if(val>98){ full_stack[j]=true; }
+          all_kinds[j] = all_kinds[j] && val;
+          numbers += (","+val);
+        }
+        csv += numbers;
+        raw += numbers;
+      }
+
+      rares.push(totals[1],+document.getElementById("egg_count").innerHTML,+document.getElementById("apparel_count").innerHTML,
+      +document.getElementById("vista_count").innerHTML,+document.getElementById("ambush_count").innerHTML,
+      +document.getElementById("eliminate_count").innerHTML,+document.getElementById("crate_count").innerHTML);
+
+      raresum = rares.slice(1).reduce((a, b) => a + b, 0);
+      raw = rares + raw;
+      raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
+
+      out += "</br>Numerical Breakdown"+sep;
+      for(var i = 1, len = totals.length; i < len; i ++){
+        out+=("Total "+traits[i]+": "+totals[i]+"</br>");
+      }
+      out +=("Total Rares: "+raresum+"</br>");
+
+      for(var i = 2, len = totals.length; i < len; i ++){
+        out+=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
+      }
+      out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>"); 
+
+      out += "</br>Achievements"+sep;
+      //Mode independent
+      if(totals[1]>99){out+="DATA SAMPLER</br>";}
+      if(totals[1]>249){out+="BIG DATA</br>";}
+      if(totals[1]>499){out+="HUGE DATA</br>";}
+      if(rares[1]){out+="DR. EGGMAN</br>";}
+      if(rares[2]){out+="BATTLFIELD FASHION</br>";}
+      if(rares[3]){out+="WIDE-OPEN VISTAS</br>";}
+      if(rares[4]){out+="IT'S AN AMBUSH!</br>";}
+      if(rares[5]){out+="ELIMINATING THE COMPETITION</br>";}
+      if(rares[6]){out+="CRATE EXPECTATIONS</br>";}
+      if(all_kinds[1]){out+="GALLERY OF ROGUES</br>";}
+      if(full_stack[1]){out+="LOCALIZED EXTINCTION</br>";}
+      if(raresum>0){out+="LUCKY BREAK</br>";}
+      if(raresum>2){out+="RNG WARRIOR</br>";}
+      //if(you_read_this){out+="MASTER OF MYSTERIES"}...congratulations, reader!
+
+      //General Data only
+      if(mode == 0){
+        out+="GENERALIST</br>";
+        if(totals[2]>99){out+="CORNUCOPIA</br>";}
+        if(totals[3]>99){out+="MATERIAL MOGUL</br>";}
+        if(totals[2]>199){out+="GODLY CHEF</br>";}
+        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
+        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
+        if(totals[4]>9){out+="NATIONAL DEX</br>";}
+        if(all_kinds[2]){out+="CULINARY SAMPLER</br>";}
+        if(all_kinds[3]){out+="MISCELLANIA MASTER</br>";}
+        if(all_kinds[4]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
+        if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>";}
+        if(full_stack[3]){out+="MATERIAL WEALTH</br>";}
+      }
+      //Fest only
+      if(mode > 0){
+        out+="FESTIVE FINDER</br>";
+        if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
+        if(totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
+        if(totals[2]>59){out+="FEST FANATIC</br>";}
+        if(totals[2]>99){out+="LITERALLY JOXAR</br>";}
+        if(totals[3]>0){out+="CHEST COLLECTOR</br>";}
+        if(totals[3]>2){out+="CHEST CHAMPION</br>";}
+        if(all_kinds[2]){out+="CURRENCY SHAKEDOWN</br>";}
+        if(all_kinds[3]){out+="CHEST COMMANDER</br>";}
+        if(full_stack[2]){out+="BOURGEOISE WILDLIFE</br>";}
+      }
+      out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
+      +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
+      out += raw;
+      out += "</br>"+sep+"DATA CSV (for advanced users)"+sep;
+      out += csv;
+      out += "</br>"+sep+"RARES CSV (for advanced users)"+sep+"Fought,Eggs,Apparel,Vista,Ambush,Eliminate,Crate</br>"
+      out += rares;
+      document.getElementById("output_div").innerHTML = out;
     }
   </script>
 </body>
