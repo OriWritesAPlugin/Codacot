@@ -58,12 +58,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <div id="buttons_div">
         <div id="monsterlist_div"></div>
         <div id="rarebuttons_div">
-          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="up_egg()">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="up_apparel()">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="up_vista()">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="up_ambush()">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="up_eliminate()">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="up_crate()">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="inc_text('egg_count')">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="inc_text('apparel_count')">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="inc_text('vista_count')">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="inc_text('ambush_count')">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="inc_text('eliminate_count')">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
+          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="inc_text('crate_count')">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
         </div>
       </div>
       <div id="output_container"><div id="output_div"></div></div>
@@ -259,13 +259,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     //surely there's a better way?
-    function up_egg(){e = document.getElementById("egg_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-    function up_apparel(){e = document.getElementById("apparel_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-    function up_vista(){e = document.getElementById("vista_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-    function up_eliminate(){e = document.getElementById("eliminate_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-    function up_ambush(){e = document.getElementById("ambush_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-    function up_crate(){e = document.getElementById("crate_count");  val = e.innerHTML; val++; e.innerHTML = val;}
-
+    function inc_text(element){
+      e = document.getElementById(element);
+      val = e.innerHTML;
+      val++;
+      e.innerHTML = val;
+      if(document.getElementById("dialogue_toggle").innerHTML=="Show Help"){build_data();}
+    }
     function toggle_info() {
       toggle_button = document.getElementById("dialogue_toggle");
       if(toggle_button.innerHTML=="Show Help"){
