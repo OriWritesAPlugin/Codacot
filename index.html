@@ -1,4 +1,9 @@
-<!--Copyright 2017 Oranitha
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+
+  <!--Copyright 2017 Oranitha
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -6,14 +11,10 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8"/>
 
   <style>
     body {background-color: #201920; font-family: verdana;;}
-    select {margin: 10px}
+    select {margin: 6px}
     a {color: #FFF4DC}
 
     .inc_div {display: inline-block;}
@@ -31,6 +32,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     .name_div:hover {color:grey;}
     .columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
     .outputbutton {margin: 10px}
+    .importbutton {margin-right: 10px}
     .rare_button {width: auto; margin: 6px 3px 3px 3px;}
     .rare_field {font-size: small; width: 85%}
     #page_div {margin: 0px 10px 0px 10px}
@@ -41,18 +43,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     #output_container {display: inline; height:100%; width: 50%;}
     #title {text-align: center; color: #DFC48C; font-family: monospace}
     #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
+    #import_input {height: 10px; width: 95%; margin: 10px}
   </style> 
 
 </head>
 <body onload="setup_page()">
-  <div id="page_div">
+  <div id="page_div" style="display: none">
     <h1 id="title">Coliseum Data Collection Tool (CODACOT)</h1>
-    <select id="venue_select" onchange="load_venue()"></select>
-    <select id="mode_select" onchange="load_venue()">
-      <option>General Data</option>
-      <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
-    </select>
-    <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
+    <div id="control_div">
+      <select id="venue_select" onchange="load_venue()"></select>
+      <select id="mode_select" onchange="load_venue()">
+        <option>General Data</option>
+        <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
+      </select>
+      <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
+      <button id="import_button" class="importbutton" onclick="toggle_import()">Import</button>
+      <div id="import_div" style="display: none;">
+               <button id = "import_confirm_button" onclick = "import_data()">Confirm</button>
+              <input id = "import_input" onchange="import_data()"/>
+      </div>
+    </div>
     <div id="header_div"></div>
     <div id="content_div">
       <div id="buttons_div">
@@ -120,7 +130,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
       },
       {
-        name: "Boreal Woods (Thanksgiving)",
+        name: "Boreal Woods Holiday",
         monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Woodland Turkey",c:"#442244",e:"Earth"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
       },
       {
@@ -163,6 +173,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         toggle_button.innerHTML = "Show Help";
         build_data();
       }
+    }
+
+    function toggle_import(){
+      var import_div = document.getElementById("import_div");
+      var import_button = document.getElementById("import_button");
+      if (import_div.style.display === 'none') {import_div.style.display = 'inline'; import_button.innerHTML = "Cancel";}
+      else {import_div.style.display = 'none'; import_button.innerHTML = "Import";}
     }
 
     //Increment a div text counter. May be phased out and replaced by text inputs.
@@ -244,13 +261,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var select_list = document.getElementById("venue_select");
       for (var i = 0, len = venues.length; i < len; i++) {
         var option = document.createElement("option");
-        option.value = venues[i].name+"_opt";
+        option.value = venues[i].name;
         option.text = venues[i].name;
         select_list.appendChild(option);
       }
       option.selectedIndex = 0;
       load_venue();
       show_help();
+      document.getElementById("page_div").style.display = "block";
     }
 
     //Load information on a venue from the huge 'venues' list at the top, configuring based on data mode.
@@ -299,6 +317,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(document.getElementById("dialogue_toggle").innerHTML=="Show Data"){show_help();}
       else{toggle_info();}
     }
+
+     //Import raw data from a previous RAW DATA field
+     function import_data(){
+      var import_input = document.getElementById("import_input");
+      var import_array = import_input.value.split(",");
+
+      var venue_select = document.getElementById("venue_select");
+      var venue_options = venue_select.options;
+      for(var i = 0, import_venue = import_array[0], len = venue_options.length; i<len; i++){
+        alert(venue_options[i].value);
+        if(venue_options[i].value == import_venue){venue_select.selectedIndex = i;}
+      }
+      var mode_select = document.getElementById("mode_select");
+      var mode_options = mode_select.options;
+      for(var i = 0, import_mode = import_array[1], len = mode_options.length; i<len; i++){
+        if(mode_options[i] == import_mode){mode_select.selectedIndex = i;}
+      }
+      load_venue();
+
+
+      import_input.value = "";
+      toggle_import();
+     }
 
     //Collect data from fields, run calculations, format, print.
     function build_data(){
