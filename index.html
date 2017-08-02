@@ -27,7 +27,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     .stat_field, .rare_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
     .light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B;}
     .encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%;}
-
     .name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
     .name_div:hover {color:grey;}
     .columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
@@ -67,14 +66,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     <div id="content_div">
       <div id="buttons_div">
         <div id="monsterlist_div"></div>
-        <div id="rarebuttons_div">
-          <div class="inc_div"><button id="button_egg" class="rare_button" onclick="inc_div('egg_count')">+ Egg</button><div id="egg_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_apparel" class="rare_button" onclick="inc_div('apparel_count')">+ Venue Apparel</button><div id="apparel_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_vista" class="rare_button" onclick="inc_div('vista_count')">+ Vista</button><div id="vista_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_ambush" class="rare_button" onclick="inc_div('ambush_count')">+ Ambush</button><div id="ambush_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_eliminate" class="rare_button" onclick="inc_div('eliminate_count')">+ Eliminate</button><div id="eliminate_count" class=rare_field>0</div></div>
-          <div class="inc_div"><button id="button_crate" class="rare_button" onclick="inc_div('crate_count')">+ Crate</button><div id="crate_count" class=rare_field>0</div></div>
-        </div>
+        <div id="rarebuttons_div"></div>
       </div>
       <div id="output_container"><div id="output_div"></div></div>
     </div>
@@ -87,7 +79,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       },
       {
         name: "Woodland Path",
-        monsters: [{n:"Bamboo Phytocat",c:"#442244",e:"Wind"}, {n:"Bluefin Charger",c:"#442244",e:"Ice"}, {n:"Clown Charger",c:"#442244",e:"Plague"}, {n:"Cockatrice",c:"#442244",e:"Lightning"}, {n:"Basilisk",c:"#442244",e:"Plague"}, {n:"Grouse Basilisk",c:"#442244",e:"Light"}, {n:"Coral Basilisk",c:"#442244",e:"Water"}, {n:"Crimson Emperor",c:"#442244",e:"Ice"}, {n:"Death's-Head Stag",c:"#442244",e:"Head Stag"}, {n:"Autumn Dryad",c:"#442244",e:"Earth"}, {n:"Dryad",c:"#442244",e:"Nature"}, {n:"Janustrap",c:"#442244",e:"Shadow"}, {n:"Greenroot Janustrap",c:"#442244",e:"Nature"}, {n:"Leafy Moth",c:"#442244",e:"Nature"}, {n:"Strangler",c:"#442244",e:"Neutral"}, {n:"Blooming Strangler",c:"#442244",e:"Fire"}, {n:"Sakura Owl",c:"#442244",e:"Arcane"}, {n:"Wildwood Owl",c:"#442244",e:"Neutral"}]  
+        monsters: [{n:"Bamboo Phytocat",c:"#442244",e:"Wind"}, {n:"Bluefin Charger",c:"#442244",e:"Ice"}, {n:"Clown Charger",c:"#442244",e:"Plague"}, {n:"Cockatrice",c:"#442244",e:"Lightning"}, {n:"Basilisk",c:"#442244",e:"Plague"}, {n:"Grouse Basilisk",c:"#442244",e:"Light"}, {n:"Coral Basilisk",c:"#442244",e:"Water"}, {n:"Crimson Emperor",c:"#442244",e:"Ice"}, {n:"Death's-Head Stag",c:"#442244",e:"Earth"}, {n:"Autumn Dryad",c:"#442244",e:"Earth"}, {n:"Dryad",c:"#442244",e:"Nature"}, {n:"Janustrap",c:"#442244",e:"Shadow"}, {n:"Greenroot Janustrap",c:"#442244",e:"Nature"}, {n:"Leafy Moth",c:"#442244",e:"Nature"}, {n:"Strangler",c:"#442244",e:"Neutral"}, {n:"Blooming Strangler",c:"#442244",e:"Fire"}, {n:"Sakura Owl",c:"#442244",e:"Arcane"}, {n:"Wildwood Owl",c:"#442244",e:"Neutral"}]  
       },
       {
         name: "Scorched Forest",
@@ -160,8 +152,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     ];
 
+    rare_list = ["Egg","Apparel","Vista","Ambush","Eliminate","Crate"];
     mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
     trait_ref = []; //Global variable used to share a list of data-containing objects
+    rare_ref = []; //Global variable used to share rare data that requires special processing
+
 
     //Switch between displaying help and data, updating button to match.
     function toggle_info() {
@@ -224,6 +219,28 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       parent_div.appendChild(container);
     }
 
+    //This is VERY similar to add_clickable, both conceptually and code-wise...it's for rares
+    function generate_rare_buttons(stat_list){
+      var rares_container = document.getElementById("rarebuttons_div");
+      for (var i = 0, len = stat_list.length; i < len; i++){
+        var button_container = document.createElement("div");
+        button_container.className += " inc_div";
+        var data_field = document.createElement("input");
+        var button = document.createElement("input");
+        configure_data_field(data_field, stat_list, i);
+        configure_rare_button(button, data_field, stat_list[i]);
+        data_field.style.display = "block";
+        trait_ref.push(data_field);
+        button_container.appendChild(button);
+        button_container.appendChild(data_field);
+        if(i==0){
+          var mem = data_field;
+          name.onclick = function(){inc_counter(mem)};
+        }
+        rares_container.appendChild(button_container);
+      }
+    }
+
     //Utility function for making data fields (ex: #Fought)
     function configure_data_field(element, stat_list, offset){
       element.type = "text";
@@ -243,6 +260,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(!offset){button.style.borderRight = "thin solid "+creature_color;}
       if(offset%2==0){button.className += "light_inc_button";}
       else{button.className += " inc_button";}
+      button.onclick = function(){inc_counter(linked_data)};
+    }
+
+    //Utility function for making named (rares) buttons...hurts my soul a bit.
+    function configure_rare_button(button, linked_data, name) {
+      button.type = "button";
+      button.value = "+"+name;
+      button.className += " rare_button";
       button.onclick = function(){inc_counter(linked_data)};
     }
 
@@ -277,19 +302,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       var venue_monsters = venues[selected_venue].monsters;
       var monsterlist_div = document.getElementById("monsterlist_div");
+      var rarelist_div = document.getElementById("rarebuttons_div");
       var columnheader_div = document.getElementById("header_div");
       var header = document.createElement("div");
       var stats;
 
       while (monsterlist_div.firstChild) {monsterlist_div.removeChild(monsterlist_div.firstChild);}
       while (columnheader_div.firstChild) {columnheader_div.removeChild(columnheader_div.firstChild);}
+      while (rarelist_div.firstChild) {rarelist_div.removeChild(rarelist_div.firstChild);}
       trait_ref = [];
-      document.getElementById("egg_count").innerHTML = 0;
-      document.getElementById("apparel_count").innerHTML = 0;
-      document.getElementById("vista_count").innerHTML = 0;
-      document.getElementById("eliminate_count").innerHTML = 0;
-      document.getElementById("ambush_count").innerHTML = 0;
-      document.getElementById("crate_count").innerHTML = 0;
+
+      generate_rare_buttons(rare_list);
 
       if (selected_mode == 0){
         stats=mode_stats[0];
@@ -314,6 +337,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         colhead.innerHTML = stats[i];
         columnheader_div.appendChild(colhead);
       }
+
       if(document.getElementById("dialogue_toggle").innerHTML=="Show Data"){show_help();}
       else{toggle_info();}
     }
@@ -354,6 +378,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var raw = ""; //Raw data string for printing
       var csv = ""; //CSV string for printing (pretty much is just formatted raw data)
       var rares = []; //Totals per rare item category
+      var non_rares = trait_ref.slice(rare_list.length);
       var raresum = 0; //Total rare items
 
       //Further populate traits array based on data mode
@@ -364,11 +389,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       csv += traits;
 
       //Read through the name and data fields
-      for (var i = 0, out_len = trait_ref.length, in_len = traits.length; i < out_len; i+=in_len){
-        csv += "</br>"+trait_ref[i].innerHTML; //name
+      for (var i = 0, out_len = non_rares.length, in_len = traits.length; i < out_len; i+=in_len){
+        csv += "</br>"+non_rares[i].innerHTML; //name
         var numbers = ""; //get ready to collect data
         for (var j = 1, numbers = ""; j < in_len; j++){
-          var val = +trait_ref[i+j].value; //(i+j+_1_) because of the "Name" field
+          var val = +non_rares[i+j].value; //(i+j+_1_) because of the "Name" field
           totals[j] += val;
           if(val>98){ full_stack[j]=true; }
           all_kinds[j] = all_kinds[j] && val;
@@ -377,12 +402,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         csv += numbers;
         raw += numbers;
       }
-
-      rares.push(totals[1],+document.getElementById("egg_count").innerHTML,+document.getElementById("apparel_count").innerHTML,
-      +document.getElementById("vista_count").innerHTML,+document.getElementById("ambush_count").innerHTML,
-      +document.getElementById("eliminate_count").innerHTML,+document.getElementById("crate_count").innerHTML);
-
-      raresum = rares.slice(1).reduce((a, b) => a + b, 0);
+      rares[0] = totals[1]
+      rares.push.apply(rares,trait_ref.slice(0,rare_list.length).map(function(e){return e.value;}));
+      for (var i = 1, len = rares.length; i < len; i++){raresum+= +rares[i];}
       raw = rares + raw;
       raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
 
