@@ -17,7 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     select {margin: 6px}
     a {color: #FFF4DC}
 
-    .inc_div {display: inline-block;}
+    .inc_div {display: inline-block; margin: 5px 3px 5px 3px;}
     .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
     .inc_button:hover, .rarebutton:hover {color:grey;}    
     .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #392839}
@@ -33,12 +33,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     .outputbutton {margin: 10px}
     .importbutton {margin-right: 10px}
     .rare_button {width: auto; margin: 6px 3px 3px 3px;}
-    .rare_field {font-size: small; width: 85%}
+    .rare_field {font-size: small;}
     #page_div {margin: 0px 10px 0px 10px}
     #header_div {margin-left:220px}
     #buttons_div{display: inline-block; float: left; margin-right: 30px; height: 100%}
     #monsterlist_div {margin-left:10px}
-    #rarebuttons_div {margin-left:5px; padding: 0px}
+    #rarebuttons_div {margin-left:5px; padding: 0px; text-align: center;}
     #output_container {display: inline; height:100%; width: 50%;}
     #title {text-align: center; color: #DFC48C; font-family: monospace}
     #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
@@ -191,7 +191,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     //Create a single line in the enemy list (creature name, buttons, data fields)
-    function add_clickable(creature_name, creature_color, stat_list) {
+    function generate_monsterlist_row(creature_name, creature_color, stat_list) {
       var container = document.createElement("div");
       var name = document.createElement("div");
       name.innerHTML = creature_name;
@@ -219,20 +219,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       parent_div.appendChild(container);
     }
 
-    //This is VERY similar to add_clickable, both conceptually and code-wise...it's for rares
+    //This is VERY similar to above, both conceptually and code-wise...it's for rares
     function generate_rare_buttons(stat_list){
       var rares_container = document.getElementById("rarebuttons_div");
       for (var i = 0, len = stat_list.length; i < len; i++){
         var button_container = document.createElement("div");
+        var name = document.createElement("div");
+        name.className += "columnheader";
+        name.style.display = "block";
+        name.innerHTML = stat_list[i];
         button_container.className += " inc_div";
         var data_field = document.createElement("input");
         var button = document.createElement("input");
         configure_data_field(data_field, stat_list, i);
-        configure_rare_button(button, data_field, stat_list[i]);
-        data_field.style.display = "block";
+        configure_button(button, data_field, i);
         trait_ref.push(data_field);
-        button_container.appendChild(button);
+        button_container.appendChild(name);
         button_container.appendChild(data_field);
+        button_container.appendChild(button);
         if(i==0){
           var mem = data_field;
           name.onclick = function(){inc_counter(mem)};
@@ -257,17 +261,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function configure_button(button, linked_data, offset, creature_color) {
       button.type = "button";
       button.value = "+";
-      if(!offset){button.style.borderRight = "thin solid "+creature_color;}
+      if(!offset && creature_color != null){button.style.borderRight = "thin solid "+creature_color;}
       if(offset%2==0){button.className += "light_inc_button";}
       else{button.className += " inc_button";}
-      button.onclick = function(){inc_counter(linked_data)};
-    }
-
-    //Utility function for making named (rares) buttons...hurts my soul a bit.
-    function configure_rare_button(button, linked_data, name) {
-      button.type = "button";
-      button.value = "+"+name;
-      button.className += " rare_button";
       button.onclick = function(){inc_counter(linked_data)};
     }
 
@@ -317,7 +313,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (selected_mode == 0){
         stats=mode_stats[0];
         for (var i = 0, len = venue_monsters.length; i < len; i++){
-          add_clickable(venue_monsters[i].n,venue_monsters[i].c,stats);
+          generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
         }
       }
 
@@ -326,7 +322,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
         for (var i = 0, len = venue_monsters.length; i < len; i++){
           if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
-            add_clickable(venue_monsters[i].n,venue_monsters[i].c,stats);
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
           }  
         }
       }
