@@ -273,7 +273,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(selected_mode==0){
         document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+".";
       } else {
-        document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data for fights that involve exactly one relevant species (fest element or Neutral). Otherwise, you can never tell just who dropped the item. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.<br><br>Thanks for your help!";
+        document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data if you are SURE which species dropped the currency/chest. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.</br></br>If you're ever uncertain, don't collect any data for the battle.<br><br>Thanks for your help!";
       }
     }
 
@@ -287,6 +287,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         select_list.appendChild(option);
       }
       option.selectedIndex = 0;
+      document.getElementById("mode_select").selectedIndex = 0;
       load_venue();
       show_help();
       document.getElementById("page_div").style.display = "block";
@@ -342,7 +343,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      function import_data(){
       var import_input = document.getElementById("import_input");
       var import_array = import_input.value.split(",");
-
+      var mode = 0;
       var venue_select = document.getElementById("venue_select");
       var venue_options = venue_select.options;
       for(var i = 0, import_venue = import_array[0], len = venue_options.length; i<len; i++){
@@ -351,11 +352,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var mode_select = document.getElementById("mode_select");
       var mode_options = mode_select.options;
       for(var i = 0, import_mode = import_array[1], len = mode_options.length; i<len; i++){
-        if(mode_options[i] == import_mode){mode_select.selectedIndex = i;}
+        if(mode_options[i].value == import_mode){
+          mode_select.selectedIndex = i;
+          if(i){mode=1}; //If mode_select > 0, we're using fest data mode.
+        }
       }
       load_venue();
+      //Update rares
+      for (var i = 0, len = rare_list.length; i < len; i++){trait_ref[i].value=import_array[i+3];}
 
-
+      //Update everything else
+      var enemies_complete = 0; //Because trait_ref tracks names and raw data doesn't, we need to correct for length
+      for (var i = rare_list.length, out_len = trait_ref.length, in_len = mode_stats[mode].length+1; i < out_len; i+=in_len){
+        for (var j = 1; j < in_len; j++){
+          trait_ref[i+j].value=+import_array[i+j+2-enemies_complete]; //The +2 is because we don't want our venue/mode data
+        }
+        enemies_complete ++;
+      }
       import_input.value = "";
       toggle_import();
      }
