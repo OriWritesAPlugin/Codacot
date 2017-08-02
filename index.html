@@ -398,8 +398,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         raw += numbers;
       }
       rares[0] = totals[1]
-      rares.push.apply(rares,trait_ref.slice(0,rare_list.length).map(function(e){return e.value;}));
-      for (var i = 1, len = rares.length; i < len; i++){raresum+= +rares[i];}
+      rares.push.apply(rares,trait_ref.slice(0,rare_list.length).map(function(e){return +e.value;}));
+      for (var i = 1, len = rares.length; i < len; i++){raresum+= rares[i];}
       raw = rares + raw;
       raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
 
