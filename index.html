@@ -346,7 +346,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var venue_select = document.getElementById("venue_select");
       var venue_options = venue_select.options;
       for(var i = 0, import_venue = import_array[0], len = venue_options.length; i<len; i++){
-        alert(venue_options[i].value);
         if(venue_options[i].value == import_venue){venue_select.selectedIndex = i;}
       }
       var mode_select = document.getElementById("mode_select");
