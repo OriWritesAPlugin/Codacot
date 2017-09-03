@@ -383,6 +383,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var sep = "</br>-------------------------------------------</br>";
       var out = (sep+"YOUR STATS"+sep).substring(5); //Skip first linebreak
       var mode = document.getElementById("mode_select").selectedIndex;
+      var venue_name = document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value;
       var monsters = []; //Array of monster names used for printing csv
       var traits = ["Name"]; //Array of traits tracked (ex #Fought). Note that "name" is only used in printing csvs.
       var totals = []; //Totals per trait
@@ -419,24 +420,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       rares.push.apply(rares,trait_ref.slice(0,rare_list.length).map(function(e){return +e.value;}));
       for (var i = 1, len = rares.length; i < len; i++){raresum+= rares[i];}
       raw = rares + raw;
-      raw = (document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
+      raw = (venue_name+","+document.getElementById("mode_select").options[mode].value+",").concat(raw);
 
       out += "</br>Numerical Breakdown"+sep;
       for(var i = 1, len = totals.length; i < len; i ++){
-        out+=("Total "+traits[i]+": "+totals[i]+"</br>");
+        out +=("Total "+traits[i]+": "+totals[i]+"</br>");
       }
       out +=("Total Rares: "+raresum+"</br>");
 
       for(var i = 2, len = totals.length; i < len; i ++){
-        out+=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
+        out +=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
       }
       out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>"); 
 
       out += "</br>Achievements"+sep;
+
+      mastery = 0;
+
       //Mode independent
+      //Formatting note: use 'out +=' for data, omit the space for achievements (except mastery)
+      //Number of achievements is #out+= + #venues
       if(totals[1]>99){out+="DATA SAMPLER</br>";}
-      if(totals[1]>249){out+="BIG DATA</br>";}
-      if(totals[1]>499){out+="HUGE DATA</br>";}
+      if(totals[1]>249){out+="BIG DATA</br>"; mastery++;}
+      if(totals[1]>499){out+="HUGE DATA</br>"; mastery++;}
       if(rares[1]){out+="DR. EGGMAN</br>";}
       if(rares[2]){out+="BATTLFIELD FASHION</br>";}
       if(rares[3]){out+="WIDE-OPEN VISTAS</br>";}
@@ -444,20 +450,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(rares[5]){out+="ELIMINATING THE COMPETITION</br>";}
       if(rares[6]){out+="CRATE EXPECTATIONS</br>";}
       if(all_kinds[1]){out+="GALLERY OF ROGUES</br>";}
-      if(full_stack[1]){out+="LOCALIZED EXTINCTION</br>";}
-      if(raresum>0){out+="LUCKY BREAK</br>";}
-      if(raresum>2){out+="RNG WARRIOR</br>";}
+      if(full_stack[1]){out+="LOCALIZED EXTINCTION</br>"; mastery++;}
+      if(raresum>0){out+="LUCKY BREAK</br>"; mastery++;}
+      if(raresum>2){out+="RNG WARRIOR</br>"; mastery++;}
       //if(you_read_this){out+="MASTER OF MYSTERIES"}...congratulations, reader!
 
       //General Data only
       if(mode == 0){
         out+="GENERALIST</br>";
-        if(totals[2]>99){out+="CORNUCOPIA</br>";}
-        if(totals[3]>99){out+="MATERIAL MOGUL</br>";}
-        if(totals[2]>199){out+="GODLY CHEF</br>";}
-        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>";}
-        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>";}
-        if(totals[4]>9){out+="NATIONAL DEX</br>";}
+        if(totals[2]>99){out+="CORNUCOPIA</br>"; mastery++;}
+        if(totals[3]>99){out+="MATERIAL MOGUL</br>"; mastery++;}
+        if(totals[2]>199){out+="GODLY CHEF</br>"; mastery++;}
+        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
+        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>"; mastery++;}
+        if(totals[4]>9){out+="NATIONAL DEX</br>"; mastery++;}
         if(all_kinds[2]){out+="CULINARY SAMPLER</br>";}
         if(all_kinds[3]){out+="MISCELLANIA MASTER</br>";}
         if(all_kinds[4]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
@@ -467,16 +473,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       //Fest only
       if(mode > 0){
         out+="FESTIVE FINDER</br>";
-        if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>";}
-        if(totals[2]>29){out+="FEST FREQUENT FLIER</br>";}
-        if(totals[2]>59){out+="FEST FANATIC</br>";}
-        if(totals[2]>99){out+="LITERALLY JOXAR</br>";}
-        if(totals[3]>0){out+="CHEST COLLECTOR</br>";}
-        if(totals[3]>2){out+="CHEST CHAMPION</br>";}
+        if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>"; mastery+=2;}
+        if(totals[2]>29){out+="FEST FREQUENT FLIER</br>"; mastery++;}
+        if(totals[2]>59){out+="FEST FANATIC</br>"; mastery++;}
+        if(totals[2]>99){out+="LITERALLY JOXAR</br>"; mastery++;}
+        if(totals[3]>0){out+="CHEST COLLECTOR</br>"; mastery++;}
+        if(totals[3]>2){out+="CHEST CHAMPION</br>"; mastery++;}
         if(all_kinds[2]){out+="CURRENCY SHAKEDOWN</br>";}
         if(all_kinds[3]){out+="CHEST COMMANDER</br>";}
-        if(full_stack[2]){out+="BOURGEOISE WILDLIFE</br>";}
+        if(full_stack[2]){out+="BOURGEOISE WILDLIFE</br>"; mastery++;}
       }
+      //Venue mastery (mode independent)
+      if(mastery>4){
+        if(venue_name === "Boreal Woods Holiday"){venue_name = "Boreal Woods";}
+        out +=(venue_name.toUpperCase()+" MASTER</br>");}
+      if(mastery>9){out+="UTTER VENUE DOMINANCE</br>";}
+
       out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
       +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
       out += raw;
