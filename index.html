@@ -439,7 +439,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
       //Mode independent
       //Formatting note: use 'out +=' for data, omit the space for achievements (except mastery)
-      //Number of achievements is #out+= + #venues
+      //Number of achievements is #out_+= + #venues
       if(totals[1]>99){out+="DATA SAMPLER</br>";}
       if(totals[1]>249){out+="BIG DATA</br>"; mastery++;}
       if(totals[1]>499){out+="HUGE DATA</br>"; mastery++;}
@@ -487,7 +487,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(mastery>4){
         if(venue_name === "Boreal Woods Holiday"){venue_name = "Boreal Woods";}
         out +=(venue_name.toUpperCase()+" MASTER</br>");}
-      if(mastery>9){out+="UTTER VENUE DOMINANCE</br>";}
+      if(mastery>9){out+="ASCENDANT MASTERY</br>";}
 
       out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
       +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
