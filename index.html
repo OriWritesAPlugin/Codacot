@@ -19,13 +19,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     a {color: #FFF4DC}
 
     .inc_div {display: inline-block; margin: 5px 3px 5px 3px;}
-    .inc_button, .rare_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
+    .inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
     .inc_button:hover, .rarebutton:hover {color:grey;}    
     .light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #392839}
     .light_inc_button:hover {color: #555555}
     .encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #291829}
-
-    .stat_field, .rare_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
+    .stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
     .light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B;}
     .encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%;}
     .name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
@@ -33,13 +32,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     .columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
     .outputbutton {margin: 10px}
     .importbutton {margin-right: 10px}
-    .rare_button {width: auto; margin: 6px 3px 3px 3px;}
-    .rare_field {font-size: small;}
     #page_div {margin: 0px 10px 0px 10px}
     #header_div {margin-left:220px}
     #buttons_div{display: inline-block; float: left; margin-right: 30px; height: 100%}
     #monsterlist_div {margin-left:10px; display:inline-block}
-    #rarebuttons_div {margin-left:5px; padding: 0px; text-align: center;}
+    #rarebuttons_div, #custombuttons_div {margin-left:5px; padding: 0px; text-align: center;}
+    #custombuttons_div {margin-top:20px;}
     #output_container {display: inline; height:100%; width: 50%;}
     #title {text-align: center; color: #DFC48C; font-family: monospace}
     #output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 14px; font-family: monospace; resize: vertical;}
@@ -68,6 +66,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <div id="buttons_div">
         <div id="monsterlist_div"></div>
         <div id="rarebuttons_div"></div>
+        <div id="custombuttons_div"></div>
       </div>
       <div id="output_container"><div id="output_div"></div></div>
     </div>
@@ -161,7 +160,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
     trait_ref = []; //Global variable used to share a list of data-containing objects
     rare_ref = []; //Global variable used to share rare data that requires special processing
-
+    custom_counters = 3; //Number of custom counters available
 
     //Switch between displaying help and data, updating button to match.
     function toggle_info() {
@@ -242,11 +241,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         button_container.appendChild(name);
         button_container.appendChild(data_field);
         button_container.appendChild(button);
-        if(i==0){
-          var mem = data_field;
-          name.onclick = function(){inc_counter(mem)};
-        }
         rares_container.appendChild(button_container);
+      }
+    }
+
+    //This is VERY similar to both above, both conceptually and code-wise...it's for customs
+    function generate_custom_buttons(num_counters){
+      var custom_container = document.getElementById("custombuttons_div");
+      for (var i = 0, len = num_counters; i < len; i++){
+        var button_container = document.createElement("div");
+        var name = document.createElement("div");
+        name.className += "columnheader";
+        name.style.display = "block";
+        name.contentEditable='true';
+        name.innerHTML = ("You can edit me! #"+(i+1));
+        name.style.width = "140px";
+        button_container.className += " inc_div";
+        var data_field = document.createElement("input");
+        var button = document.createElement("input");
+        configure_data_field(data_field, ("Custom "+i), i);
+        configure_button(button, data_field, i);
+        data_field.style.width = "120px";
+        button_container.appendChild(name);
+        button_container.appendChild(data_field);
+        button_container.appendChild(button);
+        custom_container.appendChild(button_container);
       }
     }
 
@@ -276,7 +295,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     function show_help() {
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
-        document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+"."+"<br><br></br>IMPORTING DATA</br>-------------</br></br>You can also use this tool to 'save and reload' a coli run. Hit 'Show Data' and copy the 'Raw Data' somewhere safe to save. Hit 'Import,' paste that data in, and hit 'Confirm' to load. PLEASE NOTE: you SHOULD NOT donate data until you're absolutely done! Otherwise, we'll get duplicate data (bad). Thank you!";
+        document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those! Counting something special? CODACOT also includes three customizeable counters. NOTE: custom data won't be included in the raw data, so if you intend to save/load, write that stuff down separately!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+"."+"<br><br></br>IMPORTING DATA</br>-------------</br></br>You can also use this tool to 'save and reload' a coli run. Hit 'Show Data' and copy the 'Raw Data' somewhere safe to save. Hit 'Import,' paste that data in, and hit 'Confirm' to load. PLEASE NOTE: you SHOULD NOT donate data until you're absolutely done! Otherwise, we'll get duplicate data (bad). Thank you!";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data if you are SURE which species dropped the currency/chest. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.</br></br>If you're ever uncertain, don't collect any data for the battle.<br><br>Thanks for your help!";
       }
@@ -305,6 +324,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var venue_monsters = venues[selected_venue].monsters;
       var monsterlist_div = document.getElementById("monsterlist_div");
       var rarelist_div = document.getElementById("rarebuttons_div");
+      var customlist_div = document.getElementById("custombuttons_div");
       var columnheader_div = document.getElementById("header_div");
       var header = document.createElement("div");
       var stats;
@@ -312,9 +332,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       while (monsterlist_div.firstChild) {monsterlist_div.removeChild(monsterlist_div.firstChild);}
       while (columnheader_div.firstChild) {columnheader_div.removeChild(columnheader_div.firstChild);}
       while (rarelist_div.firstChild) {rarelist_div.removeChild(rarelist_div.firstChild);}
+      while (customlist_div.firstChild) {customlist_div.removeChild(customlist_div.firstChild);}
       trait_ref = [];
 
       generate_rare_buttons(rare_list);
+      generate_custom_buttons(custom_counters);
 
       if (selected_mode == 0){
         stats=mode_stats[0];
