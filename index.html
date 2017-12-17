@@ -515,14 +515,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       //General and NotN Data (non-elemental-fest)
       if(mode < 2){
         //Mode acts as multiplier; collect half as much stuff for NoTN achievs.
-        if(totals[2]>99/mode){out+="CORNUCOPIA</br>"; mastery++;}
-        if(totals[3]>99/mode){out+="MATERIAL MOGUL</br>"; mastery++;}
-        if(totals[2]>199/mode){out+="GODLY CHEF</br>"; mastery++;}
-        if(totals[3]>199/mode){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
+        mode_modifier = mode+1;
+        if(totals[2]>99/mode_modifier){out+="CORNUCOPIA</br>"; mastery++;}
+        if(totals[3]>99/mode_modifier){out+="MATERIAL MOGUL</br>"; mastery++;}
+        if(totals[2]>199/mode_modifier){out+="GODLY CHEF</br>"; mastery++;}
+        if(totals[3]>199/mode_modifier){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
         if(all_kinds[2]){out+="CULINARY SAMPLER</br>";}
         if(all_kinds[3]){out+="MISCELLANIA MASTER</br>";}
-        if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>"; mastery+=mode;}
-        if(full_stack[3]){out+="MATERIAL WEALTH</br>"; mastery+=mode}
+        if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>"; mastery+=mode_modifier;}
+        if(full_stack[3]){out+="MATERIAL WEALTH</br>"; mastery+=mode_modifier}
       }
       //Elem Fest only
       if(mode > 1){
