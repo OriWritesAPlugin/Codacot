@@ -7,7 +7,7 @@
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice, this permission notice, and the Contributors section below (as well as all listed Contributors) shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.-->
 
@@ -52,6 +52,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <select id="venue_select" onchange="load_venue()"></select>
       <select id="mode_select" onchange="load_venue()">
         <option>General Data</option>
+        <option>NotN Data</option>
         <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
       </select>
       <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
@@ -75,55 +76,55 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   <script>
     venues = [{
         name: "Training Fields",
-        monsters: [{n:"Amaranth Moth",c:"#6A3353",e:"Neutral"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Bluelight Chipskink",c:"#0DAECA",e:"Lightning"}, {n:"Chipskink",c:"#573319",e:"Fire"}, {n:"Bumble",c:"#A39D59",e:"Neutral"}, {n:"Coral Carpenter",c:"#6C6AAC",e:"Water"},  {n:"Crimson Emperor",c:"#879A9C",e:"Ice"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Yellow Sparrowmouse",c:"#CE8A0D",e:"Plague"}, {n:"Dark Sparrowmouse",c:"#8B4E8C",e:"Shadow"}, {n:"Ember Mouse",c:"#7E401B",e:"Fire"}, {n:"Glowing Pocket Mouse",c:"#72666B",e:"Light"}, {n:"Frosted Pocketmouse",c:"#7A8DA0",e:"Ice"}, {n:"Satin Pocketmouse",c:"#655F96",e:"Shadow"}, {n:"Mith Bruiser",c:"#9CBB3B",e:"Wind"}, {n:"Ceanothus Brawler",c:"#713C6E",e:"Neutral"}, {n:"Luna Mith",c:"#668951",e:"Wind"}, {n:"Brown-Spotted Mith",c:"#865C3B",e:"Earth"}, {n:"Primrose Mith",c:"#FB92A4",e:"Arcane"}, {n:"Emerald Webwing",c:"#197D6C",e:"Lightning"}, {n:"Ruby Webwing",c:"#891B38",e:"Arcane"}, {n:"Sweetpuff",c:"#AF9D95",e:"Light"}, {n:"Ragepuff",c:"#0F0B36",e:"Water"}, {n:"Silky Webwing",c:"#A4B53F",e:"Nature"}, {n:"Webwing Alpha",c:"#DE5D3D",e:"Plague"}]
+        monsters: [{n:"Smoldering Sconce",c:"#8EA1B3",e:"NotN"}, {n:"Tick-Tock",c:"#A97133",e:"NotN"}, {n:"Amaranth Moth",c:"#6A3353",e:"Neutral"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Bluelight Chipskink",c:"#0DAECA",e:"Lightning"}, {n:"Chipskink",c:"#573319",e:"Fire"}, {n:"Bumble",c:"#A39D59",e:"Neutral"}, {n:"Coral Carpenter",c:"#6C6AAC",e:"Water"},  {n:"Crimson Emperor",c:"#879A9C",e:"Ice"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Yellow Sparrowmouse",c:"#CE8A0D",e:"Plague"}, {n:"Dark Sparrowmouse",c:"#8B4E8C",e:"Shadow"}, {n:"Ember Mouse",c:"#7E401B",e:"Fire"}, {n:"Glowing Pocket Mouse",c:"#72666B",e:"Light"}, {n:"Frosted Pocketmouse",c:"#7A8DA0",e:"Ice"}, {n:"Satin Pocketmouse",c:"#655F96",e:"Shadow"}, {n:"Mith Bruiser",c:"#9CBB3B",e:"Wind"}, {n:"Ceanothus Brawler",c:"#713C6E",e:"Neutral"}, {n:"Luna Mith",c:"#668951",e:"Wind"}, {n:"Brown-Spotted Mith",c:"#865C3B",e:"Earth"}, {n:"Primrose Mith",c:"#FB92A4",e:"Arcane"}, {n:"Emerald Webwing",c:"#197D6C",e:"Lightning"}, {n:"Ruby Webwing",c:"#891B38",e:"Arcane"}, {n:"Sweetpuff",c:"#AF9D95",e:"Light"}, {n:"Ragepuff",c:"#0F0B36",e:"Water"}, {n:"Silky Webwing",c:"#A4B53F",e:"Nature"}, {n:"Webwing Alpha",c:"#DE5D3D",e:"Plague"}]
       },
       {
         name:"Woodland Path",
-        monsters: [{n:"Bamboo Phytocat",c:"#6E7842",e:"Wind"}, {n:"Bluefin Charger",c:"#435275",e:"Ice"}, {n:"Clown Charger",c:"#C6552C",e:"Plague"}, {n:"Cockatrice",c:"#3F4139",e:"Lightning"}, {n:"Basilisk",c:"#875642",e:"Plague"}, {n:"Grouse Basilisk",c:"#703723",e:"Light"}, {n:"Coral Basilisk",c:"#5A3543",e:"Water"}, {n:"Crimson Emperor",c:"#5B5E60",e:"Ice"}, {n:"Death's-Head Stag",c:"#634C3D",e:"Earth"}, {n:"Autumn Dryad",c:"#8F571C",e:"Earth"}, {n:"Dryad",c:"#2F5121",e:"Nature"}, {n:"Janustrap",c:"#44344E",e:"Shadow"}, {n:"Greenroot Janustrap",c:"#19654A",e:"Nature"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Strangler",c:"#527226",e:"Neutral"}, {n:"Blooming Strangler",c:"#814E36",e:"Fire"}, {n:"Sakura Owl",c:"#A25C66",e:"Arcane"}, {n:"Wildwood Owl",c:"#1F4D42",e:"Neutral"}]
+        monsters: [{n:"Curious Cauldron",c:"#394241",e:"NotN"}, {n:"Painted Marionette",c:"#5B1B31", e:"NotN"},{n:"Bamboo Phytocat",c:"#6E7842",e:"Wind"}, {n:"Bluefin Charger",c:"#435275",e:"Ice"}, {n:"Clown Charger",c:"#C6552C",e:"Plague"}, {n:"Cockatrice",c:"#3F4139",e:"Lightning"}, {n:"Basilisk",c:"#875642",e:"Plague"}, {n:"Grouse Basilisk",c:"#703723",e:"Light"}, {n:"Coral Basilisk",c:"#5A3543",e:"Water"}, {n:"Crimson Emperor",c:"#5B5E60",e:"Ice"}, {n:"Death's-Head Stag",c:"#634C3D",e:"Earth"}, {n:"Autumn Dryad",c:"#8F571C",e:"Earth"}, {n:"Dryad",c:"#2F5121",e:"Nature"}, {n:"Janustrap",c:"#44344E",e:"Shadow"}, {n:"Greenroot Janustrap",c:"#19654A",e:"Nature"}, {n:"Leafy Moth",c:"#527840",e:"Nature"}, {n:"Strangler",c:"#527226",e:"Neutral"}, {n:"Blooming Strangler",c:"#814E36",e:"Fire"}, {n:"Sakura Owl",c:"#A25C66",e:"Arcane"}, {n:"Wildwood Owl",c:"#1F4D42",e:"Neutral"}]
       },
       {
         name: "Scorched Forest",
-        monsters: [{n:"Augite Protector",c:"#403F4F",e:"Neutral"}, {n:"Moss-Covered Golem",c:"#5F6938",e:"Nature"}, {n:"Banded Owlcat",c:"#6A5437",e:"Wind"}, {n:"Red-Winged Owlcat",c:"#BE5E1D",e:"Neutral"}, {n:"Centaur Archer",c:"#5B4649",e:"Plague"}, {n:"Wintermane Bowman",c:"#63708E",e:"Ice"}, {n:"Clown Charger",c:"#C6552C",e:"Plague"}, {n:"Crowned Bonepriest",c:"#5B4649",e:"Light"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Extinguished Jackalope",c:"#A48D8E",e:"Neutral"}, {n:"Searing Jackalope",c:"#A46A2C",e:"Fire"}, {n:"Painted Centaur",c:"#A05E42",e:"Fire"}, {n:"Wintermane Spearman",c:"#656567",e:"Lightning"}, {n:"Rambra",c:"#887F7D",e:"Earth"}, {n:"Zeeba",c:"#797399",e:"Shadow"}, {n:"Smoke Gyre",c:"#686471",e:"Fire"}, {n:"Steam Gyre",c:"#878AA0",e:"Water"}, {n:"Umberhorn Qiriq",c:"#78576B",e:"Arcane"}]
+        monsters: [{n:"Colubrid-Column",c:"#7981AC",e:"NotN"}, {n:"Snarling Mimic",c:"#846B4E",e:"NotN"}, {n:"Augite Protector",c:"#403F4F",e:"Neutral"}, {n:"Moss-Covered Golem",c:"#5F6938",e:"Nature"}, {n:"Banded Owlcat",c:"#6A5437",e:"Wind"}, {n:"Red-Winged Owlcat",c:"#BE5E1D",e:"Neutral"}, {n:"Centaur Archer",c:"#5B4649",e:"Plague"}, {n:"Wintermane Bowman",c:"#63708E",e:"Ice"}, {n:"Clown Charger",c:"#C6552C",e:"Plague"}, {n:"Crowned Bonepriest",c:"#5B4649",e:"Light"}, {n:"Death's-Head Stag",c:"#8A7B6E",e:"Earth"}, {n:"Extinguished Jackalope",c:"#A48D8E",e:"Neutral"}, {n:"Searing Jackalope",c:"#A46A2C",e:"Fire"}, {n:"Painted Centaur",c:"#A05E42",e:"Fire"}, {n:"Wintermane Spearman",c:"#656567",e:"Lightning"}, {n:"Rambra",c:"#887F7D",e:"Earth"}, {n:"Zeeba",c:"#797399",e:"Shadow"}, {n:"Smoke Gyre",c:"#686471",e:"Fire"}, {n:"Steam Gyre",c:"#878AA0",e:"Water"}, {n:"Umberhorn Qiriq",c:"#78576B",e:"Arcane"}]
       },
       {
         name: "Sandswept Delta",
-        monsters: [{n:"Carmine Serthis",c:"#9A5357",e:"Arcane"}, {n:"Opheodrys Serthis",c:"#6D8D54",e:"Wind"}, {n:"Crowned Bonepriest",c:"#A29786",e:"Light"}, {n:"Fan Scorpion",c:"#649E24",e:"Fire"}, {n:"Peacock Scorpion",c:"#3F88A4",e:"Neutral"}, {n:"Fuiran",c:"#45795E",e:"Nature"}, {n:"Nightsky Fuiran",c:"#6444A5",e:"Shadow"}, {n:"Greatshell",c:"#DA9455",e:"Light"}, {n:"Iridescent Scaleback",c:"#6C6880",e:"Water"}, {n:"Scaleback",c:"#776778",e:"Ice"}, {n:"Serthis Alchemist",c:"#694757",e:"Plague"}, {n:"Serthis Potionmaster",c:"#857438",e:"Light"}, {n:"Shadow Serpent",c:"#7E6399",e:"Shadow"}, {n:"Shattered Serpent",c:"#6F5943",e:"Earth"}, {n:"Storm Seeker",c:"#31827B",e:"Lightning"}]
+        monsters: [{n:"Serpentine Lamp",c:"#763D16",e:"NotN"}, {n:"Unlikely Alliance",c:"#AB1D81",e:"NotN"}, {n:"Carmine Serthis",c:"#9A5357",e:"Arcane"}, {n:"Opheodrys Serthis",c:"#6D8D54",e:"Wind"}, {n:"Crowned Bonepriest",c:"#A29786",e:"Light"}, {n:"Fan Scorpion",c:"#649E24",e:"Fire"}, {n:"Peacock Scorpion",c:"#3F88A4",e:"Neutral"}, {n:"Fuiran",c:"#45795E",e:"Nature"}, {n:"Nightsky Fuiran",c:"#6444A5",e:"Shadow"}, {n:"Greatshell",c:"#DA9455",e:"Light"}, {n:"Iridescent Scaleback",c:"#6C6880",e:"Water"}, {n:"Scaleback",c:"#776778",e:"Ice"}, {n:"Serthis Alchemist",c:"#694757",e:"Plague"}, {n:"Serthis Potionmaster",c:"#857438",e:"Light"}, {n:"Shadow Serpent",c:"#7E6399",e:"Shadow"}, {n:"Shattered Serpent",c:"#6F5943",e:"Earth"}, {n:"Storm Seeker",c:"#31827B",e:"Lightning"}]
       },
       {
         name: "Blooming Grove",
-        monsters: [{n:"Alstroemeria Fox",c:"#820930",e:"Arcane"},{n:"Myosotis Fox",c:"#3EA76D",e:"Wind"},{n:"Fungi Sage",c:"#A8A43A",e:"Neutral"},{n:"Moonlight Fungi",c:"#8B64B4",e:"Shadow"},{n:"Flora Cerdae",c:"#9D907E",e:"Nature"},{n:"Maned Cerdae",c:"#57A3A8",e:"Lightning"},{n:"Aspen Gall Dryad",c:"#782E22",e:"Plague"},{n:"Barkskin Watcher",c:"#587748",e:"Nature"},{n:"Five-Toed Pilco",c:"#B18514",e:"Neutral"},{n:"Venomtooth Pilco",c:"#6CA7A6",e:"Fire"},{n:"Frostbite Dryad",c:"#5A81FF",e:"Ice"},{n:"Sunbeam Dryad",c:"#C67627",e:"Light"},{n:"Terra Tortoise",c:"#716A5C",e:"Earth"},{n:"Traveling Garden",c:"#78AA64",e:"Wind"},{n:"Grove Piper",c:"#624D3A",e:"Earth"},{n:"Spotted Faun",c:"#6F350D",e:"Neutral"},{n:"Palefoot Tadhop",c:"#819EFE",e:"Ice"},{n:"Ruffletail Tadhop",c:"#81CFBD",e:"Lightning"},{n:"Lilium Floron",c:"#CF4D01",e:"Fire"},{n:"Petalmane Floron",c:"#6D46F3",e:"Water"},{n:"Buttercup Strangler",c:"#7b3d68",e:"Arcane"},{n:"Rosaline Strangler",c:"#6E0515",e:"Nature"},{n:"White Rot Deer",c:"#60544B",e:"Plague"},{n:"Wood Ear Deer",c:"#49502A",e:"Nature"},{n:"Flowering Pohip",c:"#AE9352",e:"Light"},{n:"Mossy Pohip",c:"#8A8CA6",e:"Shadow"}]
+        monsters: [{n:"Antique Chair",c:"#472723",e:"NotN"}, {n:"Transmuted Treasure",c:"#604E62",e:"NotN"}, {n:"Alstroemeria Fox",c:"#820930",e:"Arcane"},{n:"Myosotis Fox",c:"#3EA76D",e:"Wind"},{n:"Fungi Sage",c:"#A8A43A",e:"Neutral"},{n:"Moonlight Fungi",c:"#8B64B4",e:"Shadow"},{n:"Flora Cerdae",c:"#9D907E",e:"Nature"},{n:"Maned Cerdae",c:"#57A3A8",e:"Lightning"},{n:"Aspen Gall Dryad",c:"#782E22",e:"Plague"},{n:"Barkskin Watcher",c:"#587748",e:"Nature"},{n:"Five-Toed Pilco",c:"#B18514",e:"Neutral"},{n:"Venomtooth Pilco",c:"#6CA7A6",e:"Fire"},{n:"Frostbite Dryad",c:"#5A81FF",e:"Ice"},{n:"Sunbeam Dryad",c:"#C67627",e:"Light"},{n:"Terra Tortoise",c:"#716A5C",e:"Earth"},{n:"Traveling Garden",c:"#78AA64",e:"Wind"},{n:"Grove Piper",c:"#624D3A",e:"Earth"},{n:"Spotted Faun",c:"#6F350D",e:"Neutral"},{n:"Palefoot Tadhop",c:"#819EFE",e:"Ice"},{n:"Ruffletail Tadhop",c:"#81CFBD",e:"Lightning"},{n:"Lilium Floron",c:"#CF4D01",e:"Fire"},{n:"Petalmane Floron",c:"#6D46F3",e:"Water"},{n:"Buttercup Strangler",c:"#7b3d68",e:"Arcane"},{n:"Rosaline Strangler",c:"#6E0515",e:"Nature"},{n:"White Rot Deer",c:"#60544B",e:"Plague"},{n:"Wood Ear Deer",c:"#49502A",e:"Nature"},{n:"Flowering Pohip",c:"#AE9352",e:"Light"},{n:"Mossy Pohip",c:"#8A8CA6",e:"Shadow"}]
       },
       {
         name: "Forgotten Cave",
-        monsters: [{n:"Ancient Fungus",c:"#9F2105",e:"Fire"}, {n:"Dwarf Truffle",c:"#396C86",e:"Ice"}, {n:"Blue Dragon Snail",c:"#5F83BD",e:"Water"}, {n:"Crimson Reef Snail",c:"#C7775D",e:"Neutral"}, {n:"Blueband Duelist",c:"#6D82F8",e:"Water"}, {n:"Venomblade Assassin",c:"#E79A6E",e:"Neutral"}, {n:"Bramble Guardian",c:"#62B2B0",e:"Shadow"}, {n:"Parasitic Fungus",c:"#D47B7E",e:"Plague"}, {n:"Centaur Berserker",c:"#A27651",e:"Earth"}, {n:"Swiftfoot Slayer",c:"#274C62",e:"Wind"}, {n:"Citrine Jewel",c:"#C2A662",e:"Light"}, {n:"Emerald Jewel",c:"#688C62",e:"Lightning"}, {n:"Corpse Cleaner",c:"#685D75",e:"Earth"}, {n:"Cursed Bat",c:"#73B475",e:"Nature"}, {n:"Runic Bat",c:"#B38A8C",e:"Arcane"}, {n:"Deepmine Aardvark",c:"#821F85",e:"Neutral"}, {n:"Peacevine Aardvark",c:"#468534",e:"Earth"}]
+        monsters: [{n:"Animated Statue",c:"#414948",e:"NotN"}, {n:"Bogsneak Puppet",c:"#855C3B",e:"NotN"}, {n:"Ancient Fungus",c:"#9F2105",e:"Fire"}, {n:"Dwarf Truffle",c:"#396C86",e:"Ice"}, {n:"Blue Dragon Snail",c:"#5F83BD",e:"Water"}, {n:"Crimson Reef Snail",c:"#C7775D",e:"Neutral"}, {n:"Blueband Duelist",c:"#6D82F8",e:"Water"}, {n:"Venomblade Assassin",c:"#E79A6E",e:"Neutral"}, {n:"Bramble Guardian",c:"#62B2B0",e:"Shadow"}, {n:"Parasitic Fungus",c:"#D47B7E",e:"Plague"}, {n:"Centaur Berserker",c:"#A27651",e:"Earth"}, {n:"Swiftfoot Slayer",c:"#274C62",e:"Wind"}, {n:"Citrine Jewel",c:"#C2A662",e:"Light"}, {n:"Emerald Jewel",c:"#688C62",e:"Lightning"}, {n:"Corpse Cleaner",c:"#685D75",e:"Earth"}, {n:"Cursed Bat",c:"#73B475",e:"Nature"}, {n:"Runic Bat",c:"#B38A8C",e:"Arcane"}, {n:"Deepmine Aardvark",c:"#821F85",e:"Neutral"}, {n:"Peacevine Aardvark",c:"#468534",e:"Earth"}]
       },
       {
         name: "Bamboo Falls",
-        monsters: [{n:"Baku",c:"#442244",e:"Lightning"}, {n:"Dream Eater",c:"#442244",e:"Arcane"}, {n:"Blacktalon Striker",c:"#442244",e:"Wind"}, {n:"Raptorik Warrior",c:"#442244",e:"Water"}, {n:"Carmine Serthis",c:"#442244",e:"Arcane"}, {n:"Opheodrys Serthis",c:"#6D8D54",e:"Wind"}, {n:"Ethereal Trickster",c:"#442244",e:"Ice"}, {n:"Trick-of-the-Light",c:"#442244",e:"Light"}, {n:"Fungalhoof Qiriq",c:"#442244",e:"Plague"}, {n:"Gale Wolf",c:"#442244",e:"Wind"}, {n:"Umbra Wolf",c:"#442244",e:"Shadow"}, {n:"Hainu",c:"#442244",e:"Earth"}, {n:"Red-Breasted Hainu",c:"#442244",e:"Fire"}, {n:"Mantled Foo",c:"#442244",e:"Nature"}, {n:"Tigerblood Foo",c:"#442244",e:"Neutral"}, {n:"Tengu",c:"#442244",e:"Neutral"}, {n:"Wandering Surge Priest",c:"#442244",e:"Water"}]
+        monsters: [{n:"Ensorcelled Volume",c:"#AF8964",e:"NotN"}, {n:"Vulpine Lamp",c:"#618E9C",e:"NotN"}, {n:"Baku",c:"#442244",e:"Lightning"}, {n:"Dream Eater",c:"#442244",e:"Arcane"}, {n:"Blacktalon Striker",c:"#442244",e:"Wind"}, {n:"Raptorik Warrior",c:"#442244",e:"Water"}, {n:"Carmine Serthis",c:"#442244",e:"Arcane"}, {n:"Opheodrys Serthis",c:"#6D8D54",e:"Wind"}, {n:"Ethereal Trickster",c:"#442244",e:"Ice"}, {n:"Trick-of-the-Light",c:"#442244",e:"Light"}, {n:"Fungalhoof Qiriq",c:"#442244",e:"Plague"}, {n:"Gale Wolf",c:"#442244",e:"Wind"}, {n:"Umbra Wolf",c:"#442244",e:"Shadow"}, {n:"Hainu",c:"#442244",e:"Earth"}, {n:"Red-Breasted Hainu",c:"#442244",e:"Fire"}, {n:"Mantled Foo",c:"#442244",e:"Nature"}, {n:"Tigerblood Foo",c:"#442244",e:"Neutral"}, {n:"Tengu",c:"#442244",e:"Neutral"}, {n:"Wandering Surge Priest",c:"#442244",e:"Water"}]
       },
       {
         name: "Redrock Cove",
-        monsters: [{n:"Maren Defender",c:"#442244",e:"Ice"}, {n:"Maren Spearmaiden",c:"#442244",e:"Neutral"}, {n:"Oceansurf Magus",c:"#442244",e:"Water"}, {n:"Waveswell Sorcerer",c:"#442244",e:"Neutral"}, {n:"Noxious Coralclimber",c:"#442244",e:"Neutral"}, {n:"Leopard Coralclimber",c:"#442244",e:"Light"}, {n:"Murkbottom Gull",c:"#442244",e:"Plague"}, {n:"Tradewinds Gull",c:"#442244",e:"Wind"}, {n:"Riptide Clipper",c:"#442244",e:"Water"}, {n:"Sandshore Snipper",c:"#442244",e:"Fire"}, {n:"Mirage Puffer",c:"#442244",e:"Neutral"}, {n:"Daydream Puffer",c:"#442244",e:"Water"}, {n:"Mottled Sea Serpent",c:"#442244",e:"Earth"}, {n:"Highfin Sea Serpent",c:"#442244",e:"Water"}, {n:"Dainty Wavehopper",c:"#442244",e:"Arcane"}, {n:"Vivid Wavehopper",c:"#442244",e:"Nature"}, {n:"Deeprealm Hunter",c:"#442244",e:"Shadow"}, {n:"Spiney Whale",c:"#442244",e:"Lightning"}] 
+        monsters: [{n:"Crystal Carrier",c:"#DF713C",e:"NotN"}, {n:"Veiled Vision",c:"#A23B27",e:"NotN"}, {n:"Maren Defender",c:"#442244",e:"Ice"}, {n:"Maren Spearmaiden",c:"#442244",e:"Neutral"}, {n:"Oceansurf Magus",c:"#442244",e:"Water"}, {n:"Waveswell Sorcerer",c:"#442244",e:"Neutral"}, {n:"Noxious Coralclimber",c:"#442244",e:"Neutral"}, {n:"Leopard Coralclimber",c:"#442244",e:"Light"}, {n:"Murkbottom Gull",c:"#442244",e:"Plague"}, {n:"Tradewinds Gull",c:"#442244",e:"Wind"}, {n:"Riptide Clipper",c:"#442244",e:"Water"}, {n:"Sandshore Snipper",c:"#442244",e:"Fire"}, {n:"Mirage Puffer",c:"#442244",e:"Neutral"}, {n:"Daydream Puffer",c:"#442244",e:"Water"}, {n:"Mottled Sea Serpent",c:"#442244",e:"Earth"}, {n:"Highfin Sea Serpent",c:"#442244",e:"Water"}, {n:"Dainty Wavehopper",c:"#442244",e:"Arcane"}, {n:"Vivid Wavehopper",c:"#442244",e:"Nature"}, {n:"Deeprealm Hunter",c:"#442244",e:"Shadow"}, {n:"Spiney Whale",c:"#442244",e:"Lightning"}] 
       },
       {
         name: "Waterway",
-        monsters: [{n:"Blueridge Greatshell",c:"#5B8463",e:"Wind"}, {n:"Brown River Flight",c:"#575346",e:"Plague"}, {n:"Grey River Flight",c:"#5D5D67",e:"Water"}, {n:"Cumulus Seal",c:"#53515B",e:"Ice"}, {n:"Dappled Seal",c:"#868379",e:"Earth"}, {n:"Everglade Lasher",c:"#669E48",e:"Nature"}, {n:"Greater Sandstrike",c:"#BE968B",e:"Earth"}, {n:"Granite Thresher",c:"#C57E47",e:"Fire"}, {n:"Shale Thresher",c:"#51A5BA",e:"Lightning"}, {n:"Maren Currentfinder",c:"#9B3B70",e:"Neutral"}, {n:"Maren Shark Hunter",c:"#007E84",e:"Water"}, {n:"Noggle",c:"#74757F",e:"Light"}, {n:"Sunset Lasher",c:"#751E6A",e:"Arcane"}, {n:"Radioactive Slime",c:"#4F7957",e:"Neutral"}, {n:"River Muck",c:"#68749D",e:"Water"}, {n:"Rainbow Sprite",c:"#5C55C0",e:"Ice"}, {n:"Scarlet Flycatcher",c:"#952A27",e:"Arcane"}]
+        monsters: [{n:"Ectoplasmime",c:"#56466F",e:"NotN"}, {n:"Sorcerous Arms",c:"#795B40",e:"NotN"}, {n:"Blueridge Greatshell",c:"#5B8463",e:"Wind"}, {n:"Brown River Flight",c:"#575346",e:"Plague"}, {n:"Grey River Flight",c:"#5D5D67",e:"Water"}, {n:"Cumulus Seal",c:"#53515B",e:"Ice"}, {n:"Dappled Seal",c:"#868379",e:"Earth"}, {n:"Everglade Lasher",c:"#669E48",e:"Nature"}, {n:"Greater Sandstrike",c:"#BE968B",e:"Earth"}, {n:"Granite Thresher",c:"#C57E47",e:"Fire"}, {n:"Shale Thresher",c:"#51A5BA",e:"Lightning"}, {n:"Maren Currentfinder",c:"#9B3B70",e:"Neutral"}, {n:"Maren Shark Hunter",c:"#007E84",e:"Water"}, {n:"Noggle",c:"#74757F",e:"Light"}, {n:"Sunset Lasher",c:"#751E6A",e:"Arcane"}, {n:"Radioactive Slime",c:"#4F7957",e:"Neutral"}, {n:"River Muck",c:"#68749D",e:"Water"}, {n:"Rainbow Sprite",c:"#5C55C0",e:"Ice"}, {n:"Scarlet Flycatcher",c:"#952A27",e:"Arcane"}]
       },
       {
         name: "Arena",
-        monsters: [{n:"Longneck Gladiator",c:"#671D1F",e:"Plague"}, {n:"Longneck Scrapper",c:"#4B5B69",e:"Shadow"}, {n:"Armored Greatowl",c:"#7B5B41",e:"Earth"}, {n:"Hulking Greatowl",c:"#0B5C9E",e:"Water"}, {n:"Raptorik Ringmaster",c:"#505759",e:"Neutral"}, {n:"Stormclaw Showman",c:"#46555E",e:"Lightning"}, {n:"Raptorik Bladedancer",c:"#946E9A",e:"Arcane"}, {n:"Greenwing Razorclaw",c:"#90AF39",e:"Lightning"}, {n:"Ashmane Chimera",c:"#566166",e:"Ice"}, {n:"Bengal Chimera",c:"#762610",e:"Fire"}, {n:"Boran Veteran",c:"#4C6E77",e:"Lightning"}, {n:"Spellwall Boran",c:"#533B50",e:"Arcane"}, {n:"Celestial Antelope",c:"#967633",e:"Light"}, {n:"Silver Springbok",c:"#77667E",e:"Ice"}, {n:"Charcoal Sprangyroo",c:"#7E6E6C",e:"Neutral"},  {n:"Sprangyroo",c:"#79493A",e:"Fire"}, {n:"Chimera",c:"#5D4035",e:"Neutral"}, {n:"Double-Tailed Warcat",c:"#4C4A51",e:"Neutral"}, {n:"Warcat Protector",c:"#54652B",e:"Nature"}, {n:"Goldenplains Poodle Mith",c:"#743D37",e:"Light"}, {n:"Marshland Poodle Mith",c:"#62336B",e:"Shadow"}, {n:"Longneck Interloper",c:"#80785C",e:"Earth"}, {n:"Longneck Skirmisher",c:"#544A44",e:"Wind"}, {n:"Longneck Magi",c:"#433859",e:"Water"}, {n:"Longneck Mender",c:"#8F5C3A",e:"Light"}, {n:"Featherback Boar",c:"#A1905E",e:"Light"}, {n:"Undying Featherback",c:"#473D29",e:"Plague"}]
+        monsters: [{n:"Axe Mimic",c:"#42535D",e:"NotN"}, {n:"Magic Mirror",c:"#0D6657",e:"NotN"}, {n:"Longneck Gladiator",c:"#671D1F",e:"Plague"}, {n:"Longneck Scrapper",c:"#4B5B69",e:"Shadow"}, {n:"Armored Greatowl",c:"#7B5B41",e:"Earth"}, {n:"Hulking Greatowl",c:"#0B5C9E",e:"Water"}, {n:"Raptorik Ringmaster",c:"#505759",e:"Neutral"}, {n:"Stormclaw Showman",c:"#46555E",e:"Lightning"}, {n:"Raptorik Bladedancer",c:"#946E9A",e:"Arcane"}, {n:"Greenwing Razorclaw",c:"#90AF39",e:"Lightning"}, {n:"Ashmane Chimera",c:"#566166",e:"Ice"}, {n:"Bengal Chimera",c:"#762610",e:"Fire"}, {n:"Boran Veteran",c:"#4C6E77",e:"Lightning"}, {n:"Spellwall Boran",c:"#533B50",e:"Arcane"}, {n:"Celestial Antelope",c:"#967633",e:"Light"}, {n:"Silver Springbok",c:"#77667E",e:"Ice"}, {n:"Charcoal Sprangyroo",c:"#7E6E6C",e:"Neutral"},  {n:"Sprangyroo",c:"#79493A",e:"Fire"}, {n:"Chimera",c:"#5D4035",e:"Neutral"}, {n:"Double-Tailed Warcat",c:"#4C4A51",e:"Neutral"}, {n:"Warcat Protector",c:"#54652B",e:"Nature"}, {n:"Goldenplains Poodle Mith",c:"#743D37",e:"Light"}, {n:"Marshland Poodle Mith",c:"#62336B",e:"Shadow"}, {n:"Longneck Interloper",c:"#80785C",e:"Earth"}, {n:"Longneck Skirmisher",c:"#544A44",e:"Wind"}, {n:"Longneck Magi",c:"#433859",e:"Water"}, {n:"Longneck Mender",c:"#8F5C3A",e:"Light"}, {n:"Featherback Boar",c:"#A1905E",e:"Light"}, {n:"Undying Featherback",c:"#473D29",e:"Plague"}]
       },
       {
         name: "Volcanic Vents",
-        monsters: [{n:"Spectral Duskflapper",c:"#2163A3",e:"Water"}, {n:"Armored Duskflapper",c:"#794D46",e:"Neutral"}, {n:"Chillwind Harpy",c:"#68729C",e:"Ice"}, {n:"Stormcloud Harpy",c:"#084158",e:"Lightning"},{n:"Flamescale Illusionist",c:"#41417B",e:"Neutral"}, {n:"Flamescale Venomcaster",c:"#3C5E35",e:"Plague"}, {n:"Fiendcat",c:"#528E1D",e:"Wind"}, {n:"Flamerest Fiendcat",c:"#ED7912",e:"Fire"}, {n:"Ashspine Widow",c:"#743F44",e:"Earth"}, {n:"Firebelly Weaver",c:"#8085A4",e:"Ice"}, {n:"Dreadram",c:"#900010",e:"Fire"}, {n:"Ultraram",c:"#7930D8",e:"Arcane"}, {n:"Flamescale Spearman",c:"#4D3242",e:"Plague"}, {n:"Flamescale Lancer",c:"#7C634E",e:"Light"}, {n:"Ghost Manticore",c:"#20263F",e:"Neutral"}, {n:"Firemane Manticore",c:"#50210B",e:"Fire"}, {n:"Basalt Vent Hop",c:"#56281E",e:"Neutral"}, {n:"Magma Runner",c:"#76223A",e:"Lightning"}, {n:"Nightfall Imp",c:"#282E4E",e:"Shadow"}, {n:"Ignited Imp",c:"#D02D00",e:"Fire"}, {n:"Serthis Loremaster",c:"#517F6C",e:"Nature"}, {n:"Serthis Archivist",c:"#99885F",e:"Light"}, {n:"Ophiotaurus",c:"#665A4F",e:"Nature"}, {n:"Ashscale Ophiotaurus",c:"#7A552A",e:"Fire"}, {n:"Tunnel Hydra",c:"#826543",e:"Earth"}, {n:"Hydra",c:"#64313B",e:"Arcane"}]
+        monsters: [{n:"Serthis Support",c:"#BA978C",e:"NotN"}, {n:"Valorous Cape",c:"#790110",e:"NotN"}, {n:"Spectral Duskflapper",c:"#2163A3",e:"Water"}, {n:"Armored Duskflapper",c:"#794D46",e:"Neutral"}, {n:"Chillwind Harpy",c:"#68729C",e:"Ice"}, {n:"Stormcloud Harpy",c:"#084158",e:"Lightning"},{n:"Flamescale Illusionist",c:"#41417B",e:"Neutral"}, {n:"Flamescale Venomcaster",c:"#3C5E35",e:"Plague"}, {n:"Fiendcat",c:"#528E1D",e:"Wind"}, {n:"Flamerest Fiendcat",c:"#ED7912",e:"Fire"}, {n:"Ashspine Widow",c:"#743F44",e:"Earth"}, {n:"Firebelly Weaver",c:"#8085A4",e:"Ice"}, {n:"Dreadram",c:"#900010",e:"Fire"}, {n:"Ultraram",c:"#7930D8",e:"Arcane"}, {n:"Flamescale Spearman",c:"#4D3242",e:"Plague"}, {n:"Flamescale Lancer",c:"#7C634E",e:"Light"}, {n:"Ghost Manticore",c:"#20263F",e:"Neutral"}, {n:"Firemane Manticore",c:"#50210B",e:"Fire"}, {n:"Basalt Vent Hop",c:"#56281E",e:"Neutral"}, {n:"Magma Runner",c:"#76223A",e:"Lightning"}, {n:"Nightfall Imp",c:"#282E4E",e:"Shadow"}, {n:"Ignited Imp",c:"#D02D00",e:"Fire"}, {n:"Serthis Loremaster",c:"#517F6C",e:"Nature"}, {n:"Serthis Archivist",c:"#99885F",e:"Light"}, {n:"Ophiotaurus",c:"#665A4F",e:"Nature"}, {n:"Ashscale Ophiotaurus",c:"#7A552A",e:"Fire"}, {n:"Tunnel Hydra",c:"#826543",e:"Earth"}, {n:"Hydra",c:"#64313B",e:"Arcane"}]
       }, 
       {
         name: "Rainsong Jungle",
-        monsters: [{n:"Barkback Boar",c:"#442244",e:"Nature"}, {n:"Deadwood Boar",c:"#442244",e:"Earth"}, {n:"Budwing Morpho",c:"#442244",e:"Nature"}, {n:"Petal Jumper",c:"#442244",e:"Arcane"}, {n:"Clown Hippocampus",c:"#442244",e:"Fire"}, {n:"Hippocampus",c:"#442244",e:"Neutral"}, {n:"King Parda",c:"#442244",e:"Nature"}, {n:"Parda",c:"#442244",e:"Neutral"}, {n:"Manticore Screamer",c:"#442244",e:"Shadow"}, {n:"Proto Manticore",c:"#442244",e:"Earth"}, {n:"Paradise Zalis",c:"#442244",e:"Ice"}, {n:"Zalis",c:"#442244",e:"Water"}, {n:"Ringlet Amphithere",c:"#442244",e:"Wind"}, {n:"Ultramel Amphithere",c:"#442244",e:"Plague"}, {n:"Goldenbeast",c:"#442244",e:"Light"}, {n:"Overcharged Silverbeast",c:"#442244",e:"Lightning"}]
+        monsters: [{n:"Glowing Globe",c:"#C84020",e:"NotN"}, {n:"Wooden Marionette",c:"#614D3E",e:"NotN"}, {n:"Barkback Boar",c:"#442244",e:"Nature"}, {n:"Deadwood Boar",c:"#442244",e:"Earth"}, {n:"Budwing Morpho",c:"#442244",e:"Nature"}, {n:"Petal Jumper",c:"#442244",e:"Arcane"}, {n:"Clown Hippocampus",c:"#442244",e:"Fire"}, {n:"Hippocampus",c:"#442244",e:"Neutral"}, {n:"King Parda",c:"#442244",e:"Nature"}, {n:"Parda",c:"#442244",e:"Neutral"}, {n:"Manticore Screamer",c:"#442244",e:"Shadow"}, {n:"Proto Manticore",c:"#442244",e:"Earth"}, {n:"Paradise Zalis",c:"#442244",e:"Ice"}, {n:"Zalis",c:"#442244",e:"Water"}, {n:"Ringlet Amphithere",c:"#442244",e:"Wind"}, {n:"Ultramel Amphithere",c:"#442244",e:"Plague"}, {n:"Goldenbeast",c:"#442244",e:"Light"}, {n:"Overcharged Silverbeast",c:"#442244",e:"Lightning"}]
       },
       {
         name: "Boreal Woods",
-        monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
+        monsters: [{n:"Spellbound Tome",c:"#5E73B3",e:"NotN"}, {n:"Spirit Armor",c:"#525256",e:"NotN"}, {n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
       },
       {
         name: "Boreal Woods Holiday",
@@ -131,33 +132,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       },
       {
         name: "Crystal Pools",
-        monsters: [{n:"Almandine Sturgeon",c:"#662D48",e:"Neutral"}, {n:"Amber Gulper",c:"#934103",e:"Fire"}, {n:"Apatite Fisher",c:"#358EA1",e:"Lightning"}, {n:"Rhodochrosite Crane",c:"#C3466D",e:"Arcane"}, {n:"Arctic Hippalectryon",c:"#7193B9",e:"Ice"}, {n:"Hippalectryon",c:"#753E65",e:"Arcane"}, {n:"Chalcedony Snipper",c:"#BF493A",e:"Arcane"}, {n:"Moonbeam Crayfish",c:"#676767",e:"Neutral"}, {n:"Clearwater Oracle",c:"#5A79AA",e:"Neutral"}, {n:"Maren Warlock",c:"#6C1C10",e:"Plague"}, {n:"Crystalplate Stinger",c:"#A18E48",e:"Light"}, {n:"Sparkling Stinger",c:"#369E2B",e:"Nature"}, {n:"Stonewatch Prince",c:"#58413A",e:"Earth"}, {n:"Windcarve Fugitive",c:"#84AC86",e:"Wind"}, {n:"Crystalhide Jester",c:"#346473",e:"Water"}, {n:"Hawksbill Goliath",c:"#554366",e:"Shadow"}]
+        monsters: [{n:"Ball-Jointed Bogsneak",c:"#AC9092",e:"NotN"}, {n:"Opposing Forces",c:"#00B4C7",e:"NotN"}, {n:"Almandine Sturgeon",c:"#662D48",e:"Neutral"}, {n:"Amber Gulper",c:"#934103",e:"Fire"}, {n:"Apatite Fisher",c:"#358EA1",e:"Lightning"}, {n:"Rhodochrosite Crane",c:"#C3466D",e:"Arcane"}, {n:"Arctic Hippalectryon",c:"#7193B9",e:"Ice"}, {n:"Hippalectryon",c:"#753E65",e:"Arcane"}, {n:"Chalcedony Snipper",c:"#BF493A",e:"Arcane"}, {n:"Moonbeam Crayfish",c:"#676767",e:"Neutral"}, {n:"Clearwater Oracle",c:"#5A79AA",e:"Neutral"}, {n:"Maren Warlock",c:"#6C1C10",e:"Plague"}, {n:"Crystalplate Stinger",c:"#A18E48",e:"Light"}, {n:"Sparkling Stinger",c:"#369E2B",e:"Nature"}, {n:"Stonewatch Prince",c:"#58413A",e:"Earth"}, {n:"Windcarve Fugitive",c:"#84AC86",e:"Wind"}, {n:"Crystalhide Jester",c:"#346473",e:"Water"}, {n:"Hawksbill Goliath",c:"#554366",e:"Shadow"}]
       },
       {
         name: "Harpy's Roost",
-        monsters: [{n:"Blue Tang Hippogriff",c:"#442244",e:"Lightning"}, {n:"Cardinal Hippogriff",c:"#442244",e:"Neutral"}, {n:"Blue Moon Aviar",c:"#442244",e:"Wind"}, {n:"Renegade Aviar",c:"#442244",e:"Earth"}, {n:"Brush Dodo",c:"#442244",e:"Water"}, {n:"Cloud Dancer",c:"#442244",e:"Nature"}, {n:"Sunspot Clouddancer",c:"#442244",e:"Fire"}, {n:"Death Seeker",c:"#442244",e:"Shadow"}, {n:"Storm Seeker",c:"#442244",e:"Lightning"}, {n:"Dodo",c:"#442244",e:"Neutral"}, {n:"Hooded Dodo",c:"#442244",e:"Plague"}, {n:"Fallen Streak",c:"#442244",e:"Arcane"}, {n:"Snow Streak",c:"#442244",e:"Ice"}, {n:"Masked Harpy",c:"#442244",e:"Wind"}, {n:"Stonewatch Harpy",c:"#442244",e:"Light"}, {n:"Mesacliff Harpy",c:"#442244",e:"Neutral"}, {n:"Windcarve Harpy",c:"#442244",e:"Wind"}, {n:"Crowned Roc",c:"#442244",e:"Wind"}, {n:"Roc",c:"#442244",e:"Arcane"}]
+        monsters: [{n:"Deadly Reflection",c:"#8E15AB",e:"NotN"}, {n:"Enchanted Armaments",c:"#8C736A",e:"NotN"}, {n:"Time Devourer",c:"#4E4743",e:"NotN"}, {n:"Blue Tang Hippogriff",c:"#442244",e:"Lightning"}, {n:"Cardinal Hippogriff",c:"#442244",e:"Neutral"}, {n:"Blue Moon Aviar",c:"#442244",e:"Wind"}, {n:"Renegade Aviar",c:"#442244",e:"Earth"}, {n:"Brush Dodo",c:"#442244",e:"Water"}, {n:"Cloud Dancer",c:"#442244",e:"Nature"}, {n:"Sunspot Clouddancer",c:"#442244",e:"Fire"}, {n:"Death Seeker",c:"#442244",e:"Shadow"}, {n:"Storm Seeker",c:"#442244",e:"Lightning"}, {n:"Dodo",c:"#442244",e:"Neutral"}, {n:"Hooded Dodo",c:"#442244",e:"Plague"}, {n:"Fallen Streak",c:"#442244",e:"Arcane"}, {n:"Snow Streak",c:"#442244",e:"Ice"}, {n:"Masked Harpy",c:"#442244",e:"Wind"}, {n:"Stonewatch Harpy",c:"#442244",e:"Light"}, {n:"Mesacliff Harpy",c:"#442244",e:"Neutral"}, {n:"Windcarve Harpy",c:"#442244",e:"Wind"}, {n:"Crowned Roc",c:"#442244",e:"Wind"}, {n:"Roc",c:"#442244",e:"Arcane"}]
       },
       {
         name: "Ghostlight Ruins",
-        monsters: [{n:"Aer Phantom",c:"#442244",e:"Wind"}, {n:"Lux Spectre",c:"#442244",e:"Light"}, {n:"Carrioncorn",c:"#442244",e:"Neutral"}, {n:"Nightmare",c:"#442244",e:"Fire"}, {n:"Greybeak Reaper",c:"#442244",e:"Neutral"}, {n:"Tengu Caller",c:"#442244",e:"Shadow"}, {n:"Infestation Hound",c:"#442244",e:"Plague"}, {n:"Wraith Hound",c:"#442244",e:"Lightning"}, {n:"Longneck Medium",c:"#442244",e:"Neutral"}, {n:"Longneck Scholar",c:"#442244",e:"Nature"}, {n:"Otherworldly Aura",c:"#442244",e:"Arcane"}, {n:"Somber Spirit",c:"#442244",e:"Shadow"}, {n:"Pronghorn Stomper",c:"#442244",e:"Water"}, {n:"Wendigo",c:"#442244",e:"Earth"}, {n:"Shatterbone Vulture",c:"#442244",e:"Ice"}, {n:"Tatterwing Carcass",c:"#442244",e:"Shadow"},  {n:"Disoriented Spirit",c:"#442244",e:"Neutral"}, {n:"Malevolent Spirit",c:"#442244",e:"Nature"}]
+        monsters: [{n:"Calculating Candelabra",c:"#A27F42",e:"NotN"}, {n:"Masked Phantom",c:"#225AA9",e:"NotN"}, {n:"Aer Phantom",c:"#442244",e:"Wind"}, {n:"Lux Spectre",c:"#442244",e:"Light"}, {n:"Carrioncorn",c:"#442244",e:"Neutral"}, {n:"Nightmare",c:"#442244",e:"Fire"}, {n:"Greybeak Reaper",c:"#442244",e:"Neutral"}, {n:"Tengu Caller",c:"#442244",e:"Shadow"}, {n:"Infestation Hound",c:"#442244",e:"Plague"}, {n:"Wraith Hound",c:"#442244",e:"Lightning"}, {n:"Longneck Medium",c:"#442244",e:"Neutral"}, {n:"Longneck Scholar",c:"#442244",e:"Nature"}, {n:"Otherworldly Aura",c:"#442244",e:"Arcane"}, {n:"Somber Spirit",c:"#442244",e:"Shadow"}, {n:"Pronghorn Stomper",c:"#442244",e:"Water"}, {n:"Wendigo",c:"#442244",e:"Earth"}, {n:"Shatterbone Vulture",c:"#442244",e:"Ice"}, {n:"Tatterwing Carcass",c:"#442244",e:"Shadow"},  {n:"Disoriented Spirit",c:"#442244",e:"Neutral"}, {n:"Malevolent Spirit",c:"#442244",e:"Nature"}]
       },
       {
         name: "Mire",
-        monsters: [{n:"Blackwing Croaker",c:"#442244",e:"Shadow"}, {n:"Heartred Croaker",c:"#442244",e:"Plague"}, {n:"Brilliant Psywurm",c:"#442244",e:"Light"}, {n:"Psywurm",c:"#442244",e:"Arcane"}, {n:"Common Podid",c:"#442244",e:"Lightning"}, {n:"Southmarsh Podid",c:"#442244",e:"Neutral"}, {n:"Mistwatch Shellion",c:"#442244",e:"Ice"}, {n:"Shellion",c:"#442244",e:"Neutral"}, {n:"Mossy Cerdae",c:"#442244",e:"Plague"}, {n:"Wetland Unicorn",c:"#442244",e:"Neutral"},  {n:"Poisonous Toridae",c:"#442244",e:"Nature"}, {n:"Venomous Toridae",c:"#442244",e:"Earth"}, {n:"Salve Kamaitachi",c:"#442244",e:"Wind"}, {n:"Scythe Kamaitachi",c:"#442244",e:"Plague"}, {n:"Sickle Kamaitachi",c:"#442244",e:"Fire"},{n:"Molten Wartoad",c:"#442244",e:"Fire"},  {n:"Wartoad",c:"#442244",e:"Water"}]
+        monsters: [{n:"Crooked Hatchet",c:"#804143",e:"NotN"}, {n:"Living Sculpture",c:"#8F7F69",e:"NotN"}, {n:"Poltergeist Pile",c:"#3F5555",e:"NotN"}, {n:"Blackwing Croaker",c:"#442244",e:"Shadow"}, {n:"Heartred Croaker",c:"#442244",e:"Plague"}, {n:"Brilliant Psywurm",c:"#442244",e:"Light"}, {n:"Psywurm",c:"#442244",e:"Arcane"}, {n:"Common Podid",c:"#442244",e:"Lightning"}, {n:"Southmarsh Podid",c:"#442244",e:"Neutral"}, {n:"Mistwatch Shellion",c:"#442244",e:"Ice"}, {n:"Shellion",c:"#442244",e:"Neutral"}, {n:"Mossy Cerdae",c:"#442244",e:"Plague"}, {n:"Wetland Unicorn",c:"#442244",e:"Neutral"},  {n:"Poisonous Toridae",c:"#442244",e:"Nature"}, {n:"Venomous Toridae",c:"#442244",e:"Earth"}, {n:"Salve Kamaitachi",c:"#442244",e:"Wind"}, {n:"Scythe Kamaitachi",c:"#442244",e:"Plague"}, {n:"Sickle Kamaitachi",c:"#442244",e:"Fire"},{n:"Molten Wartoad",c:"#442244",e:"Fire"},  {n:"Wartoad",c:"#442244",e:"Water"}]
       },
       {
         name: "Kelp Beds",
-        monsters: [{n:"Abyss Striker",c:"#442244",e:"Shadow"}, {n:"Relic Eel",c:"#442244",e:"Earth"}, {n:"Cloud Chaser",c:"#442244",e:"Wind"}, {n:"Golden Porpoise",c:"#442244",e:"Light"}, {n:"Corrosive Depin",c:"#442244",e:"Shadow"}, {n:"Depin",c:"#442244",e:"Neutral"}, {n:"Jeweled Octoflyer",c:"#442244",e:"Arcane"}, {n:"Octoflyer",c:"#442244",e:"Water"}, {n:"Kelp Tender",c:"#442244",e:"Water"}, {n:"Mammertee",c:"#442244",e:"Neutral"}, {n:"Maren Ambusher",c:"#442244",e:"Nature"}, {n:"Maren Warrior",c:"#442244",e:"Lightning"}, {n:"Maren Scout",c:"#442244",e:"Fire"}, {n:"Maren Wavesinger",c:"#442244",e:"Water"}, {n:"Mantarune",c:"#442244",e:"Ice"}, {n:"Wave Sweeper",c:"#442244",e:"Plague"}]
+        monsters: [{n:"Jawlocker",c:"#616366",e:"NotN"}, {n:"Orbiting Spirit",c:"#5490C3",e:"NotN"}, {n:"Ravenous Cauldron",c:"#58213C",e:"NotN"}, {n:"Abyss Striker",c:"#442244",e:"Shadow"}, {n:"Relic Eel",c:"#442244",e:"Earth"}, {n:"Cloud Chaser",c:"#442244",e:"Wind"}, {n:"Golden Porpoise",c:"#442244",e:"Light"}, {n:"Corrosive Depin",c:"#442244",e:"Shadow"}, {n:"Depin",c:"#442244",e:"Neutral"}, {n:"Jeweled Octoflyer",c:"#442244",e:"Arcane"}, {n:"Octoflyer",c:"#442244",e:"Water"}, {n:"Kelp Tender",c:"#442244",e:"Water"}, {n:"Mammertee",c:"#442244",e:"Neutral"}, {n:"Maren Ambusher",c:"#442244",e:"Nature"}, {n:"Maren Warrior",c:"#442244",e:"Lightning"}, {n:"Maren Scout",c:"#442244",e:"Fire"}, {n:"Maren Wavesinger",c:"#442244",e:"Water"}, {n:"Mantarune",c:"#442244",e:"Ice"}, {n:"Wave Sweeper",c:"#442244",e:"Plague"}]
       },
       {
         name: "Golem Workshop",
-        monsters: [{n:"Black Iron Creeper",c:"#5C4335",e:"Fire"}, {n:"Coppercoil Creeper",c:"#B88844",e:"Lightning"}, {n:"Chromefeather Lookout",c:"#81A2A1",e:"Lightning"}, {n:"Sentry Squawker",c:"#966663",e:"Neutral"}, {n:"Clattercog Engineer",c:"#4F9ABC",e:"Water"}, {n:"Monkey Wrench",c:"#C57A4D",e:"Neutral"}, {n:"Construction Mith",c:"#34AF82",e:"Nature"}, {n:"Sentinel Mith",c:"#CB4145",e:"Plague"}, {n:"Mistral Minion",c:"#BAD876",e:"Wind"}, {n:"Spellbound Golem",c:"#D268AA",e:"Arcane"}, {n:"Scrapmetal Tracker",c:"#7F628C",e:"Shadow"}, {n:"Steelhound",c:"#BCBCAC",e:"Neutral"}, {n:"Swift Lumen",c:"#776760",e:"Light"}, {n:"Swift Volt",c:"#4A485E",e:"Lightning"}, {n:"Frost Delver",c:"#88A5BD",e:"Ice"}, {n:"Stone Borer",c:"#8F5442",e:"Earth"}]
+        monsters: [{n:"Animated Armor",c:"#957D4A",e:"NotN"}, {n:"Living Luminance",c:"#56AEA4",e:"NotN"}, {n:"Spidered Seat",c:"#4E3F51",e:"NotN"}, {n:"Black Iron Creeper",c:"#5C4335",e:"Fire"}, {n:"Coppercoil Creeper",c:"#B88844",e:"Lightning"}, {n:"Chromefeather Lookout",c:"#81A2A1",e:"Lightning"}, {n:"Sentry Squawker",c:"#966663",e:"Neutral"}, {n:"Clattercog Engineer",c:"#4F9ABC",e:"Water"}, {n:"Monkey Wrench",c:"#C57A4D",e:"Neutral"}, {n:"Construction Mith",c:"#34AF82",e:"Nature"}, {n:"Sentinel Mith",c:"#CB4145",e:"Plague"}, {n:"Mistral Minion",c:"#BAD876",e:"Wind"}, {n:"Spellbound Golem",c:"#D268AA",e:"Arcane"}, {n:"Scrapmetal Tracker",c:"#7F628C",e:"Shadow"}, {n:"Steelhound",c:"#BCBCAC",e:"Neutral"}, {n:"Swift Lumen",c:"#776760",e:"Light"}, {n:"Swift Volt",c:"#4A485E",e:"Lightning"}, {n:"Frost Delver",c:"#88A5BD",e:"Ice"}, {n:"Stone Borer",c:"#8F5442",e:"Earth"}]
       }
 
     ];
 
     rare_list = ["Unhatched Egg","Venue Apparel","Vista","Ambush","Eliminate","Skin/Accent Crate"];
-    mode_stats = [["#Fought","Food","Materials","Familiars"],["#Fought","Currency","Chests"]];
+    mode_stats = [["#Fought","Food","Materials","Familiars"],
+                  ["#Fought","Food","Materials","NotN Chest"],
+                  ["#Fought","Currency","Chests"]];
     trait_ref = []; //Global variable used to share a list of data-containing objects
     rare_ref = []; //Global variable used to share rare data that requires special processing
     custom_counters = 3; //Number of custom counters available
@@ -296,6 +299,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       if(selected_mode==0){
         document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those! Counting something special? CODACOT also includes three customizeable counters. NOTE: custom data won't be included in the raw data, so if you intend to save/load, write that stuff down separately!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+"."+"<br><br></br>IMPORTING DATA</br>-------------</br></br>You can also use this tool to 'save and reload' a coli run. Hit 'Show Data' and copy the 'Raw Data' somewhere safe to save. Hit 'Import,' paste that data in, and hit 'Confirm' to load. PLEASE NOTE: you SHOULD NOT donate data until you're absolutely done! Otherwise, we'll get duplicate data (bad). Thank you!";
+      } else if (selected_mode==1){
+        document.getElementById("output_div").innerHTML = "When collecting NotN data, ONLY collect NotN chest data if you are SURE which species dropped the chest. Because NotN enemies don't drop familiars, you can still track familiars for non-NotN enemies normally (we sort it out in the data set!)<br><br>Thanks for your help, and happy holidays!";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data if you are SURE which species dropped the currency/chest. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.</br></br>If you're ever uncertain, don't collect any data for the battle.<br><br>Thanks for your help!";
       }
@@ -341,12 +346,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (selected_mode == 0){
         stats=mode_stats[0];
         for (var i = 0, len = venue_monsters.length; i < len; i++){
-          generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+          if(venue_monsters[i].e != "NotN"){
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+          }
         }
       }
 
-      if (selected_mode > 0){
+      if (selected_mode == 1){
         stats=mode_stats[1];
+        for (var i = 0, len = venue_monsters.length; i < len; i++){
+          if(venue_monsters[i].e == "NotN"){
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+          }
+        }
+      }
+
+      if (selected_mode > 1){
+        stats=mode_stats[2];
         var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
         for (var i = 0, len = venue_monsters.length; i < len; i++){
           if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
@@ -370,7 +386,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      function import_data(){
       var import_input = document.getElementById("import_input");
       var import_array = import_input.value.split(",");
-      var mode = 0;
+      var mode = 2;
       var venue_select = document.getElementById("venue_select");
       var venue_options = venue_select.options;
       for(var i = 0, import_venue = import_array[0], len = venue_options.length; i<len; i++){
@@ -381,7 +397,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       for(var i = 0, import_mode = import_array[1], len = mode_options.length; i<len; i++){
         if(mode_options[i].value == import_mode){
           mode_select.selectedIndex = i;
-          if(i){mode=1}; //If mode_select > 0, we're using fest data mode.
+          if(i<2){mode=i;}
         }
       }
       load_venue();
@@ -405,8 +421,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var sep = "</br>-------------------------------------------</br>";
       var out = (sep+"YOUR STATS"+sep).substring(5); //Skip first linebreak
       var mode = document.getElementById("mode_select").selectedIndex;
-      var venue_name = document.getElementById("venue_select").options[document.getElementById("venue_select").selectedIndex].value;
-      var monsters = []; //Array of monster names used for printing csv
+      var venue_index = document.getElementById("venue_select").selectedIndex;
+      var venue_name = document.getElementById("venue_select").options[venue_index].value;
       var traits = ["Name"]; //Array of traits tracked (ex #Fought). Note that "name" is only used in printing csvs.
       var totals = []; //Totals per trait
       var full_stack = []; //Boolean array for whether someone got a full stack of "something" (food, etc)
@@ -418,7 +434,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var raresum = 0; //Total rare items
 
       //Further populate traits array based on data mode
-      if(mode == 0){traits.push.apply(traits, mode_stats[0]);} else {traits.push.apply(traits, mode_stats[1]);}
+      if(mode > 2){traits.push.apply(traits, mode_stats[2]);} else {traits.push.apply(traits, mode_stats[mode]);}
       for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0); full_stack.push(false); all_kinds.push(true);}
       
       //Add our csv header
@@ -428,8 +444,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       for (var i = 0, out_len = non_rares.length, in_len = traits.length; i < out_len; i+=in_len){
         csv += "</br>"+non_rares[i].innerHTML; //name
         var numbers = ""; //get ready to collect data
+
         for (var j = 1, numbers = ""; j < in_len; j++){
-          var val = +non_rares[i+j].value; //(i+j+_1_) because of the "Name" field
+          var val = +non_rares[i+j].value;
           totals[j] += val;
           if(val>98){ full_stack[j]=true; }
           all_kinds[j] = all_kinds[j] && val;
@@ -477,23 +494,36 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(raresum>2){out+="RNG WARRIOR</br>"; mastery++;}
       //if(you_read_this){out+="MASTER OF MYSTERIES"}...congratulations, reader!
 
-      //General Data only
+      //General data only
       if(mode == 0){
         out+="GENERALIST</br>";
+        if(totals[4]>9){out+="NATIONAL DEX</br>"; mastery++;}
+        if(all_kinds[4]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
+        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>"; mastery++;}
+        if(totals[4]>0){out+="CRITTER PAL</br>"; mastery++;}
+      }
+      //NotN data only
+      if(mode == 1){
+        out+="NOCTURNAL KNOWER</br>"
+        if(totals[4]>9){out+="BOX O' MIRACLES</br>"; mastery++;}
+        if(all_kinds[4]){out+="SPIRIT SHAKEDOWN</br>";}
+        if(totals[4]>4){out+="BOX O' WONDERS</br>"; mastery++;}
+        if(totals[4]>0){out+="GHOST BUSTER</br>"; mastery++;}
+      }
+      //General and NotN Data (non-elemental-fest)
+      if(mode < 2){
+
         if(totals[2]>99){out+="CORNUCOPIA</br>"; mastery++;}
         if(totals[3]>99){out+="MATERIAL MOGUL</br>"; mastery++;}
         if(totals[2]>199){out+="GODLY CHEF</br>"; mastery++;}
         if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
-        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>"; mastery++;}
-        if(totals[4]>9){out+="NATIONAL DEX</br>"; mastery++;}
         if(all_kinds[2]){out+="CULINARY SAMPLER</br>";}
         if(all_kinds[3]){out+="MISCELLANIA MASTER</br>";}
-        if(all_kinds[4]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
         if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>";}
         if(full_stack[3]){out+="MATERIAL WEALTH</br>";}
       }
-      //Fest only
-      if(mode > 0){
+      //Elem Fest only
+      if(mode > 1){
         out+="FESTIVE FINDER</br>";
         if((trait_ref.length / 3)<5){out+="RARE DATA COLLECTOR</br>"; mastery+=2;}
         if(totals[2]>29){out+="FEST FREQUENT FLIER</br>"; mastery++;}
