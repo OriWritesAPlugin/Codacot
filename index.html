@@ -497,30 +497,32 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       //General data only
       if(mode == 0){
         out+="GENERALIST</br>";
-        if(totals[4]>9){out+="NATIONAL DEX</br>"; mastery++;}
+        if(totals[4]>8){out+="NATIONAL DEX</br>"; mastery++;}
         if(all_kinds[4]){out+="GARY MUTHAFLIPPIN' OAK</br>";}
-        if(totals[4]>4){out+="GOTTA CATCH 'EM ALL</br>"; mastery++;}
+        if(totals[4]>3){out+="GOTTA CATCH 'EM ALL</br>"; mastery++;}
         if(totals[4]>0){out+="CRITTER PAL</br>"; mastery++;}
       }
       //NotN data only
       if(mode == 1){
-        out+="NOCTURNAL KNOWER</br>"
-        if(totals[4]>9){out+="BOX O' MIRACLES</br>"; mastery++;}
-        if(all_kinds[4]){out+="SPIRIT SHAKEDOWN</br>";}
-        if(totals[4]>4){out+="BOX O' WONDERS</br>"; mastery++;}
-        if(totals[4]>0){out+="GHOST BUSTER</br>"; mastery++;}
+        out+="NOCTURNAL KNOWER</br>";
+        if(totals[4]>14){out+="ECTO COLLECT-O</br>"; mastery++;}
+        if(totals[4]>39){out+="POWDER KEG</br>"; mastery++;}
+        if(totals[5]>0){out+="GHOST BUSTER</br>"; mastery++;}
+        if(totals[5]>3){out+="BOX O' WONDERS</br>"; mastery++;}
+        if(totals[5]>6){out+="BOX O' MIRACLES</br>"; mastery++;}
+        if(all_kinds[5]){out+="SPIRIT SHAKEDOWN</br>";}   
       }
       //General and NotN Data (non-elemental-fest)
       if(mode < 2){
-
-        if(totals[2]>99){out+="CORNUCOPIA</br>"; mastery++;}
-        if(totals[3]>99){out+="MATERIAL MOGUL</br>"; mastery++;}
-        if(totals[2]>199){out+="GODLY CHEF</br>"; mastery++;}
-        if(totals[3]>199){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
+        //Mode acts as multiplier; collect half as much stuff for NoTN achievs.
+        if(totals[2]>99/mode){out+="CORNUCOPIA</br>"; mastery++;}
+        if(totals[3]>99/mode){out+="MATERIAL MOGUL</br>"; mastery++;}
+        if(totals[2]>199/mode){out+="GODLY CHEF</br>"; mastery++;}
+        if(totals[3]>199/mode){out+="LORD OF THE JUNK PILE</br>"; mastery++;}
         if(all_kinds[2]){out+="CULINARY SAMPLER</br>";}
         if(all_kinds[3]){out+="MISCELLANIA MASTER</br>";}
-        if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>";}
-        if(full_stack[3]){out+="MATERIAL WEALTH</br>";}
+        if(full_stack[2]){out+="THE WHOLE ENCHILADA</br>"; mastery+=mode;}
+        if(full_stack[3]){out+="MATERIAL WEALTH</br>"; mastery+=mode}
       }
       //Elem Fest only
       if(mode > 1){
