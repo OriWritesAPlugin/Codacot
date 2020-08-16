@@ -1,0 +1,39 @@
+--Update all locales
+TO DO:
+Training Fields
+Woodland Path
+Scorched Forest
+Sandswept Delta
+Blooming Grove
+Forgotten Cave
+Bamboo Falls
+Thunderhead Savanna
+Redrock Cove
+Waterway
+Arena
+Volcanic Vents
+Rainsong Jungle
+Boreal Wood
+Crystal Pools
+Harpy's Roost
+Ghostlight Ruins
+The Mire
+Kelp Beds
+Golem Workshop
+IN PROGRESS:
+DONE:
+Forbidden Portal
+
+--New coloring system: Colors relate to element rather than enemy coloration (easier to do)
+LIGHT: #d3db54
+SHADOW: #8026b1
+ICE: #a3d5d0
+FIRE: #d38200
+WATER: #162fa6
+ARCANE: #ff00d6
+EARTH: #886949
+PLAGUE: #bf0c0c
+NATURE: #008f02
+LIGHTNING: #00c3b7
+WIND: #6cb500
+NEUTRAL: #484848

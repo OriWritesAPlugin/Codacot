@@ -53,7 +53,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <select id="mode_select" onchange="load_venue()">
         <option>General Data</option>
         <option>NotN Data</option>
-        <option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
       </select>
       <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
       <button id="import_button" class="importbutton" onclick="toggle_import()">Import</button>
@@ -124,11 +123,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       },
       {
         name: "Boreal Woods",
-        monsters: [{n:"Spellbound Tome",c:"#5E73B3",e:"NotN"}, {n:"Spirit Armor",c:"#525256",e:"NotN"}, {n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
-      },
-      {
-        name: "Boreal Woods Holiday",
-        monsters: [{n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"}, {n:"Woodland Turkey",c:"#442244",e:"Earth"}, {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
+        monsters: [{n:"Spellbound Tome",c:"#5E73B3",e:"NotN"}, {n:"Spirit Armor",c:"#525256",e:"NotN"}, {n:"Black Wolf",c:"#442244",e:"Shadow"}, {n:"Winter Wolf",c:"#442244",e:"Neutral"}, {n:"Shalebuck",c:"#442244",e:"Water"}, {n:"Venerable Shalebuck",c:"#442244",e:"Arcane"}, {n:"Squall Rasa",c:"#442244",e:"Lightning"}, {n:"Maned Rasa",c:"#442244",e:"Earth"}, {n:"Nochnyr",c:"#442244",e:"Fire"}, {n:"Permafrost Impaler",c:"#442244",e:"Ice"}, {n:"Elk",c:"#442244",e:"Nature"}, {n:"Snowfall Elk",c:"#442244",e:"Light"}, {n:"Longneck Hunter",c:"#442244",e:"Neutral"}, {n:"Longneck Wanderer",c:"#442244",e:"Wind"}, {n:"Hoarfrost Mauler",c:"#442244",e:"Ice"}, {n:"Poultrygeist",c:"#442244",e:"Plague"},{n:"Woodland Turkey",c:"#442244",e:"Earth"},  {n:"Coarsefur Yeti",c:"#442244",e:"Ice"}]
       },
       {
         name: "Crystal Pools",
@@ -153,6 +148,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       {
         name: "Golem Workshop",
         monsters: [{n:"Animated Armor",c:"#957D4A",e:"NotN"}, {n:"Living Luminance",c:"#56AEA4",e:"NotN"}, {n:"Spidered Seat",c:"#4E3F51",e:"NotN"}, {n:"Black Iron Creeper",c:"#5C4335",e:"Fire"}, {n:"Coppercoil Creeper",c:"#B88844",e:"Lightning"}, {n:"Chromefeather Lookout",c:"#81A2A1",e:"Lightning"}, {n:"Sentry Squawker",c:"#966663",e:"Neutral"}, {n:"Clattercog Engineer",c:"#4F9ABC",e:"Water"}, {n:"Monkey Wrench",c:"#C57A4D",e:"Neutral"}, {n:"Construction Mith",c:"#34AF82",e:"Nature"}, {n:"Sentinel Mith",c:"#CB4145",e:"Plague"}, {n:"Mistral Minion",c:"#BAD876",e:"Wind"}, {n:"Spellbound Golem",c:"#D268AA",e:"Arcane"}, {n:"Scrapmetal Tracker",c:"#7F628C",e:"Shadow"}, {n:"Steelhound",c:"#BCBCAC",e:"Neutral"}, {n:"Swift Lumen",c:"#776760",e:"Light"}, {n:"Swift Volt",c:"#4A485E",e:"Lightning"}, {n:"Frost Delver",c:"#88A5BD",e:"Ice"}, {n:"Stone Borer",c:"#8F5442",e:"Earth"}]
+      },
+			{
+        name: "Forbidden Portal",
+        monsters: [{n:"Abberant Chacma",c:"#162fa6",e:"water"},{n:"Barhide Menace",c:"#6cb500",e:"wind"},{n:"All-Seeing Eye",c:"#d3db54",e:"light"},{n:"Portal Watcher",c:"#484848",e:"neutral"},{n:"Bearded Pupowl",c:"#bf0c0c",e:"plague"},{n:"Lap Pupowl",c:"#d3db54",e:"light"},{n:"Blushing Tangle",c:"#ff00d6",e:"arcane"},{n:"Everburn Tangle",c:"#d38200",e:"fire"},{n:"Ferberus",c:"#8026b1",e:"shadow"},{n:"Calico Ferberus",c:"#886949",e:"earth"},{n:"Deeprealm Leon",c:"#162fa6",e:"water"},{n:"Medusa Leon",c:"#484848",e:"neutral"},{n:"Foolish Prince",c:"#ff00d6",e:"arcane"},{n:"Mindless Flight",c:"#a3d5d0",e:"ice"},{n:"Frogspawn Flyer",c:"#008f02",e:"nature"},{n:"Starspawn Flyer",c:"#ff00d6",e:"arcane"},{n:"Giggling Planesrunner",c:"#886949",e:"earth"},{n:"Teleporting Planesrunner",c:"#a3d5d0",e:"ice"},{n:"Sanguine Multimist",c:"#bf0c0c",e:"plague"},{n:"Sparksylph",c:"#00c3b7",e:"lightning"},{n:"Spectre Wyvern",c:"#484848",e:"neutral"},{n:"Void Wyvern",c:"#8026b1",e:"shadow"},{n:"Springfoot Bilworper",c:"#484848",e:"neutral"},{n:"Tattertail Bilworper",c:"#ff00d6",e:"arcane"},{n:"Terror Toad",c:"#6cb500",e:"wind"},{n:"Fear Frog",c:"#d38200",e:"fire"},]
       }
 
     ];
@@ -358,16 +357,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           if(venue_monsters[i].e == "NotN"){
             generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
           }
-        }
-      }
-
-      if (selected_mode > 1){
-        stats=mode_stats[2];
-        var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
-        for (var i = 0, len = venue_monsters.length; i < len; i++){
-          if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
-            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
-          }  
         }
       }
 
