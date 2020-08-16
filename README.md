@@ -1,5 +1,3 @@
 # Codacot
 
-It's some delicious Javascript to do things with.
-
-No one's going to see the readme, huh?
+Forked from OriWritesAPlugin, looking to update it to modern Flight Rising
