@@ -1,8 +1,5 @@
 --Update all locales
 TO DO:
-Training Fields
-Woodland Path
-Scorched Forest
 Sandswept Delta
 Blooming Grove
 Forgotten Cave
@@ -21,8 +18,11 @@ The Mire
 Kelp Beds
 Golem Workshop
 IN PROGRESS:
+Scorched Forest
 DONE:
 Forbidden Portal
+Training Fields
+Woodland Path
 
 --New coloring system: Colors relate to element rather than enemy coloration (easier to do)
 LIGHT: #d3db54
