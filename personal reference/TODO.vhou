@@ -1,7 +1,5 @@
 --Update all locales
 TO DO:
-Sandswept Delta
-Blooming Grove
 Forgotten Cave
 Bamboo Falls
 Thunderhead Savanna
@@ -18,11 +16,13 @@ The Mire
 Kelp Beds
 Golem Workshop
 IN PROGRESS:
-Scorched Forest
+Blooming Grove
 DONE:
 Forbidden Portal
 Training Fields
 Woodland Path
+Scorched Forest
+Sandswept Delta
 
 --New coloring system: Colors relate to element rather than enemy coloration (easier to do)
 LIGHT: #d3db54
