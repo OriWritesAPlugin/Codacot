@@ -48,6 +48,6 @@ a {color: #FFF4DC}
 
 #title {text-align: center; color: #DFC48C; font-family: monospace}
 
-#output_div {color: #DFC48C; margin-left:575px; margin-right: 10px; background-color: #201920; border: none; font-size: 18px; font-family: monospace; resize: vertical;}
+#output_div {color: #DFC48C; margin-left:625px; margin-right: 10px; background-color: #201920; border: none; font-size: 18px; font-family: monospace; resize: vertical;}
 
 #import_input {height: 10px; width: 95%; margin: 10px}

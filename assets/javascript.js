@@ -173,6 +173,7 @@
         button_container.appendChild(data_field);
         button_container.appendChild(button);
         rares_container.appendChild(button_container);
+				//if (i===5) {break;}
       }
     }
 
