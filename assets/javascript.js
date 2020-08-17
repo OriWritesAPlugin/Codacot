@@ -475,7 +475,7 @@
 
       out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
       +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
-      out += raw;
+      out += raw
       out += "</br>"+sep+"DATA CSV (for advanced users)"+sep;
       out += csv;
       out += "</br>"+sep+"RARES CSV (for advanced users)"+sep+"Fought,Eggs,Apparel,Vista,Ambush,Eliminate,Crate</br>"
