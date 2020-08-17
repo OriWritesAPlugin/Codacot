@@ -13,3 +13,8 @@ NATURE: #008f02
 LIGHTNING: #00c3b7
 WIND: #6cb500
 NEUTRAL/NOTN: #484848
+
+--figure out how to move gene to a new line?? it's bothering me and i want to fix it
+	-eye rare type as well, after figuring out how to move gene
+
+--saving custom inputs would be cool
