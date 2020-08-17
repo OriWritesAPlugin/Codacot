@@ -1,28 +1,4 @@
---Update all locales
-TO DO:
-Forgotten Cave
-Bamboo Falls
-Thunderhead Savanna
-Redrock Cove
-Waterway
-Arena
-Volcanic Vents
-Rainsong Jungle
-Boreal Wood
-Crystal Pools
-Harpy's Roost
-Ghostlight Ruins
-The Mire
-Kelp Beds
-Golem Workshop
-IN PROGRESS:
-Blooming Grove
-DONE:
-Forbidden Portal
-Training Fields
-Woodland Path
-Scorched Forest
-Sandswept Delta
+--Update all locales: Check github project for more information
 
 --New coloring system: Colors relate to element rather than enemy coloration (easier to do)
 LIGHT: #d3db54
