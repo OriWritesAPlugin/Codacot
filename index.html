@@ -54,6 +54,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <select id="mode_select" onchange="load_venue()">
         <option>General Data</option>
         <option>NotN Data</option>
+				<option>Fest Data: Light</option><option>Fest Data: Lightning</option><option>Fest Data: Fire</option><option>Fest Data: Arcane</option><option>Fest Data: Plague</option><option>Fest Data: Earth</option><option>Fest Data: Ice</option><option>Fest Data: Shadow</option><option>Fest Data: Wind</option><option>Fest Data: Water</option><option>Fest Data: Nature</option>
       </select>
       <button id="dialogue_toggle" class="outputbutton" onclick="toggle_info()">Show Data</button>
       <button id="import_button" class="importbutton" onclick="toggle_import()">Import</button>
@@ -362,6 +363,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           if(venue_monsters[i].e == "NotN"){
             generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
           }
+        }
+      }
+			if (selected_mode > 1){
+        stats=mode_stats[2];
+        var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
+        for (var i = 0, len = venue_monsters.length; i < len; i++){
+          if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+          }  
         }
       }
 
