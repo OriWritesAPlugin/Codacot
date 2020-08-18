@@ -1,9 +1,9 @@
 --Update all locales: Done until next coli update!
 
 --New coloring system: Colors relate to element rather than enemy coloration (easier to do)
-LIGHT: #d3db54
+LIGHT: #a3a946
 SHADOW: #8026b1
-ICE: #a3d5d0
+ICE: #7A8DA0
 FIRE: #d38200
 WATER: #162fa6
 ARCANE: #ff00d6
