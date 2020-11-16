@@ -1,0 +1,53 @@
+body {background-color: #201920; font-family: verdana;;}
+
+select {margin: 6px}
+
+a {color: #FFF4DC}
+
+.inc_div {display: inline-block; margin: 5px 3px 5px 3px;}
+
+.inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
+
+.inc_button:hover, .rarebutton:hover {color:grey;} 
+
+.light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #392839}
+
+.light_inc_button:hover {color: #555555}
+
+.encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #291829}
+
+.stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
+
+.light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B;}
+
+.encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%;}
+
+.name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
+
+.name_div:hover {color:grey;}
+
+.columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
+
+.outputbutton {margin: 10px}
+
+.importbutton {margin-right: 10px}
+
+#page_div {margin: 0px 10px 0px 10px}
+
+#header_div {margin-left:220px}
+
+#buttons_div{display: inline-block; float: left; margin-right: 30px; height: 100%}
+
+#monsterlist_div {margin-left:10px; display:inline-block}
+
+#rarebuttons_div, #custombuttons_div {margin-left:5px; padding: 0px; text-align: center;}
+
+#custombuttons_div {margin-top:20px;}
+
+#output_container {display: inline; height:100%; width: 50%;}
+
+#title {text-align: center; color: #DFC48C; font-family: monospace}
+
+#output_div {color: #DFC48C; margin-left:625px; margin-right: 10px; background-color: #201920; border: none; font-size: 18px; font-family: monospace; resize: vertical;}
+
+#import_input {height: 10px; width: 95%; margin: 10px}
