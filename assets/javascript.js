@@ -87,7 +87,7 @@
 
     ];
 
-    rare_list = ["Egg","Apparel","Vista","Ambush","Eliminate","Skin/Accent","Gene"];
+    rare_list = ["Egg","Apparel","Vista","Ambush","Eliminate","Skin/Accent","Gene","Eye Vial","Scene"];
     mode_stats = [["#Fought","Food","Materials","Familiars"],
                   ["#Fought","Food","Materials","Mimic Pow.","NotN Chest"],
                   ["#Fought","Currency","Chests"]];
@@ -190,7 +190,9 @@
         button_container.appendChild(data_field);
         button_container.appendChild(button);
         rares_container.appendChild(button_container);
-				//if (i===5) {break;}
+        if ((i+1) % 5 == 0){
+          rares_container.appendChild(document.createElement("br"));
+        }
       }
     }
 
