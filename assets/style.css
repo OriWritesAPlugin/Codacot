@@ -1,4 +1,4 @@
-body {background-color: #201920; font-family: verdana;;}
+body {background-color: #201920; font-family: verdana,sans-serif;;;}
 
 select {margin: 6px}
 
@@ -6,27 +6,27 @@ a {color: #FFF4DC}
 
 .inc_div {display: inline-block; margin: 5px 3px 5px 3px;}
 
-.inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:white}
+.inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: 0px; background: #392839; border:none; font-family: verdana; color:#DFC48C}
 
-.inc_button:hover, .rarebutton:hover {color:grey;} 
+.inc_button:hover, .rarebutton:hover {color:grey;}
 
-.light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #392839}
+.light_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:#DFC48C; background: #392839}
 
 .light_inc_button:hover {color: #555555}
 
-.encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:white; background: #291829}
+.encounter_inc_button {padding: 5px 3px 3px 3px; width: 27px; margin: margin: 0px; border:none; font-family: verdana; color:#DFC48C; background: #291829}
 
-.stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #272127;}
+.stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:#DFC48C; margin: 0px; height: 100%; background: #272127;}
 
-.light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:white; margin: 0px; height: 100%; background: #2C222B;}
+.light_stat_field {padding: 5px 4px 3px 0px; width: 45px; text-align: right; border: none; color:#DFC48C; margin: 0px; height: 100%; background: #2C222B;}
 
-.encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:white; margin: 0px; height: 100%;}
+.encounter_stat_field {padding-top: 5px; padding-bottom: 3px; width: 45px; background:none; text-align: right; border: none; color:#DFC48C; margin: 0px; height: 100%;}
 
-.name_div {width: 200px; text-align: right; color:white; font-size: small; margin: none; padding: 3px 8px 3px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
+.name_div {width: 200px; text-align: right; color:#DFC48C; font-size: small; margin: none; padding: 6px 8px 4px 3px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;}
 
 .name_div:hover {color:grey;}
 
-.columnheader {width: 77px; color:white; font-size: small; text-align: center; display:inline-block}
+.columnheader {width: 77px; color:#DFC48C; font-size: small; text-align: center; display:inline-block}
 
 .outputbutton {margin: 10px}
 

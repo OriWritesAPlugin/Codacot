@@ -20,7 +20,8 @@
       },
       {
         name: "Forgotten Cave",
-        monsters: [{n:"Animated Statue",c:"#484848",e:"NotN"}, {n:"Bogsneak Puppet",c:"#484848",e:"NotN"},{n:"Vigilant Spear",c:"#484848",e:"NotN"}, {n:"Ancient Fungus",c:"#d38200",e:"Fire"}, {n:"Dwarf Truffle",c:"#7A8DA0",e:"Ice"}, {n:"Blue Dragon Snail",c:"#162fa6",e:"Water"}, {n:"Crimson Reef Snail",c:"#484848",e:"Neutral"}, {n:"Blueband Duelist",c:"#162fa6",e:"Water"}, {n:"Venomblade Assassin",c:"#484848",e:"Neutral"}, {n:"Bramble Guardian",c:"#8026b1",e:"Shadow"}, {n:"Parasitic Fungus",c:"#bf0c0c",e:"Plague"}, {n:"Centaur Berserker",c:"#886949",e:"Earth"}, {n:"Swiftfoot Slayer",c:"#6cb500",e:"Wind"}, {n:"Citrine Jewel",c:"#a3a946",e:"Light"}, {n:"Emerald Jewel",c:"#00c3b7",e:"Lightning"}, {n:"Corpse Cleaner",c:"#886949",e:"Earth"}, {n:"Cursed Bat",c:"#008f02",e:"Nature"}, {n:"Runic Bat",c:"#ff00d6",e:"Arcane"}, {n:"Deepmine Aardvark",c:"#484848",e:"Neutral"}, {n:"Peacevine Aardvark",c:"#886949",e:"Earth"}]
+        monsters: [{n:"Animated Statue",c:"#484848",e:"NotN"}, {n:"Bogsneak Puppet",c:"#484848",e:"NotN"},{n:"Vigilant Spear",c:"#484848",e:"NotN"}, {n:"Ancient Fungus",c:"#d38200",e:"Fire"}, {n:"Dwarf Truffle",c:"#7A8DA0",e:"Ice"}, {n:"Blue Dragon Snail",c:"#162fa6",e:"Water"}, {n:"Crimson Reef Snail",c:"#484848",e:"Neutral"}, {n:"Blueband Duelist",c:"#162fa6",e:"Water"}, {n:"Venomblade Assassin",c:"#484848",e:"Neutral"}, {n:"Bramble Guardian",c:"#8026b1",e:"Shadow"}, {n:"Parasitic Fungus",c:"#bf0c0c",e:"Plague"}, {n:"Centaur Berserker",c:"#886949",e:"Earth"}, {n:"Swiftfoot Slayer",c:"#6cb500",e:"Wind"}, {n:"Citrine Jewel",c:"#a3a946",e:"Light"}, {n:"Emerald Jewel",c:"#00c3b7",e:"Lightning"}, {n:"Corpse Cleaner",c:"#886949",e:"Earth"}, {n:"Cursed Bat",c:"#008f02",e:"Nature"}, {n:"Runic Bat",c:"#ff00d6",e:"Arcane"}, {n:"Deepmine Aardvark",c:"#484848",e:"Neutral"}, {n:"Peacevine Aardvark",c:"#886949",e:"Earth"},
+        {n:"Bell Goat",e:"Neutral"},  {n:"Burrow Bear",e:"Earth"},  {n:"Cave Lantern",e:"Light"},  {n:"Creeping Cluster",e:"Plague"},  {n:"Dire Claw",e:"Nature"},  {n:"Djamor Bat",e:"Earth"}, {n:"Ostreatus Bat",e:"Ice"},  {n:"Polarized Bell Goat",e:"Lightning"}]
       },
       {
         name: "Bamboo Falls",
@@ -32,7 +33,8 @@
       },
       {
         name: "Redrock Cove",
-        monsters: [{n:"Crystal Carrier",c:"#484848",e:"NotN"}, {n:"Veiled Vision",c:"#484848",e:"NotN"},{n:"Blooming Hedgehide",c:"#484848",e:"NotN"}, {n:"Maren Defender",c:"#7A8DA0",e:"Ice"}, {n:"Maren Spearmaiden",c:"#484848",e:"Neutral"}, {n:"Oceansurf Magus",c:"#162fa6",e:"Water"}, {n:"Waveswell Sorcerer",c:"#484848",e:"Neutral"}, {n:"Noxious Coralclimber",c:"#484848",e:"Neutral"}, {n:"Leopard Coralclimber",c:"#a3a946",e:"Light"}, {n:"Murkbottom Gull",c:"#bf0c0c",e:"Plague"}, {n:"Tradewinds Gull",c:"#6cb500",e:"Wind"}, {n:"Riptide Clipper",c:"#162fa6",e:"Water"}, {n:"Sandshore Snipper",c:"#d38200",e:"Fire"}, {n:"Mirage Puffer",c:"#484848",e:"Neutral"}, {n:"Daydream Puffer",c:"#162fa6",e:"Water"}, {n:"Mottled Sea Serpent",c:"#886949",e:"Earth"}, {n:"Highfin Sea Serpent",c:"#162fa6",e:"Water"}, {n:"Dainty Wavehopper",c:"#ff00d6",e:"Arcane"}, {n:"Vivid Wavehopper",c:"#008f02",e:"Nature"}, {n:"Deeprealm Hunter",c:"#8026b1",e:"Shadow"}, {n:"Spiney Whale",c:"#00c3b7",e:"Lightning"}] 
+        monsters: [{n:"Crystal Carrier",c:"#484848",e:"NotN"}, {n:"Veiled Vision",c:"#484848",e:"NotN"},{n:"Blooming Hedgehide",c:"#484848",e:"NotN"}, {n:"Maren Defender",c:"#7A8DA0",e:"Ice"}, {n:"Maren Spearmaiden",c:"#484848",e:"Neutral"}, {n:"Oceansurf Magus",c:"#162fa6",e:"Water"}, {n:"Waveswell Sorcerer",c:"#484848",e:"Neutral"}, {n:"Noxious Coralclimber",c:"#484848",e:"Neutral"}, {n:"Leopard Coralclimber",c:"#a3a946",e:"Light"}, {n:"Murkbottom Gull",c:"#bf0c0c",e:"Plague"}, {n:"Tradewinds Gull",c:"#6cb500",e:"Wind"}, {n:"Riptide Clipper",c:"#162fa6",e:"Water"}, {n:"Sandshore Snipper",c:"#d38200",e:"Fire"}, {n:"Mirage Puffer",c:"#484848",e:"Neutral"}, {n:"Daydream Puffer",c:"#162fa6",e:"Water"}, {n:"Mottled Sea Serpent",c:"#886949",e:"Earth"}, {n:"Highfin Sea Serpent",c:"#162fa6",e:"Water"}, {n:"Dainty Wavehopper",c:"#ff00d6",e:"Arcane"}, {n:"Vivid Wavehopper",c:"#008f02",e:"Nature"}, {n:"Deeprealm Hunter",c:"#8026b1",e:"Shadow"}, {n:"Spiney Whale",c:"#00c3b7",e:"Lightning"}, {n:"Coast Charger",c:"#162fa6",e:"Ice"}, {n:"Coastline Sawbeak",c:"#162fa6",e:"Fire"}, {n:"Green-Breasted Sawbeak",c:"#162fa6",e:"Nature"},
+        {n:"Igueel Matriarch",c:"#162fa6",e:"Shadow"}, {n:"Maren Sorceress",e:"Water"}, {n:"Redfin Wavespinner",e:"Plague"}, {n:"Surf Strider",e:"Light"}, {n:"Toxic Igueel",e:"Wind"}]
       },
       {
         name: "Waterway",
@@ -45,7 +47,7 @@
       {
         name: "Volcanic Vents",
         monsters: [{n:"Serthis Support",c:"#484848",e:"NotN"}, {n:"Valorous Cape",c:"#484848",e:"NotN"},{n:"Pinpush Mirror Doll",c:"#484848",e:"NotN"}, {n:"Spectral Duskflapper",c:"#162fa6",e:"Water"}, {n:"Armored Duskflapper",c:"#484848",e:"Neutral"}, {n:"Chillwind Harpy",c:"#7A8DA0",e:"Ice"}, {n:"Stormcloud Harpy",c:"#00c3b7",e:"Lightning"},{n:"Flamescale Illusionist",c:"#484848",e:"Neutral"}, {n:"Flamescale Venomcaster",c:"#bf0c0c",e:"Plague"}, {n:"Fiendcat",c:"#6cb500",e:"Wind"}, {n:"Flamerest Fiendcat",c:"#d38200",e:"Fire"}, {n:"Ashspine Widow",c:"#886949",e:"Earth"}, {n:"Firebelly Weaver",c:"#7A8DA0",e:"Ice"}, {n:"Dreadram",c:"#d38200",e:"Fire"}, {n:"Ultraram",c:"#ff00d6",e:"Arcane"}, {n:"Flamescale Spearman",c:"#bf0c0c",e:"Plague"}, {n:"Flamescale Lancer",c:"#a3a946",e:"Light"}, {n:"Ghost Manticore",c:"#484848",e:"Neutral"}, {n:"Firemane Manticore",c:"#d38200",e:"Fire"}, {n:"Basalt Vent Hop",c:"#484848",e:"Neutral"}, {n:"Magma Runner",c:"#00c3b7",e:"Lightning"}, {n:"Nightfall Imp",c:"#8026b1",e:"Shadow"}, {n:"Ignited Imp",c:"#d38200",e:"Fire"}, {n:"Serthis Loremaster",c:"#008f02",e:"Nature"}, {n:"Serthis Archivist",c:"#a3a946",e:"Light"}, {n:"Ophiotaurus",c:"#008f02",e:"Nature"}, {n:"Ashscale Ophiotaurus",c:"#d38200",e:"Fire"}, {n:"Tunnel Hydra",c:"#886949",e:"Earth"}, {n:"Hydra",c:"#ff00d6",e:"Arcane"}]
-      }, 
+      },
       {
         name: "Rainsong Jungle",
         monsters: [{n:"Glowing Globe",c:"#484848",e:"NotN"}, {n:"Wooden Marionette",c:"#484848",e:"NotN"},{n:"Mischevious Magnifier",c:"#484848",e:"NotN"}, {n:"Barkback Boar",c:"#008f02",e:"Nature"}, {n:"Deadwood Boar",c:"#886949",e:"Earth"}, {n:"Budwing Morpho",c:"#008f02",e:"Nature"}, {n:"Petal Jumper",c:"#ff00d6",e:"Arcane"}, {n:"Clown Hippocampus",c:"#d38200",e:"Fire"}, {n:"Hippocampus",c:"#484848",e:"Neutral"}, {n:"King Parda",c:"#008f02",e:"Nature"}, {n:"Parda",c:"#484848",e:"Neutral"}, {n:"Manticore Screamer",c:"#8026b1",e:"Shadow"}, {n:"Proto Manticore",c:"#886949",e:"Earth"}, {n:"Paradise Zalis",c:"#7A8DA0",e:"Ice"}, {n:"Zalis",c:"#162fa6",e:"Water"}, {n:"Ringlet Amphithere",c:"#6cb500",e:"Wind"}, {n:"Ultramel Amphithere",c:"#bf0c0c",e:"Plague"}, {n:"Goldenbeast",c:"#a3a946",e:"Light"}, {n:"Overcharged Silverbeast",c:"#00c3b7",e:"Lightning"}]
@@ -85,13 +87,26 @@
 
     ];
 
-    rare_list = ["Unhatched Egg","Venue Apparel","Vista","Ambush","Eliminate","Skin/Accent Crate","Gene"];
+    rare_list = ["Egg","Apparel","Vista","Ambush","Eliminate","Skin/Accent","Gene"];
     mode_stats = [["#Fought","Food","Materials","Familiars"],
                   ["#Fought","Food","Materials","Mimic Pow.","NotN Chest"],
                   ["#Fought","Currency","Chests"]];
     trait_ref = []; //Global variable used to share a list of data-containing objects
     rare_ref = []; //Global variable used to share rare data that requires special processing
     custom_counters = 3; //Number of custom counters available
+    element_colors = {"Earth": "#886949",
+                      "Wind": "#8ae600",
+                      "Fire": "#cc6600",
+                      "Water": "#162fa6",
+                      "Ice": "#b3e6e6",
+                      "Lightning": "#00c3b7",
+                      "Shadow": "#6f12a1",
+                      "Light": "#e6e619",
+                      "Plague": "#bf0c0c",
+                      "Nature": "#008f02",
+                      "Arcane": "#ff00d6",
+                      "Neutral": "#484848",
+                      "NotN": "#484848"}
 
     //Switch between displaying help and data, updating button to match.
     function toggle_info() {
@@ -126,14 +141,16 @@
     }
 
     //Create a single line in the enemy list (creature name, buttons, data fields)
-    function generate_monsterlist_row(creature_name, creature_color, stat_list) {
+    function generate_monsterlist_row(creature_name, creature_element, stat_list) {
       var container = document.createElement("div");
       var name = document.createElement("div");
       name.innerHTML = creature_name;
       trait_ref.push(name);
       name.className += " name_div"
       name.style.display = "inline-block";
-      name.style.background = creature_color;
+      creature_color = element_colors[creature_element]
+      //name.style.background = creature_color;
+      name.style.background = "linear-gradient(to right, "+creature_color+", #201920, #201920, #201920, #201920)";
       container.style.border = "thin solid "+creature_color;
       container.appendChild(name);
 
@@ -229,7 +246,7 @@
       if(selected_mode==0){
         document.getElementById("output_div").innerHTML = "WHAT IT IS</br>------------</br></br>CODACOT is used to track coliseum data: the number of enemies encountered, food drops, rare items, etc. It can also turn this data into interesting stats, and even award achievements!</br></br></br>HOW TO USE IT</br>-------------</br></br>Pick a venue and data type from the dropdown menus in the top-left.</br>The text on top of the list tells you what data is tracked in each column.<br><br>If you're collecting 'General Data' in the 'Training Fields,' the first row will be Amaranth Moth, then columns for Number Fought, Food, Materials, Familiars. Click the + button in the #Fought column once for each Amaranth Moth you defeat, the + button in the Food column for each food item dropped by an Amaranth Moth, etc.<br><br>If you hit + too much, just click on the number to edit it.</br></br>For faster use, click an opponent&#39;s name to increment its &quot;# Fought&quot; counter. Vault all food/items/familiars from venue enemies and, when you finish fighting, visit your hoard and enter item totals directly into the counter.<br><br>Get a rare item? Check the bottom of the page; there are special counters for those! Counting something special? CODACOT also includes three customizeable counters. NOTE: custom data won't be included in the raw data, so if you intend to save/load, write that stuff down separately!<br><br></br>GETTING DATA</br>-------------</br></br>Hit the &quot;Show Data&quot; button to get stats and achievements, as well as raw data that you can donate to the data repository. You can view the data repository "+"here".link("https://docs.google.com/spreadsheets/d/1VsBY6QZCXVwp-K62tbYZpXcDBjJ12Qpz-M_EPE-osbM/edit?usp=sharing")+"."+"<br><br></br>IMPORTING DATA</br>-------------</br></br>You can also use this tool to 'save and reload' a coli run. Hit 'Show Data' and copy the 'Raw Data' somewhere safe to save. Hit 'Import,' paste that data in, and hit 'Confirm' to load. PLEASE NOTE: you SHOULD NOT donate data until you're absolutely done! Otherwise, we'll get duplicate data (bad). Thank you!";
       } else if (selected_mode==1){
-        document.getElementById("output_div").innerHTML = "When collecting NotN data, ONLY collect NotN chest data if you are SURE which species dropped the chest. For non-chest drops, just make your best guess.<br><br>Thanks for your help, and happy holidays!";
+        document.getElementById("output_div").innerHTML = "CHANGED FROM PRIOR YEARS: if you're not sure which species dropped the chest, just make your best guess. Previously, we'd have asked you to skip noting the chest. This was changed because venue-level data has proven more desired than enemy-level data, plus drop grouping has made identifying the \"right\" enemy much more difficult.<br><br>Thanks for your help, and happy holidays!";
       } else {
         document.getElementById("output_div").innerHTML = "When collecting festival data, ONLY collect data if you are SURE which species dropped the currency/chest. If you get a rare item (like an Eliminate), please only count it if you're sure it came from a fest-element or Neutral enemy.</br></br>If you're ever uncertain, don't collect any data for the battle.<br><br>Thanks for your help!";
       }
@@ -256,6 +273,9 @@
       var selected_venue = document.getElementById("venue_select").selectedIndex;
       var selected_mode = document.getElementById("mode_select").selectedIndex;
       var venue_monsters = venues[selected_venue].monsters;
+      venue_monsters.sort(function(first, second) {
+       return first.n > second.n;
+      });
       var monsterlist_div = document.getElementById("monsterlist_div");
       var rarelist_div = document.getElementById("rarebuttons_div");
       var customlist_div = document.getElementById("custombuttons_div");
@@ -276,7 +296,7 @@
         stats=mode_stats[0];
         for (var i = 0, len = venue_monsters.length; i < len; i++){
           if(venue_monsters[i].e != "NotN"){
-            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].e,stats);
           }
         }
       }
@@ -285,7 +305,7 @@
         stats=mode_stats[1];
         for (var i = 0, len = venue_monsters.length; i < len; i++){
           if(venue_monsters[i].e == "NotN"){
-            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].e,stats);
           }
         }
       }
@@ -294,8 +314,8 @@
         var fest_element = document.getElementById("mode_select").options[selected_mode].value.substring(11);
         for (var i = 0, len = venue_monsters.length; i < len; i++){
           if(venue_monsters[i].e=="Neutral" || venue_monsters[i].e==fest_element){
-            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].c,stats);
-          }  
+            generate_monsterlist_row(venue_monsters[i].n,venue_monsters[i].e,stats);
+          }
         }
       }
 
@@ -364,7 +384,7 @@
       //Further populate traits array based on data mode
       if(mode > 2){traits.push.apply(traits, mode_stats[2]);} else {traits.push.apply(traits, mode_stats[mode]);}
       for(var i = 0, len = traits.length; i < len; i ++) {totals.push(0); full_stack.push(false); all_kinds.push(true);}
-      
+
       //Add our csv header
       csv += traits;
 
@@ -398,7 +418,7 @@
       for(var i = 2, len = totals.length; i < len; i ++){
         out +=(traits[i]+" Drop Rate: "+(totals[i]/totals[1]*100).toFixed(2)+"%</br>");
       }
-      out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>"); 
+      out +=("Rares Drop Rate: "+(raresum/totals[1]*100).toFixed(2)+"%</br>");
 
       out += "</br>Achievements"+sep;
 
@@ -439,7 +459,7 @@
         if(totals[5]>0){out+="GHOST BUSTER</br>"; mastery++;}
         if(totals[5]>3){out+="BOX O' WONDERS</br>"; mastery++;}
         if(totals[5]>6){out+="BOX O' MIRACLES</br>"; mastery++;}
-        if(all_kinds[5]){out+="SPIRIT SHAKEDOWN</br>";}   
+        if(all_kinds[5]){out+="SPIRIT SHAKEDOWN</br>";}
       }
       //General and NotN Data (non-elemental-fest)
       if(mode < 2){
@@ -474,7 +494,7 @@
       if(mastery>9){out+="ASCENDANT MASTERY</br>";}
 
       out += "</br></br></br></br>------------------------------------------------------------------------------</br>Data below this point is not explicitly human-readable, consider donating it for analysis!</br></br>"
-      +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("http://goo.gl/forms/pgvVoPLbaCSD0uSt2")+".</br></br>";
+      +sep+"RAW DATA"+sep+"Raw data can be donated "+"here".link("https://forms.gle/4rea8tFnjHkUxhEK7")+".</br></br>";
       out += raw
       out += "</br>"+sep+"DATA CSV (for advanced users)"+sep;
       out += csv;
